@@ -49,15 +49,15 @@
         <div class="content-wrapper">
 
             <div class="d-flex justify-content-center">
-    <div class="col-md-10">
+    <div class="col-md-11">
         <!-- general form elements -->
         <div class="card card-danger p-1">
           <div class="card-header">
-            <h3 class="card-title">List Colors</h3>
+            <h3 class="card-title">Categories</h3>
           </div>
           <div class="text-center mt-2 mb-2 p-1">
-      <a class="btn btn-danger float-right" href="{{ url('/admin/colors/trash') }}" role="button">Trash<i class="far fa-trash-alt"></i></a>
-     <a class="btn btn-success float-right" href="{{ url('/admin/colors/Addcolor') }}" role="button">Add
+      <a class="btn btn-danger float-right" href="{{ url('/admin/brands/trashbrand') }}" role="button">Trash<i class="far fa-trash-alt"></i></a>
+     <a class="btn btn-success float-right" href="{{ url('/admin/brands/Addbrand') }}" role="button">Add
              <i class="fas fa-plus-circle"></i></i></a></div>
           </div>
           
@@ -67,10 +67,10 @@
 
                <tr>
 
-                  <th>ID</th>
+                  <th class="text-center">Sr.No.</th>
 
                   <th>UserName</th>
-                  <th>ColorName</th>
+                  <th>Category</th>
                   <th>Status</th>
                   <th>Action</th>
 
@@ -79,39 +79,47 @@
             </thead>
 
             <tbody>
-               @foreach($colors as $col)
-                  <tr> 
-                     <td>{{ $col->id }}</td>
-                     <td>{{ $col->username }}</td>
-                     <td>{{ $col->name }}</td>
-                     <td>
-                       @if($col->status=='Y')
-                        <input data-id="{{$col->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" checked>
-                        @endif
-                        @if($col->status=='N')
-                        <input data-id="{{$col->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive">
-                        @endif
-                        
-                        
-                     </td>
+                 <?php $count=0; ?>
+                <tr>
+                  @foreach($brands as $brand)
+                  <td class="text-center">{{ $count+=1 }}</td>
+                  <td>{{ $brand->username }}</td>
+                  <td>{{ $brand->name }}</td>
+                  <td>
+                    {{-- <input data-id="{{$col->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" checked> --}}
+                  @if($brand->status=='Y') 
+                    <input data-id="{{$brand->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" checked }}>
+
+                 @endif
+
+                 @if($brand->status=='N') 
+                 <input data-id="{{$brand->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" }}>
+
+              @endif
+
+                  </td>
+                                  
+
                      <td>
 
-                        <a href="{{ url('/admin/colors/edit',$col->id) }}" class=""><i class="fas fa-pencil-alt"></i></a>&nbsp;
-                        <a href="javascript:void(0);" onclick="delete_Question({{$col->id}})"><i class="fas fa-trash-alt"></i></a>                      
+                        <a href="{{ url('/admin/brands/editbrand',$brand->id) }}" class=""><i class="fas fa-pencil-alt"></i></a>&nbsp;
+                        <a href="javascript:void(0);" onclick="delete_Question({{$brand->id}})"><i class="fas fa-trash-alt"></i></a>                      
+                                          
                       </td>
                   </tr>
                @endforeach
             </tbody>
         </table>
     </div>
-    
+      
 </div> 
-  @include('footer')  
+  @include('footer') 
 </body>
 <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.js"></script>
 
-<script>
 
+<script>
+// status changed  with Y and N 
   $(function() {
 
     $('.toggle-class').change(function() {
@@ -128,7 +136,7 @@
 
             dataType: "json",
 
-            url: '/admin/colors/changeStatus',
+            url: '/admin/brands/changebrandstatus',
 
             data: {'status': status, 'id': id},
 
@@ -145,41 +153,38 @@
 </script>
 
 
+{{-- Delete_Status Changed  status value With T  --}}
 
 {{-- delete _ Status --}}
 <script>
 
-function delete_Question(id){
-        if(confirm('are your sure you want to delete !!!! ?')){
-        jQuery.ajax({
-            url:'/admin/colors/completedUpdate',
-            type:'GET',
-            data:{'id':id},
-            success:function(result){
-                // jQuery('#check_delete'+id).hide();
-            console.log("Status Updated");
-            location.reload();
-            }
-        });
-    }
-    }
+  function delete_Question(id){
+          if(confirm('are your sure you want to delete !!!! ?')){
+          jQuery.ajax({
+              url:'/admin/brands/completedUpdatee',
+              type:'GET',
+              data:{'id':id},
+              success:function(result){
+                  // jQuery('#check_delete'+id).hide();
+              console.log("Status Updated");
+              location.reload();
+              }
+          });
+      }
+      }
+  
+  </script>
+  
+  
+  
 
-</script>
-
-
-
+{{-- DataTable_ --}}
 <script>
     $(document).ready( function () {
     $('#myTable').DataTable();
     } );
+  
     
-    $(document).ready(function(){
-    
-    $('.toggle-btn').click(function() {
-    $(this).toggleClass('active').siblings().removeClass('active');
-    });
-    
-    });
-    </script>
+</script>
     
 </html>

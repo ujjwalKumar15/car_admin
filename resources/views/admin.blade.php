@@ -31,8 +31,12 @@
      @include('header')
      @include('sidebar')
      @yield('content')
-    @include('footer')
+    
       
   </div>
+  {{-- edit_page_Jquery_link_is _below --}}
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script> 
+
+  @include('footer')
 </body>
 </html>

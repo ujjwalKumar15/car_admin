@@ -20,16 +20,17 @@ class ColorController extends Controller
     }
     public function getdata(Request $request){
      
-        //ujjwal@code 
-
+        $request->validate(['name'=>'required|alpha|min:3|unique:colors|max:10|regex:/^\S*$/u'
+     ]);
+     
         $colors =new Color;
         $uid= Auth::user()->id; //userid pass by controller
         $colors->userid=$uid;
          $colors->name=$request->name;
         
-         $colors->status=$request->status;
+        //  $colors->status=$request->status;
          $colors-> save();
-         return redirect('Addcolor')->with('status','Color Added !!');
+         return back()->with('status','Color Added !!');
         //  $data= Color::all();
         //   return view('Color::ff',['datas'=>$data]);
         
@@ -61,14 +62,22 @@ class ColorController extends Controller
     }
     public function update(Request $request,$id)
     {
+        $request->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u'
+    ]);
+  
        $colors = Color::find($id);
        $colors->name = $request->name;
        $colors->save();
 
-     return redirect('list');   //return redirect($url)->with('success', 'Data saved successfully!');
+       return back()->with('status',"Color Updated SuccessFully!!");   //return redirect($url)->with('success', 'Data saved successfully!');
+
+
+    //  return redirect('edit')->with('status',"Color Updated SuccessFully!!");   //return redirect($url)->with('success', 'Data saved successfully!');
 
     }
 
+
+    //  click on delete button status will be changed 
     public function completedUpdate(Request $r)
     {
          $update = Color::find($r->id);
@@ -77,6 +86,7 @@ class ColorController extends Controller
         return Color::all();
 }
 
+// 
 public function trashshow(){
 
     
@@ -113,5 +123,25 @@ public function completedUpdated(Request $r)
 
     return view("Color::try");
  }
+
+///////////////////////////
+
+public function check_availability(Request $r){
+
+    //  Colors::where('name',array($r->name));
+    //    return  Colors::all();
+
+       if (Color::where('name', '=', Color::get('name'))->exists()) {
+        return response()->json(['success'=>'available']);
+      }
+      else
+      {
+        return response()->json(['success'=>'not available']);
+      }
+
+    }
+
+
+
 
 }

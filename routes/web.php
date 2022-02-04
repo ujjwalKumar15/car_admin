@@ -14,15 +14,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+ Route::get('/', function () {
+     return view('welcome');
+ });
 
-Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
-})->name('dashboard');
+// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
+//     return view('dashboard');
+// })->name('dashboard');
 
-Route::get('dashboard',[HomeController::class,'index']);
+Route::get('/admin/dashboard',[HomeController::class,'index']);
 // Route::get('checkstatus',[HomeController::class,'checkstatus']);
 // Route::get('changesStatus',[HomeController::class,'changesStatus']);
 

@@ -26,6 +26,43 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
                  <li class="nav-item menu-open">
+                  <a href="{{ url('/admin/dashboard') }}" class="nav-link deactive">
+                    <i class="nav-icon fas fa-tachometer-alt"></i>
+                    <p>
+                      Dashboard
+                      {{-- <i class="right fas fa-angle-left"></i> --}}
+                    </p>
+                  </a>
+            
+       {{-- Brand sidebar  --}}
+  
+       <ul class="nav ">
+        <li class="nav-item">
+           <a href="{{ url('color') }}" class="nav-link ">
+            <i class="fas fa-list nav-icon"></i>
+             <p>Category
+               <i class="fas fa-angle-left right"></i>
+             </p>
+           </a>
+           <ul class="nav nav-treeview">
+             <li class="nav-item">
+               <a href="{{ url('/admin/brands/Addbrand') }}" class="nav-link">
+                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fas fa-plus-circle"></i>
+                 <p>Add</p>
+               </a>
+             </li>
+             <li class="nav-item">
+               <a href="{{ url('/admin/brands/brandlist') }}" class="nav-link">
+                 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fas fa-list"></i>
+                 <p>List</p>
+               </a>
+               </li>
+             </ul>
+         </li>
+   
+
+
+{{-- Color_Sidebar --}}
               
               <ul class="nav ">
                <li class="nav-item">
@@ -37,19 +74,23 @@
                   </a>
                   <ul class="nav nav-treeview">
                     <li class="nav-item">
-                      <a href="{{ url('Addcolor') }}" class="nav-link">
+                      <a href="{{ url('/admin/colors/Addcolor') }}" class="nav-link">
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fas fa-plus-circle"></i>
                         <p>Add</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="{{ url('list') }}" class="nav-link">
+                      <a href="{{ url('/admin/colors/list') }}" class="nav-link">
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fas fa-list"></i>
                         <p>List</p>
                       </a>
                       </li>
                     </ul>
                 </li>
+ 
+
+
+{{-- Logout_Sidebar --}}
 
                 <li class="nav-item">
                     <!-- Authentication -->
@@ -59,7 +100,7 @@
               <x-jet-dropdown-link href="{{ route('logout') }}"
                        onclick="event.preventDefault();
                               this.closest('form').submit();">
-               <i class="fas fa-sign-out-alt">   {{ ('Log Out') }}</i>
+               <i class="fa fa-power-off">   {{ ('Log Out') }}</i>
               </x-jet-dropdown-link>
           </form>
                   

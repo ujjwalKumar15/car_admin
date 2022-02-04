@@ -39,54 +39,48 @@
   <div class="card card-danger">
     <div class="card-header">
       <h3 class="card-title">Add Colors</h3>
-      <a href="{{ url('list') }}"  class="btn btn-danger float-right"><p class="text-success font-weight-bold"><h5>LIST &nbsp;<i class="fas fa-list"></i></p></h5></a>
+      <a href="{{ url('admin/dashboard') }}"  class="btn btn-danger float-right"><p class="text-success font-weight-bold"><h5> &nbsp; <i class="fas fa-arrow-alt-circle-left fa-lg"></i></p></h5></a>
+      <a href="{{ url('/admin/colors/list') }}"  class="btn btn-danger float-right"><p class="text-success font-weight-bold"><h5>LIST &nbsp;<i class="fas fa-list"></i></p></h5></a>
     </div>
     <!-- /.card-header -->
     <!-- form start -->
 
   
 
-    <form method="POST" action="list">
+    <form method="POST" action="/admin/colors/list">
       @csrf
 
       <div class="card-body">
         <div class="form-group">
           <label for="name">Color Name</label>
-          <input type="text" class="form-control" name="name" placeholder="Enter color">
+          <input type="text" class="form-control" name="name"  onfocusout="check_name()" id="colorname" placeholder="Enter color">
+
+          <span id="user-availability-status1" style="font-size:12px;"></span>
+
+           @error('name')
+         <p style="color:red">{{ $message }} </p>
+          @enderror
+          <h5 id="colorcheck"></h5> 
         </div>
 
-        <label> Status</label>
-        <div class="form-check">
-
-
-          <input class="form-check-input" type="radio" name="status" value="Y">
-          <label class="form-check-label" for="flexRadioDefault1">
-            Y
-          </label>
-          &nbsp; &nbsp; &nbsp; &nbsp;
-          <input class="form-check-input" type="radio" name="status" value="N" checked>
-          <label class="form-check-label" for="flexRadioDefault2">
-           N
-          </label>
-         
-        </div>
       </div>
       <!-- /.card-body -->
 
       <div class="card-footer " align="center">
-        <button type="submit" class="btn btn-danger">Submit</button>
+        <button type="submit" id="submitbtn"class="btn btn-danger">Submit</button>
+       
       </div>
     
     </form>
   
   </div>
   {{-- Color_ Added!!! --}}
-  @if(session()->has('status'))
+   @if(session()->has('status'))
   <div class="alert alert-success">
 
   {{ session('status') }}
   </div>
-  @endif
+  @endif 
 
   </div>
       </div>
@@ -94,11 +88,128 @@
     </div>
     
 
+   {{-- edit_page_Jquery_link_is _below --}}
+<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script> 
 
 
     @include('footer')
 
       
   </div>
+
+  {{-- not working --}}
+  <script type="text/javascript">
+       function check_name() {
+         consol.log("1");
+           $("#loaderIcon").show();
+         jQuery.ajax({
+       url: "check_availability",
+       data:'name='+$("#colorname").val(),
+        type: "POST",
+      success:function(data){
+       $("#user-availability-status1").html(data);
+       $("#loaderIcon").hide();
+     },
+       error:function (){}
+     });
+    }
+
+
+
+}
+</script>
+  
+  
+  
+  
+  
+  
+  
+  {{-- Validation  --}}
+
+
+
+
+  <script type="text/javascript">
+      $(document).ready(function(){
+           $('#colorcheck').hide();
+
+     var color_err = true;
+     
+     $('#colorname').keyup(function(){
+
+            colorname_check();
+     });
+              function colorname_check(){
+              var color_val = $('#colorname').val();
+                  
+
+              if(color_val.length ==''){
+
+                $('#colorcheck').show();
+                $('#colorcheck').html("** fill this filled");
+                $('#colorcheck').focus();
+               $('#colorcheck').css("color","red");
+              color_err = false;
+              return false;
+
+
+             }
+          else {
+
+         $('#colorcheck').hide();
+           }
+
+
+                
+                    var letter = /^[A-Za-z]+$/;
+                    // var color_value = color_val.length;
+
+                   if(!color_val.match(letter))
+                  {
+
+                   $('#colorcheck').show();
+                   $('#colorcheck').html("** Please input alphabet characters only");
+                   $('#colorcheck').focus();
+                   $('#colorcheck').css("color","red");
+                   color_err = false;
+                   return false;
+
+
+                  }
+                 else {
+
+                   $('#colorcheck').hide();
+                  }
+
+
+
+              
+
+              if((color_val.length <3) ||(color_val.length >10)){
+
+                   $('#colorcheck').show();
+                  $('#colorcheck').html("** color name legth must be between 3 and 10");
+                  $('#colorcheck').focus();
+                  $('#colorcheck').css("color","red");
+                  color_err = false;
+                   return false;
+
+
+                  }
+                 else {
+
+                   $('#colorcheck').hide();
+                   }
+
+                  
+
+
+
+
+              }
+   });
+  
+  </script>
 </body>
 </html>

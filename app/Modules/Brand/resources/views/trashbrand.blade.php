@@ -57,10 +57,10 @@
         <!-- general form elements -->
         <div class="card card-danger">
         <div class="card-header">
-        <h3 class="card-title">List Colors</h3>
-        <a href="{{ url('/admin/colors/list') }}" class="btn btn-danger float-right"><h5> <i class="fas fa-arrow-alt-circle-left fa-lg"></i></h5></a>
+        <h3 class="card-title">Categories</h3>
+        <a href="{{ url('/admin/brands/brandlist') }}" class="btn btn-danger float-right"><h5><i class="fas fa-arrow-alt-circle-left fa-lg"></i></h5></a>
         </div>
-        
+      
         </div>
         
         <table id="myTable" class="table table-striped">
@@ -72,7 +72,7 @@
               <th>ID</th>
         
               <th>UserName</th>
-              <th>ColorName</th>
+              <th>Category</th>
                <th>Action</th>
         
            </tr> 
@@ -80,15 +80,15 @@
         </thead>
         
         <tbody>
-           @foreach($colors as $col)
+           @foreach($brands as $brand)
               <tr> 
-                 <td>{{ $col->id }}</td>
-                 <td>{{ $col->username}}</td>
-                 <td>{{ $col->name }}</td>
+                 <td>{{ $brand->id }}</td>
+                 <td>{{ $brand->username}}</td>
+                 <td>{{ $brand->name }}</td>
                  <td>
         
-              <button type="submit" class="btn btn-primary"  onclick="restore_status({{$col->id}})">Restore &nbsp;<i class="fas fa-trash-restore"></i></button>
-              <a class="btn btn-danger" href="{{ url('/admin/colors/delete',$col->id) }}" role="button">Delete &nbsp;<i class="far fa-trash-alt"></i></a>
+              <button type="submit" class="btn btn-primary"  onclick="restore_status({{$brand->id}})">Restore &nbsp;<i class="fas fa-trash-restore"></i></button>
+              <a class="btn btn-danger" href="{{ url('/admin/brands/delete',$brand->id) }}" role="button">Delete &nbsp;<i class="far fa-trash-alt"></i></a>
               
                     {{-- <a href="javascript:void(0);" onclick="delete_Question({{$col->id}})"><i class="fas fa-trash-alt"></i></a>                       --}}
                   </td>
@@ -100,7 +100,7 @@
         
         </div>
 
-        {{-- edit_page_Jquery_link_is _below --}}
+          {{-- edit_page_Jquery_link_is _below --}}
 <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script> 
 
         @include('footer')
@@ -117,7 +117,7 @@
         function restore_status(id){
         if(confirm('are your sure!!  you want to Restore?')){
         jQuery.ajax({
-        url:'completedUpdated',
+        url:'/admin/brands/getrestore',
         type:'GET',
         data:{'id':id},
         success:function(result){
