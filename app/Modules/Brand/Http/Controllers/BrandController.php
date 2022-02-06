@@ -14,6 +14,15 @@ class BrandController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+
+  
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+      
+
     public function welcome()
     {
         return view("Brand::Addbrand");
@@ -62,7 +71,7 @@ public function edit($id)
 
 //update
  public function update(Request $request,$id){
-    $request->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u'
+    $request->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u|unique:brands,name,'.$id,
 ]);
 
     $brand = Brand::find($id);

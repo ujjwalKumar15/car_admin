@@ -3,6 +3,14 @@
 use Illuminate\Support\Facades\Route;
 use App\modules\Brand\Http\Controllers\BrandController;
 
+
+Route::get('profile', function () {
+    // Only authenticated users may enter...
+})->middleware('auth');
+
+
+
+
 // insert 
 Route::get('/admin/brands/Addbrand',[BrandController::class,'welcome']);
 Route::get('/admin/brands/insertdata',[BrandController::class,'insertdata']);

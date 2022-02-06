@@ -2,6 +2,12 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Modules\Color\Http\Controllers\ColorController;
+
+Route::get('profile', function () {
+    // Only authenticated users may enter...
+})->middleware('auth');
+
+
 Route::get('color', 'ColorController@welcome');
 
 

@@ -78,7 +78,6 @@
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fas fa-plus-circle"></i>
                         <p>Add</p>
                       </a>
-                    </li>
                     <li class="nav-item">
                       <a href="{{ url('/admin/colors/list') }}" class="nav-link">
                         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fas fa-list"></i>
@@ -88,6 +87,32 @@
                     </ul>
                 </li>
  
+
+ {{-- product_sidebar --}}
+
+<ul class="nav ">
+    <li class="nav-item">
+     <a href="{{ url('color') }}" class="nav-link ">
+      <i class="fa fa-motorcycle" aria-hidden="true"></i>
+       <p> Product
+         <i class="fas fa-angle-left right"></i>
+       </p> 
+     </a>
+     <ul class="nav nav-treeview">
+       <li class="nav-item">
+         <a href="{{ url('/admin/products/addproduct') }}" class="nav-link">
+           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fas fa-plus-circle"></i>
+           <p>Add</p>
+         </a>
+       </li>    
+       <li class="nav-item">
+         <a href="{{ url('/admin/products/listproduct') }}" class="nav-link">
+           &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fas fa-list"></i>
+             <p>List</p>
+         </a>
+         </li>
+       </ul>
+   </li>
 
 
 {{-- Logout_Sidebar --}}

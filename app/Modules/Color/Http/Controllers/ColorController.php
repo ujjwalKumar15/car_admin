@@ -6,6 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modules\Color\Models\Color;
 use  Illuminate\Support\Facades\Auth;
+use Illuminate\Contracts\Validation\Rule;
+use Illuminate\Contracts\Validation\Unique;
+use Illuminate\Support\Facades\Validator;
+
 class ColorController extends Controller
 {
 
@@ -14,6 +18,13 @@ class ColorController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
+
     public function welcome()
     {
         return view("Color::Addcolor");
@@ -61,10 +72,13 @@ class ColorController extends Controller
       return view('Color::edit',compact('colors'));
     }
     public function update(Request $request,$id)
-    {
-        $request->validate(['name'=>'required|alpha|min:3|max:10|regex:/^\S*$/u'
-    ]);
-  
+    {    
+    $request->validate( [  
+                    
+        'name'=> 'required|alpha|min:3|max:10|regex:/^\S*$/u|unique:colors,name,'.$id,
+
+        ]);
+    
        $colors = Color::find($id);
        $colors->name = $request->name;
        $colors->save();
