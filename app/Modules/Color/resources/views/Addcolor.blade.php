@@ -25,6 +25,8 @@
       <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
       <!-- summernote -->
         <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
+      <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>  
+     
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -53,9 +55,10 @@
       <div class="card-body">
         <div class="form-group">
           <label for="name">Color Name</label>
-          <input type="text" class="form-control" name="name"  onfocusout="check_name()" id="colorname" placeholder="Enter color">
-
-          <span id="user-availability-status1" style="font-size:12px;"></span>
+          <input type="text" class="form-control" name="Name"  onblur="checkAvailability()" id="colorName" placeholder="Enter color">
+{{-- 
+          <span id="user-availability-status1" style="font-size:12px;"></span> --}}
+          <span id="user-availability-status"></span>
 
            @error('name')
          <p style="color:red">{{ $message }} </p>
@@ -89,7 +92,7 @@
     
 
    {{-- edit_page_Jquery_link_is _below --}}
-<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script> 
+{{-- <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>  --}}
 
 
     @include('footer')
@@ -97,35 +100,9 @@
       
   </div>
 
-  {{-- not working --}}
-  <script type="text/javascript">
-       function check_name() {
-         consol.log("1");
-           $("#loaderIcon").show();
-         jQuery.ajax({
-       url: "check_availability",
-       data:'name='+$("#colorname").val(),
-        type: "POST",
-      success:function(data){
-       $("#user-availability-status1").html(data);
-       $("#loaderIcon").hide();
-     },
-       error:function (){}
-     });
-    }
 
 
-
-}
-</script>
-  
-  
-  
-  
-  
-  
-  
-  {{-- Validation  --}}
+    {{-- Validation  --}}
 
 
 

@@ -40,4 +40,4 @@ Route::get('/admin/colors/delete/{id}',[ColorController::class,'destroy']);
 //try
 Route::get('try',[ColorController::class,'set']);
 
-Route::get('check_availability',[ColorController::class,'check_availability']);
+// Route::post('/admin/colors/check_availability',[ColorController::class,'check_availability']);

@@ -55,6 +55,10 @@
             </div><!-- /.container-fluid -->
           </div>
         <section class="content">
+            
+            <form method="POST" action="/admin/products/insertproduct" enctype="multipart/form-data">
+                @csrf
+
           <div class="container-fluid">
             <div class="card card-danger">
                 <div class="card-header">
@@ -70,30 +74,52 @@
                 </div>
                 </div>
                 <!-- /.card-header -->
+
+              
                 <div class="card-body">
                     <h6>The All Fields With Sysmbol <span class="text-danger">*</span>is Required</h6>
                     <div class="row" ng-app="">
                         <div class="col-md-12">
+
+
+
                             <label for="name">Name<span class="text-danger">*</span></label>
-                            <input type="text" ng-model="name" class="form-control" id='amount' onKeyUp="javascript: replacetext('amount'); " >
-                        <a href=" " > http//localhost/<span ng-bind="name"></span> </a>
+                            <input type="text" ng-model="name" name="pname" class="form-control" id="replace" >
+
+                        <a href=" " > http//localhost/<span id="url" name="url"> </span> 
+                          <input type="hidden"  id="url" name="url" class="form-control access_url">  
+                            
+                    
                             <i class="fas fa-edit"></i>
+                        </a>
                         </div>
                     </div>
                 <div class="form-row">
                     <div class="form-group col-md-3">
                       <label for="inputcategory">Category<span class="text-danger">*</span></label>
-                      <select id="inputcategory" class="form-control">
+                      <select id="category_id" name="category_id"class="form-control">
                         <option selected>Select Category</option>
-                        <option>...</option>
+                         @foreach ($brands as $list )
+                           
+                        <option value="{{ $list->bid }}">{{ $list->bname }}</option>
+                            
+                        @endforeach 
+                        
                       </select>
+
                     </div>
                     <div class="form-group col-md-3">
                       <label for="inputcolor">color<span class="text-danger">*</span></label>
-                      <select id="inputcolor" class="form-control">
+                      <select id="color_id" name="color_id"class="form-control">
                         <option selected>Select Color</option>
-                        <option>...</option>
+                        @foreach ($colors as $list )
+
+                        <option value="{{ $list->cid }}">{{ $list->cname }}</option>
+                            
+                        @endforeach
+                        
                       </select>
+
                     </div>
                     <div class="col-md-6">
                         <label for="inputPrice">Price<span class="text-danger">*</span></label>
@@ -101,7 +127,7 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                           </div>
-                          <input type="text" class="form-control" id="inlineFormInputGroup">
+                          <input type="text" name="price"class="form-control" id="inlineFormInputGroup">
                         </div>
                     </div>
                 </div>
@@ -120,16 +146,16 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-tag"></i></div>
                           </div>
-                          <input type="text" class="form-control" id="inlineFormInputGroup">
+                          <input type="text" name="upc" class="form-control" id="inlineFormInputGroup">
                         </div>
                     </div>
                     <div class="col-md-6">
-                        <label for="inputstock">Stock<span class="text-danger">*</span></label>
+                        <label for="inputstock">Quanty<span class="text-danger">*</span></label>
                         <div class="input-group mb-2">
                           <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                           </div>
-                          <input type="text" class="form-control" id="inlineFormInputGroup">
+                          <input type="text" name="quanty" class="form-control" id="inlineFormInputGroup">
                         </div>
                     </div>
                 </div>
@@ -146,7 +172,7 @@
                             <div class="input-group-prepend">
                               <div class="input-group-text">1000</i></div>
                             </div>
-                            <textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="This Box has a Limit of 1000 Chars"></textarea>
+                            <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="This Box has a Limit of 1000 Chars"></textarea>
                           </div>
                     </div>
                     {{-- <div class="col-sm-6">
@@ -157,9 +183,52 @@
                         </div>
                     </div> --}}
                 </div>
+
+                {{-- multiple image  --}}
+                <hr>
+                <div class="form-row">
+                    <div class="col-lg-8">
+                        <div id="inputFormRow">
+                            <label>Images<span class="text-danger">*</span></label>
+                            {{-- <label class=" col-md-8 text-right">Sort<span class="text-danger">*</span></label> --}}
+                            <div class="input-group mb-3">
+    
+                                <input type="file" name="subimage[]" class="form-control m-input" autocomplete="off">
+                                <div class="col-lg-3">
+                                     <input type="number" name="sort[]" class="form-control m-input" autocomplete="off" min="1" max="10" placeholder="Sort number">
+                                </div>
+                        
+                                <div class="input-group-append">
+                                    <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button>
+                                </div>
+                            </div>
+                            {{-- <div class="col-lg-4">
+                                <label>Sort<span class="text-danger">*</span></label>
+                            <input type="number" name="title[]" class="form-control m-input" autocomplete="off">
+                            </div> --}}
+                        </div>
+    
+                        <div id="newRow"></div>
+                        {{-- <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button> --}}
+                    </div>
+                </div>
+                <hr>
+                <div class="from-row">
+                    <div align="center">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+
+                
+                </div>
+         
+    
+
+
+
             </div>
             </div>
           </div>
+        </form>
         </section>
 
    {{-- edit_page_Jquery_link_is _below --}}
@@ -173,19 +242,60 @@
 
  
 </body>
+  
+<script type="text/javascript">
+    // add row
+    var i = 1;
+    $("#addRow").click(function () {
+        ++i;
+        var html = '';
+        html += '<div id="inputFormRow">';
+        html += '<div class="input-group mb-3">';
+        html += '<input type="file" name="subimage['+i+']" class="form-control m-input" autocomplete="off">';
+        html += '<div class="col-lg-3">';
+        html += '<input type="number" name="sort['+i+']" class="form-control m-input" autocomplete="off" min="1" max="10" placeholder="Sort Number">'
+        html += '</div>';
+        html += '<div class="input-group-append">';
+        html += '<button id="removeRow" type="button" class="btn btn-danger"><i class="fas fa-times-circle"></i>&nbsp;&nbsp;Remove</button>';
+        html += '</div>&nbsp;';
 
-{{-- rplace by hypen --}}
+        html += '</div>';
+
+        $('#newRow').append(html);
+    });
+
+    // remove row
+    $(document).on('click', '#removeRow', function () {
+        $(this).closest('#inputFormRow').remove();
+    });
+
+</script>
+
+
+
 <script type="text/javascript">
 
-    function replacetext(i) {
-    var val = document.getElementById(i).value;
-    if (val.match(/ /g)) {
-    val = val.replace(/\s+/g, '-');
-    document.getElementById(i).value=val;
-    }
-    }
-  
-    </script>
-  
+$('#replace').keyup(function() {
+    var dInput = this.value;
+	var t=dInput.toLowerCase();
+	 if (t.match(/ /g)) {
+	t = t.replace(/\s+/g, '-');
+	}
+    document.getElementById('url').innerHTML = t
+    console.log(t);
+    $('.access_url').val(t);
+
+    
+
+});
+
+
+
+</script>
+
+
+
+
+
 
 </html>

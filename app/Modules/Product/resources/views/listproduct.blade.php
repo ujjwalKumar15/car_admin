@@ -1,4 +1,3 @@
-<h1>hello welocme to the view page of product</h1>
 
 <!DOCTYPE html>
 
@@ -87,29 +86,51 @@
             </thead>
 
             <tbody>
-               {{-- @foreach($colors as $col)
-                  <tr> 
-                     <td>{{ $col->id }}</td>
-                     <td>{{ $col->username }}</td>
-                     <td>{{ $col->name }}</td>
-                     <td>
-                       @if($col->status=='Y')
-                        <input data-id="{{$col->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" checked>
-                        @endif
-                        @if($col->status=='N')
-                        <input data-id="{{$col->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive">
-                        @endif
-                        
-                        
-                     </td>
-                     <td>
+                
+                @php  $count=0; @endphp
+                @foreach ($products as $product)
+               <tr>
 
-                        <a href="{{ url('/admin/colors/edit',$col->id) }}" class=""><i class="fas fa-pencil-alt"></i></a>&nbsp;
-                        <a href="javascript:void(0);" onclick="delete_Question({{$col->id}})"><i class="fas fa-trash-alt"></i></a>                      
-                      </td>
-                  </tr>
-               @endforeach --}}
-            </tbody>
+                       <td class="text-center">{{$count+=1}}</td>
+                       <td><img src="{{asset('storage/media/'.$product->image) }}" height="50" width="100"/></td>
+                       <td>{{$product->name}}</td>
+
+                       <td>{{$product->upc}}</td>
+                       <td>{{$product->url}}</td>
+                       <td>{{$product->price}}</td>
+                       <td>{{$product->quanty}}</td>
+                       <td>{{$product->cname}}</td>
+
+                       <td>{{$product->bname}}</td>
+                       {{-- <td>{{$product->username}}</td> --}}
+
+
+                        <td>
+                       @if ($product->status == 'Y')
+                           <input data-id="{{$product->id}}" class="toggle-class btn-xs" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="sm" checked data-on="Active" >
+                        @else
+                           <input data-id="{{$product->id}}" class="toggle-class btn-xs" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="sm" data-on="Active" >
+                       @endif
+                        </td>
+                       {{-- <td>{{$col->created_at}}</td>
+                       <td>{{$col->updated_at}}</td> --}}
+                       <td>
+
+                       <a href="{{url('/admin/products/editproduct',$product->id)}}" class="fas fa-pencil-alt"></a>
+                       <a href="javascript:void(0);" onclick="move_to_product({{$product->id}})" class="fas fa-trash-alt"></a>
+                       </td>
+                </tr>
+
+               @endforeach
+
+
+
+
+
+
+
+
+                          </tbody>
         </table>
     </div>
     

@@ -140,20 +140,16 @@ public function completedUpdated(Request $r)
 
 ///////////////////////////
 
-public function check_availability(Request $r){
+// public function check_availability(Request $r){
 
-    //  Colors::where('name',array($r->name));
-    //    return  Colors::all();
+//     //  Colors::where('name',array($r->name));
+//     //    return  Colors::all();
 
-       if (Color::where('name', '=', Color::get('name'))->exists()) {
-        return response()->json(['success'=>'available']);
-      }
-      else
-      {
-        return response()->json(['success'=>'not available']);
-      }
+//        if (Color::where('name', '=', Color::get('colorName'))->exists()) {
+//         return true;
+//       }
 
-    }
+//     }
 
 
 
