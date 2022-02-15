@@ -55,7 +55,7 @@
       <div class="card-body">
         <div class="form-group">
           <label for="name">Color Name</label>
-          <input type="text" class="form-control" name="Name"  onblur="checkAvailability()" id="colorName" placeholder="Enter color">
+          <input type="text" class="form-control" name="name"  onblur="checkAvailability()" id="colorName" placeholder="Enter color">
 {{-- 
           <span id="user-availability-status1" style="font-size:12px;"></span> --}}
           <span id="user-availability-status"></span>

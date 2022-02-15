@@ -84,7 +84,8 @@
 
 
                             <label for="name">Name<span class="text-danger">*</span></label>
-                            <input type="text" ng-model="name" name="pname" class="form-control" id="replace" >
+                            <span id="Name_Error" class="text-danger"></span>
+                            <input type="text" ng-model="name" name="pname" class="form-control allowed_name" id="replace" >
 
                         <a href=" " > http//localhost/<span id="url" name="url"> </span> 
                           <input type="hidden"  id="url" name="url" class="form-control access_url">  
@@ -134,12 +135,7 @@
     
                 <!-- /.row -->
                 <div class="form-row">
-                    <div class="form-group col-md-3">
-                        <div class="form-group">
-                            <label>Main Image<span class="text-danger">*</span></label>
-                           <input type="file" class="form-control" name="image">
-                          </div>
-                    </div>
+                    
                     <div class="col-md-3">
                         <label for="inputupc">UPC<span class="text-danger">*</span></label>
                         <div class="input-group mb-2">
@@ -149,7 +145,7 @@
                           <input type="text" name="upc" class="form-control" id="inlineFormInputGroup">
                         </div>
                     </div>
-                    <div class="col-md-6">
+                    <div class="col-md-3">
                         <label for="inputstock">Quanty<span class="text-danger">*</span></label>
                         <div class="input-group mb-2">
                           <div class="input-group-prepend">
@@ -158,9 +154,20 @@
                           <input type="text" name="quanty" class="form-control" id="inlineFormInputGroup">
                         </div>
                     </div>
+                    <div class="form-group col-md-3">
+                      <div class="form-group">
+                          <label>Main Image<span class="text-danger">*</span></label>
+                         <input type="file" class="form-control"onchange="readURL(this);"   id="upload" name="image">
+                        
+                        </div>
+                          <img id="imageResult" src="{{ asset('dist/img/imagepreview.jpg')}}"  style="height:100px; width:100px; border:1px rgb(11, 12, 11);" >  
+                         
+                    
+                    </div>
                 </div>
                 <div class="form-row">
-                    <div class="col-sm-12">
+                  
+                    <div class="col-sm-6">
                         <!-- text input -->
                         {{-- <div class="form-group">
                           <label>Discription<span class="text-danger">*</span></label>
@@ -273,13 +280,15 @@
 
 
 
+
+
 <script type="text/javascript">
 
 $('#replace').keyup(function() {
     var dInput = this.value;
 	var t=dInput.toLowerCase();
 	 if (t.match(/ /g)) {
-	t = t.replace(/\s+/g, '-');
+	t = t.replace(/\s+/g, '-'); 
 	}
     document.getElementById('url').innerHTML = t
     console.log(t);
@@ -290,11 +299,45 @@ $('#replace').keyup(function() {
 });
 
 
+    //upload image preview
+    function readURL(input) {
+    if (input.files && input.files[0]) {
+        var reader = new FileReader();
+
+        reader.onload = function (e) {
+            $('#imageResult')
+                .attr('src', e.target.result);
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
 
 </script>
 
 
 
+{{-- Not Allowed  --}}
+
+<script type="text/javascript">
+  $(function () {
+      $(".allowed_name").keypress(function (e) {
+          var keyCode = e.keyCode || e.which;
+
+          $("#Name_Error").html("");
+
+          //Regex for Valid Characters i.e. Alphabets and Numbers.
+          var regex = /^[a-zA-Z\s]+$/;
+          //Validate TextBox value against the Regex.
+          var isValid = regex.test(String.fromCharCode(keyCode));
+          if (!isValid) {
+              $("#Name_Error").html("Only Alphabets allowed.");
+          }
+
+          return isValid;
+      });
+  });
+</script>
 
 
 

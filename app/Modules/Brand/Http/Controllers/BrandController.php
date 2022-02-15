@@ -40,7 +40,7 @@ class BrandController extends Controller
         $brand->name =$request->name;
         // $brand->status=$request->status;
         $brand->save();
-        return redirect('Addbrand')->with('status',"Category Added SuccessFully!!");
+        return back()->with('status',"Category Added SuccessFully!!");
     }
 
     public function show(){

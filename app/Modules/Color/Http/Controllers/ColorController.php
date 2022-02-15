@@ -31,8 +31,8 @@ class ColorController extends Controller
     }
     public function getdata(Request $request){
      
-        $request->validate(['name'=>'required|alpha|min:3|unique:colors|max:10|regex:/^\S*$/u'
-     ]);
+    //     $request->validate(['name'=>'required|alpha|min:3|unique:colors|max:10|regex:/^\S*$/u'
+    //  ]);
      
         $colors =new Color;
         $uid= Auth::user()->id; //userid pass by controller

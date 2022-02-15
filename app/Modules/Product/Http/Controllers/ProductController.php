@@ -31,6 +31,7 @@ class ProductController extends Controller
 
    public function insertproduct(Request $request)
    {
+    //  Start Insert 
      
     $product = new Product;
 
@@ -58,29 +59,25 @@ class ProductController extends Controller
      $product->save();
     
        $pid = $product->id;
-      $store_sort_value =  $request->sort;
-
-      $img=[];
-      if($request->hasFile('subimage')){
-          foreach($request->file('subimage') as $file)
-          {
-              $name=$request->hasFile('image');
-              $ext=$image->extension();
-             $name = time().rand(1,100).'.'.$file->extension();
-             $str= $image->storeAs('/public/media',$name);
-              $img[] = $str;
-          }
+       $store_sort_value =  $request->sort;
+       if($request->hasFile('subimage.$key')){
+         $rand= rand('11111111', '99999999');
+        $subimage=$request->file('subimage.$key');
+        $ext=$subimage->extension();
+        $image_name=$rand.'.'.$ext;
+        $image->storeAs('/public/media',$image_name);
+        $sub_image['subimage']=$image_name;
       }
 
-
       foreach($store_sort_value as $key => $value)
-         {
+      {
         $sub_image['productid']=$pid;
-        $sub_image['product_images']=  $img;
+        $sub_image['product_images']=  $image_name;
         $sub_image['sort']=$store_sort_value[$key];
-         DB::table('images')->insert($img);
+        dd($sub_image['product_images']);
+         DB::table('images')->insert($sub_image);
         }
-    
+    // End Insert
    
    }
 
