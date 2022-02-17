@@ -15,17 +15,17 @@ class ProductController extends Controller
      * Display the module welcome screen
      *
      * @return \Illuminate\Http\Response
-     */
+    */
      public function welcome()
-     {
-         // echo '<pre>';
+      {
+//          // echo '<pre>';
 
-       $Product1 = DB::table('colors')->select('name as cname','id as cid')->where(['status'=>'Y'])->get();
-        $Product2 =  DB::table('brands')->select('name as bname','id as bid')->where(['status'=>'Y'])->get();
-        return view('Product::addproduct',['colors' => $Product1, 'brands' => $Product2]);
-    
-      }
-    
+      $Product1 = DB::table('colors')->select('name as cname','id as cid')->where(['status'=>'Y'])->get();
+      $Product2 =  DB::table('brands')->select('name as bname','id as bid')->where(['status'=>'Y'])->get();
+        return view('Product::addproduct',['colors'=>$Product1,'brands'=>$Product2]);
+
+  }
+      
  
 
 
@@ -57,26 +57,24 @@ class ProductController extends Controller
      $product->userid=$uid;
 
      $product->save();
-    
-       $pid = $product->id;
-       $store_sort_value =  $request->sort;
-       if($request->hasFile('subimage.$key')){
-         $rand= rand('11111111', '99999999');
-        $subimage=$request->file('subimage.$key');
-        $ext=$subimage->extension();
-        $image_name=$rand.'.'.$ext;
-        $image->storeAs('/public/media',$image_name);
-        $sub_image['subimage']=$image_name;
-      }
+    // multiple_image_insert
+     if($request->hasFile('subimage'))
+     {
+         foreach($request->file('subimage') as $k=>$image)
+         {
+             if ($request->input('sort')[$k])
+             {
+                 DB::table('images')->insert(['productid'=>$product->id,'product_images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+             }
+             else {
+                 DB::table('images')->insert(['productid'=>$product->id,'product_images'=>$request->upc.'_'.$k.'.png']);
+             }
+         $image->storeAs('/public/media' , $request->upc.'_'.$k.'.png');
+       }
+     }
 
-      foreach($store_sort_value as $key => $value)
-      {
-        $sub_image['productid']=$pid;
-        $sub_image['product_images']=  $image_name;
-        $sub_image['sort']=$store_sort_value[$key];
-        dd($sub_image['product_images']);
-         DB::table('images')->insert($sub_image);
-        }
+     return back();
+
     // End Insert
    
    }
@@ -129,6 +127,7 @@ class ProductController extends Controller
          return back();
        // return view('Product::listproduct');
     }
+
 
 
 

@@ -164,7 +164,8 @@
                          
                     
                     </div>
-                </div>
+                  </div>
+
                 <div class="form-row">
                   
                     <div class="col-sm-6">
@@ -320,7 +321,7 @@ $('#replace').keyup(function() {
 {{-- Not Allowed  --}}
 
 <script type="text/javascript">
-  $(function () {
+  $(function  () {
       $(".allowed_name").keypress(function (e) {
           var keyCode = e.keyCode || e.which;
 
@@ -340,5 +341,10 @@ $('#replace').keyup(function() {
 </script>
 
 
+
+
+{{-- 
+  
+  --}}
 
 </html>
