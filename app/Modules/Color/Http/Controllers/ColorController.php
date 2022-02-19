@@ -94,7 +94,7 @@ class ColorController extends Controller
     //  click on delete button status will be changed 
     public function completedUpdate(Request $r)
     {
-         $update = Color::find($r->id);
+        $update = Color::find($r->id);
         $update->status='T';
         $update->save();
         return Color::all();
@@ -116,7 +116,7 @@ public function trashshow(){
 // restore
 public function completedUpdated(Request $r)
     {
-         $update = Color::find($r->id);
+        $update = Color::find($r->id);
         $update->status='Y';
         $update->save();
         return Color::all();

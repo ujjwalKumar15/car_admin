@@ -27,8 +27,12 @@
         <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
 
         {{-- angular js --}}
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+       
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+  <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 
+  @include('css')
     </head>
     <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
@@ -55,8 +59,16 @@
             </div><!-- /.container-fluid -->
           </div>
         <section class="content">
-            
-            <form method="POST" action="/admin/products/insertproduct" enctype="multipart/form-data">
+           
+        
+           @if (session()->has('status'))
+          
+           <div class="alert alert-success float-center">
+            {{ session('status') }}
+           </div>
+           @endif
+          
+            <form  id="form_try" method="POST" action="/admin/products/insertproduct" enctype="multipart/form-data">
                 @csrf
 
           <div class="container-fluid">
@@ -123,12 +135,12 @@
 
                     </div>
                     <div class="col-md-6">
-                        <label for="inputPrice">Price<span class="text-danger">*</span></label>
+                        <label for="price">Price<span class="text-danger">*</span></label>
                         <div class="input-group mb-2">
                           <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                           </div>
-                          <input type="text" name="price"class="form-control" id="inlineFormInputGroup">
+                          <input type="text" name="price"class="form-control" id="price">
                         </div>
                     </div>
                 </div>
@@ -142,7 +154,7 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-tag"></i></div>
                           </div>
-                          <input type="text" name="upc" class="form-control" id="inlineFormInputGroup">
+                          <input type="text" name="upc" class="form-control" id="upc">
                         </div>
                     </div>
                     <div class="col-md-3">
@@ -151,7 +163,7 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                           </div>
-                          <input type="text" name="quanty" class="form-control" id="inlineFormInputGroup">
+                          <input type="text" name="quanty" class="form-control" id="quanty">
                         </div>
                     </div>
                     <div class="form-group col-md-3">
@@ -240,7 +252,7 @@
         </section>
 
    {{-- edit_page_Jquery_link_is _below --}}
-<script src="{{asset('plugins/jquery/jquery.min.js')}}"></script> 
+{{-- <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>  --}}
 
 
     @include('footer')
@@ -338,13 +350,92 @@ $('#replace').keyup(function() {
           return isValid;
       });
   });
+
+
+</script>
+<script>
+
+  // validation
+  $("#form_try").validate({
+                rules: {
+                    pname:{
+                        required: true,
+                    },
+                    category_id:{
+                      required: true,
+
+                    },
+                    color_id:{
+                          required:true,
+                    },
+                    price:{
+                      required:true,
+                    },
+                    
+                    upc:{
+                      required:true,
+                      number:true,
+                      minlength: 12,
+                      maxlength: 12,
+                    },
+                    
+                   quanty:{
+                     required:true,
+                   },
+
+                   image:{
+                        required:true,
+                        accept: "jpg,png,jpeg,gif",
+                        filesize:5242880,
+                    },
+                   
+                   description:{
+                     maxlength:1000
+                   },
+                   
+                  'subimage[]':{
+                    required:true,
+                   
+                   },
+
+                    
+                },
+
+                messages: {
+                     pname: {
+                        required: 'The name field is required.',
+                    },
+                    
+                    upc:{
+                      required:"the upc field is required",
+                      number:"The upc must be in number",
+                      minlength:"The upc may not be less than 12 Digit",
+                      maxlength:"The upc may not be grater than 12 Digit"
+                
+
+                    },
+
+                        
+                        submitHandler: function (form) {
+                    form.submit();
+                }
+                },
+
+
+               
+
+
+        });
+
+
+
+
+
 </script>
 
 
 
 
-{{-- 
-  
-  --}}
+
 
 </html>

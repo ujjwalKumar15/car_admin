@@ -76,14 +76,14 @@
             <!-- /.card-header -->
             <div class="card-body">
                 <div class="text-center mt-0 mb-0 p-1">
-                    <a class="btn btn-success bg-gradient-success  btn-sm float-right " href="{{url('/admin/product/display')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
+                    <a class="btn btn-danger bg-gradient-danger  btn-sm float-right " href="{{url('/admin/products/listproduct')}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Back</a>&nbsp;
 
                   </div>
                 <h6>The All Fields With Sysmbol <span class="text-danger">*</span>is Required</h6>
                 <div class="row" >
                     <div class="col-md-12" >
                         <label for="name">Name<span class="text-danger">*</span></label>
-                        <input type="text"class="form-control" id="replace"  value="{{$product->url}}"  name="name">
+                        <input type="text"class="form-control" id="replace"  value="{{$product->name}}"  name="name">
                     <a href=" " > http//localhost/<span id="url"></span> </a>
                     <input type="hidden" class="form-control access_url" id="url" name="url" >
                         <i class="fas fa-edit"></i>
@@ -121,22 +121,14 @@
             </div>
             <!-- /.row -->
             <div class="form-row">
-                <div class="form-group col-md-3">
-                    <label for="inputideal">Ideal For<span class="text-danger">*</span></label>
-                    <select id="inputideal" name="idealfor" value="{{$product->idealfor}}"  class="form-control">
-                      <option selected>{{$product->idealfor}}</option>
-                      <option>Men</option>
-                      <option>Women</option>
-                      <option>Child</option>
-                    </select>
-                </div>
+                
                 <div class="col-md-3">
                     <label for="inputupc">UPC<span class="text-danger">*</span></label>
                     <div class="input-group mb-2">
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-tag"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="upc" value="{{$product->upc}}"id="inlineFormInputGroup" >
+                      <input type="text" class="form-control" name="upc" disabled value="{{$product->upc}}"id="inlineFormInputGroup" >
                     </div>
                 </div>
                 <div class="col-md-6">
@@ -171,33 +163,132 @@
                 </div>
             </div>
             <hr>
-            <div class="form-row">
+            {{-- <div class="form-row">
                 <div class="col-lg-9">
                     <div id="inputFormRow">
                         <label>Images<span class="text-danger">*</span></label>
-                        {{-- <label class=" col-md-8 text-right">Sort<span class="text-danger">*</span></label> --}}
-                        <div class="input-group mb-3">
+            .            <label class=" col-md-8 text-right">Sort<span class="text-danger">*</span></label> --}}
+                        {{-- <div class="input-group mb-3">
 
                             <input type="file" name="subimage[1]" class="form-control m-input" autocomplete="off">
                             <div class="col-lg-3">
                                  <input type="number" name="sort[1]" class="form-control m-input" autocomplete="off"  placeholder="Sort number">
-                            </div>
+                             {{-- ..... --}}
 
-                            <div class="input-group-append">
+                            {{-- <div class="input-group-append">
                                 <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button>
                             </div>
                         </div>
-                        {{-- <div class="col-lg-4">
-                            <label>Sort<span class="text-danger">*</span></label>
+                        <div class="col-lg-4"> --}}
+                            {{-- <label>Sort<span class="text-danger">*</span></label>
                         <input type="number" name="title[]" class="form-control m-input" autocomplete="off">
                         </div> --}}
-                    </div>
+                    {{-- </div>
 
                     <div id="newRow"></div>
                     {{-- <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button> --}}
-                </div>
-            </div>
-            <hr>
+                {{-- </div>
+            </div> --}} 
+
+{{--   start.................2 --}}
+
+{{-- start image try  --}}
+
+<div class="multiple_img_list pb-3">
+  <p>Select Multiple Images</p>
+
+  
+  @foreach($images as $image)
+      <div class="more_img">
+          <div class="row">
+              <div class="col-md-4">
+                  <div class="row">
+                      <div class="col-md-10">
+                          <div class="form-group">
+                              <input type="file" name="sub_img[]"  onchange="readURLSubimg(this);"  class="form-control moreImgInp @error('sub_img') is-invalid @enderror" data-iconname="fa fa-cloud-upload" data-buttonname="btn-secondary" accept="image/*"/>
+                              <input class="form-control  @error('img_id') is-invalid @enderror img_id" value="{{$image->id}}" name="img_id[]" type="hidden">
+                              @error('sub_img')
+                              <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                              @enderror
+                          </div>
+                      </div>
+                      <div class="col-md-2">
+                          <img alt="Product Image" id="sub_image" src="{{asset('storage/media/'.$image->product_images) }}" class="img-thumbnail sub_image">
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <div class="form-group">
+                      <input class="form-control  @error('sort') is-invalid @enderror" value="{{$image->sort}}" name="sort[]" type="text" id="sort" maxlength="2" onkeypress="if(this.value.length==2);" placeholder="Sort Number" id="{{$image->id}}">
+                      @error('sort')
+                      <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                      @enderror
+                  </div>
+              </div>
+              <div class="col-md-4">
+                  <button name="add_img" id="add_img" type="button" class="btn btn-outline-primary add_img">
+                      <i class="fa fa-plus" aria-hidden="true"></i>
+                  </button>
+                  <button name="remove_img" id="{{$image->id}}" type="button" class="btn btn-outline-warning remove_img">
+                      <i class="fa fa-minus" aria-hidden="true"></i>
+                  </button>
+
+              </div>
+          </div>
+      </div>
+  @endforeach
+  <div class="more_img" style="display:none">
+      <div class="row">
+          <div class="col-md-4">
+              <div class="row">
+                  <div class="col-md-10">
+                      <div class="form-group">
+                          <input type="file" name="sub_img[]"  class="form-control @error('sub_img') is-invalid @enderror" data-iconname="fa fa-cloud-upload" data-buttonname="btn-secondary" accept="image/*"/>
+                          @error('sub_img')
+                          <span class="invalid-feedback" role="alert">
+                                      <strong>{{ $message }}</strong>
+                                  </span>
+                          @enderror
+                      </div>
+                  </div>
+                  <div class="col-md-2">
+                      <img  id="sub_image" class="img-thumbnail sub_image">
+                      {{-- onerror="this.{{asset('storage/media/'.no_image.png) }}"  --}}
+                  </div>
+              </div>
+          </div>
+          <div class="col-md-4">
+              <div class="form-group">
+                  <input class="form-control @error('sort') is-invalid @enderror" value="" name="sort[]" type="text" id="sort" maxlength="2" onkeypress="if(this.value.length==2);" placeholder="Sort Number">
+                  @error('sort')
+                  <span class="invalid-feedback" role="alert">
+                              <strong>{{ $message }}</strong>
+                          </span>
+                  @enderror
+              </div>
+          </div>
+          <div class="col-md-4">
+              <button name="add_img" id="add_img" type="button" class="btn btn-outline-primary add_img">
+                  <i class="fa fa-plus" aria-hidden="true"></i>
+              </button>
+              <button name="remove_img"  id="remove_img" type="button" class="btn btn-outline-warning remove_img" style="display: none">
+                  <i class="fa fa-minus" aria-hidden="true"></i>
+              </button>
+          </div>
+      </div>
+  </div>
+</div>
+
+
+
+{{-- end______________2 --}}
+
+
+    <hr>
             <div class="from-row">
                 <div align="center">
                     <button type="submit" class="btn btn-primary">Submit</button>
@@ -255,6 +346,75 @@
     $(document).on('click', '#removeRow', function () {
         $(this).closest('#inputFormRow').remove();
     });
+
+
+//@sir  
+
+function readURL(input) {
+            console.log(input.files)
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $('#img')
+                        .attr('src', e.target.result)
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        function readURLSubimg(input) {
+            // var $obj = $(this);
+            // console.log($obj.html());
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function (e) {
+                    $ (input).parent().parent().parent().find('.sub_image').attr('src',e.target.result)
+                };
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(function () {
+            //image add and remove
+            if ($(".multiple_img_list >div").length == 1){
+                $('.more_img').show();
+            }
+            $('.multiple_img_list').on('click','.add_img',function () {
+                var $obj = $(this).closest('.more_img').clone();
+                // $obj.find("img").removeAttr("src");
+                // $obj.find("input").val("");
+                // $obj.end().insertAfter($(this).closest('.more_img'));
+                // // find('input').val('').end().insertAfter($(this).closest('.more_img'));
+                // if ($(".multiple_img_list >div").length != 1){
+                //     $('.remove_img').show();
+                // }
+                $obj.find('input').val('').end().insertAfter($(this).closest('.more_img'));
+                if ($(".multiple_img_list >div").length != 1){
+                    $('.remove_img').show();
+                }
+            });
+            $('.multiple_img_list').on('click','.remove_img',function () {
+                if ($(".multiple_img_list >div").length > 1){
+                    $(this).closest('.more_img').remove();
+                }
+                if ($(".multiple_img_list >div").length == 1){
+                    $('.remove_img').hide();
+                    $('.more_img').show();
+                }
+            });
+            $('.multiple_img_list').on('keypress','#sort',function (e) {
+                var keyCode = e.charCode;
+                console.log(e.keyCode);
+                // if ( (97 != backspace || keyCode ==space ) && (97 < zero || 97 > nine)) {
+                if ( (keyCode != 8 || keyCode ==32 ) && (keyCode < 48 || keyCode > 57)) {
+                    return false;
+                }
+            });
+        });
+
+
+
+
+
+
 </script>
 
 </html>

@@ -57,8 +57,8 @@
             <h3 class="card-title">List Products</h3>
           </div>
           <div class="text-center mt-2 mb-2 p-1">
-      <a class="btn btn-danger float-right" href="{{ url('/admin/colors/trash') }}" role="button">Trash<i class="far fa-trash-alt"></i></a>
-     <a class="btn btn-success float-right" href="{{ url('/admin/colors/Addcolor') }}" role="button">Add
+      <a class="btn btn-danger float-right" href="{{ url('/admin/products/trashproduct') }}" role="button">Trash<i class="far fa-trash-alt"></i></a>
+     <a class="btn btn-success float-right" href="{{ url('/admin/products/addproduct') }}" role="button">Add
              <i class="fas fa-plus-circle"></i></i></a></div>
           </div>
           
@@ -68,7 +68,7 @@
 
                <tr>
 
-                  <th>ID</th>
+                  <th>Sr.No</th>
 
                   <th>Images</th>
                   <th>Product</th>
@@ -106,19 +106,20 @@
 
 
                         <td>
-                       @if ($product->status == 'Y')
-                           <input data-id="{{$product->id}}" class="toggle-class btn-xs" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="sm" checked data-on="Active" >
-                        @else
-                           <input data-id="{{$product->id}}" class="toggle-class btn-xs" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-size="sm" data-on="Active" >
-                       @endif
+                          @if($product->status=='Y')
+                          <input data-id="{{$product->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" checked>
+                          @endif
+                          @if($product->status=='N')
+                          <input data-id="{{$product->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive">
+                          @endif
                         </td>
                        {{-- <td>{{$col->created_at}}</td>
                        <td>{{$col->updated_at}}</td> --}}
                        <td>
 
                        <a href="{{url('/admin/products/editproduct',$product->id)}}" class="fas fa-pencil-alt"></a>
-                       <a href="javascript:void(0);" onclick="move_to_product({{$product->id}})" class="fas fa-trash-alt"></a>
-                       </td>
+                     <a href="javascript:void(0);" onclick="delete_status({{$product->id}})"><i class="fas fa-trash-alt"></i></a>  
+                      </td>
                 </tr>
 
                @endforeach
@@ -130,7 +131,7 @@
 
 
 
-                          </tbody>
+          </tbody>
         </table>
     </div>
     
@@ -157,7 +158,7 @@
 
             dataType: "json",
 
-            url: '/admin/colors/changeStatus',
+            url:'/admin/products/ChangeStatus',
 
             data: {'status': status, 'id': id},
 
@@ -178,22 +179,22 @@
 {{-- delete _ Status --}}
 <script>
 
-function delete_Question(id){
-        if(confirm('are your sure you want to delete !!!! ?')){
-        jQuery.ajax({
-            url:'/admin/colors/completedUpdate',
-            type:'GET',
-            data:{'id':id},
-            success:function(result){
-                // jQuery('#check_delete'+id).hide();
-            console.log("Status Updated");
-            location.reload();
-            }
-        });
-    }
-    }
-
-</script>
+  function delete_status(id){
+          if(confirm('are your sure you want to delete !!!! ?')){
+          jQuery.ajax({
+              url:'/admin/products/delete',
+              type:'GET',
+              data:{'id':id},
+              success:function(result){
+                  // jQuery('#check_delete'+id).hide();
+              console.log("Status Updated");
+              location.reload();
+              }
+          });
+      }
+      }
+  
+  </script>
 
 
 

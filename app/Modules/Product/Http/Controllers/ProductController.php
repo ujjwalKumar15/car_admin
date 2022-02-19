@@ -5,8 +5,10 @@ namespace App\Modules\Product\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Modules\Product\Models\Product;
+use App\Modules\Product\Models\Image;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 
 class ProductController extends Controller
 {
@@ -58,24 +60,35 @@ class ProductController extends Controller
 
      $product->save();
     // multiple_image_insert
-     if($request->hasFile('subimage'))
-     {
-         foreach($request->file('subimage') as $k=>$image)
-         {
-             if ($request->input('sort')[$k])
-             {
-                 DB::table('images')->insert(['productid'=>$product->id,'product_images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
-             }
-             else {
-                 DB::table('images')->insert(['productid'=>$product->id,'product_images'=>$request->upc.'_'.$k.'.png']);
-             }
-         $image->storeAs('/public/media' , $request->upc.'_'.$k.'.png');
-       }
-     }
+     
 
-     return back();
+    if($request->hasFile('subimage'))
+    {
+      foreach($request->file('subimage') as $key=>$insert)
+      {
 
-    // End Insert
+         $imageName = time().'-'.$insert->getClientoriginalName();
+         $insert->storeAs('/public/media' ,$imageName);
+         $save_sub_image=[
+             
+            'productid'=>$product->id,
+             'product_images' => $imageName,
+             'sort' =>$request->sort[$key],
+
+         ];
+
+         DB::table('images')->insert($save_sub_image);
+
+
+
+
+      }
+
+
+    }//end if
+
+    return redirect('/admin/products/addproduct')->with('status','Product Added SuccessFully!!!!');
+   
    
    }
 
@@ -104,7 +117,9 @@ class ProductController extends Controller
         $brand = Product::join('brands', 'brands.id', '=', 'products.brandid')->where('products.id',$id)
         ->get(['brands.id as bid', 'brands.name as bname']);
         $colors = DB::table('colors')->select('name as cname','id as cid')->where(['status'=>'Y'])->get();
-         return view('Product::editproduct',['brands' => $brand],compact(['colors','product']));
+
+        $images=Image::where('productid',$id)->get();
+         return view('Product::editproduct',['brands' => $brand],compact(['colors','product','images']));
     }
      
     public function update(Request $request,$id)
@@ -124,14 +139,98 @@ class ProductController extends Controller
          
          $product->userid=$uid;
          $product->save();
-         return back();
+           
+// 
+if ($request->input('img_id')){
+  $img=Image::where('productid',$id)->whereNotIn('id',$request->input('img_id'))->get();
+  foreach ($img as $item){
+      echo $item->name.'<br>';
+      File::delete('/public/media'.$request->upc.'/'.$item->name);
+      $item->delete();
+  }
+}
+else{
+  $img=Image::where('productid',$id)->get();
+  foreach ($img as $item){
+      echo $item->name.'<br>';
+      File::delete('/public/media'.$request->upc.'/'.$item->name);
+      $item->delete();
+  }
+}
+if($request->hasFile('sub_img'))
+{
+  foreach($request->file('sub_img') as $k=>$image)
+  {
+      if ($request->input('img_id')[$k])
+      {
+          if ($request->input('sort')[$k])
+          {
+            Image::where('id',$request->input('img_id')[$k])->update(['product_images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+          }
+          else{
+            Image::where('id',$request->input('img_id')[$k])->update(['product_images'=>$request->upc.'_'.$k.'.png']);
+          }
+          $image->storeAs('/public/media' . $request->upc, $request->upc.'_'.$k.'.png');
+      }
+      else {
+          if ($request->input('sort')[$k])
+          {
+            Image::create(['productid'=>$request->id,'product_images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+          }
+          else {
+            Image::create(['productid'=>$request->id,'product_images'=>$request->upc.'_'.$k.'.png']);
+          }
+          $image->storeAs('/public/media'.$request->upc, $request->upc.'_'.$k.'.png');
+      }
+  }
+}
+
+return back();
        // return view('Product::listproduct');
+
     }
 
 
 
 
+    public function ChangeStatus(Request $request)
+    {
 
+    $product  = Product::find($request->id);
+    $product->status=$request->status;
+    $product->save();
+    return response()->json(['status'=>"Status Change SuccessFully"]);
+
+ }
+
+ public function delete(Request $request)
+ {
+      $update = Product::find($request->id);
+      $update->status='T';
+      $update->save();
+      return Product::all();
+}
+
+public function trash()
+{
+
+  $Product = Product::join('colors', 'colors.id', '=', 'products.colorid')
+  ->join('brands', 'brands.id', '=', 'products.brandid')
+  ->where('products.status',array('T'))
+  ->get(['products.*', 'colors.name as cname','brands.name as bname']);
+ return view("Product::trashproduct",['products'=>$Product]);
+
+}
+
+public function RestoreTrash(Request $request)
+{
+   $update = Product::find($request->id);
+   $update->status='Y';
+   $update->save();
+   return Product::all();
+  
+
+}
 
 
 
