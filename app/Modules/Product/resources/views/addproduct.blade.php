@@ -100,10 +100,15 @@
                             <input type="text" ng-model="name" name="pname" class="form-control allowed_name" id="replace" >
 
                         <a href=" " > http//localhost/<span id="url" name="url"> </span> 
-                          <input type="hidden"  id="url" name="url" class="form-control access_url">  
-                            
+                          <input type="hidden"  id="url" name="url" class="form-control access_url" value="{{old('access_url')}}">  
+                          <i class="fas fa-edit"></i>
+                          @error('pname')
+                          
+                    <p style="color:red">{{ $message }}</p>
+                      
+                    @enderror
                     
-                            <i class="fas fa-edit"></i>
+                           
                         </a>
                         </div>
                     </div>
@@ -117,8 +122,12 @@
                         <option value="{{ $list->bid }}">{{ $list->bname }}</option>
                             
                         @endforeach 
-                        
+
                       </select>
+                      @error('category_id')
+                      <p style="color:red">{{ $message }}</p>
+                        
+                      @enderror
 
                     </div>
                     <div class="form-group col-md-3">
@@ -132,6 +141,12 @@
                         @endforeach
                         
                       </select>
+                      @error('color_id')
+                          
+                      <p style="color:red">{{ $message }}</p>
+                        
+                      @enderror
+                      
 
                     </div>
                     <div class="col-md-6">
@@ -140,8 +155,12 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                           </div>
-                          <input type="text" name="price"class="form-control" id="price">
+                          <input type="text" name="price"class="form-control" id="price" value="{{old('price')}}">
                         </div>
+                        @error('price')
+                        <p style="color:red">{{ $message }}</p>
+                          
+                        @enderror
                     </div>
                 </div>
     
@@ -154,8 +173,12 @@
                           <div class="input-group-prepend">
                             <div class="input-group-text"><i class="fas fa-tag"></i></div>
                           </div>
-                          <input type="text" name="upc" class="form-control" id="upc">
+                          <input type="text" name="upc" class="form-control" value="{{old('upc')}}"id="upc">
                         </div>
+                        @error('upc')
+                        <p style="color:red">{{ $message }}</p>
+                          
+                        @enderror
                     </div>
                     <div class="col-md-3">
                         <label for="inputstock">Quanty<span class="text-danger">*</span></label>
@@ -165,13 +188,21 @@
                           </div>
                           <input type="text" name="quanty" class="form-control" id="quanty">
                         </div>
+                        @error('quanty')
+                        <p style="color:red">{{ $message }}</p>
+                          
+                        @enderror
                     </div>
                     <div class="form-group col-md-3">
                       <div class="form-group">
                           <label>Main Image<span class="text-danger">*</span></label>
-                         <input type="file" class="form-control"onchange="readURL(this);"   id="upload" name="image">
+                         <input type="file" class="form-control"onchange="readURL(this);"   id="upload" name="image"accept="image/*"/>
                         
                         </div>
+                        @error('image')
+                        <p style="color:red">{{ $message }}</p>
+                          
+                        @enderror
                           <img id="imageResult" src="{{ asset('dist/img/imagepreview.jpg')}}"  style="height:100px; width:100px; border:1px rgb(11, 12, 11);" >  
                          
                     
@@ -194,6 +225,11 @@
                             </div>
                             <textarea class="form-control" name="description" id="exampleFormControlTextarea1" rows="3" placeholder="This Box has a Limit of 1000 Chars"></textarea>
                           </div>
+                          @error('discription')
+                          <p style="color:red">{{ $message }}</p>
+                            
+                          @enderror
+                  
                     </div>
                     {{-- <div class="col-sm-6">
     
@@ -210,14 +246,26 @@
                     <div class="col-lg-8">
                         <div id="inputFormRow">
                             <label>Images<span class="text-danger">*</span></label>
+                            @error('subimage[]')
+                            <p style="color:red">{{ $message }}</p>
+                              
+                            @enderror
                             {{-- <label class=" col-md-8 text-right">Sort<span class="text-danger">*</span></label> --}}
                             <div class="input-group mb-3">
+                             
     
-                                <input type="file" name="subimage[]" class="form-control m-input" autocomplete="off">
-                                <div class="col-lg-3">
-                                     <input type="number" name="sort[]" class="form-control m-input" autocomplete="off" min="1" max="10" placeholder="Sort number">
-                                </div>
+                                <input type="file" name="subimage[]" class="form-control m-input" autocomplete="off" accept="image/*">
+                               
                         
+                                <div class="col-lg-3">
+                          
+                                     <input type="number" name="sort[]"  maxlength="2" class="form-control m-input" autocomplete="off" min="1" max="10" placeholder="Sort number">
+                                </div>
+                                @error('sort[]')
+                                <p style="color:red">{{ $message }}</p>
+                                  
+                                @enderror
+                               
                                 <div class="input-group-append">
                                     <button id="addRow" type="button" class="  btn btn-success "><i class="fa fa-plus-circle" aria-hidden="true"></i>&nbsp; Add Row</button>
                                 </div>
@@ -271,7 +319,7 @@
         var html = '';
         html += '<div id="inputFormRow">';
         html += '<div class="input-group mb-3">';
-        html += '<input type="file" name="subimage['+i+']" class="form-control m-input" autocomplete="off">';
+        html += '<input type="file" name="subimage['+i+']" class="form-control m-input" autocomplete="off"accept="image/*">';
         html += '<div class="col-lg-3">';
         html += '<input type="number" name="sort['+i+']" class="form-control m-input" autocomplete="off" min="1" max="10" placeholder="Sort Number">'
         html += '</div>';
@@ -355,11 +403,30 @@ $('#replace').keyup(function() {
 </script>
 <script>
 
-  // validation
-  $("#form_try").validate({
+//   // validation
+  jQuery.validator.addMethod( "pricevalidate", function( value, element ) {
+         return this.optional(element) || /^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/.test(value);
+       }, "The price must be in this 999999.999 Digit" );
+  $.validator.addMethod('filesize', function (value, element, param) {
+    return this.optional(element) || (element.files[0].size <= param)
+}, 'File size must be less than 5mb');
+
+$("#form_try").validate({
                 rules: {
                     pname:{
                         required: true,
+                    },
+                    url:{
+                        required: true,
+                        remote:{
+                            url: '/admin/products/checkurl',
+                            type: "GET",
+                            data: {
+                                colorname: function () {
+                                    return $( "#url" ).val();
+                                }
+                            },
+                        }
                     },
                     category_id:{
                       required: true,
@@ -370,6 +437,8 @@ $('#replace').keyup(function() {
                     },
                     price:{
                       required:true,
+                      number:true,
+                      pricevalidate:true,
                     },
                     
                     upc:{
@@ -377,26 +446,37 @@ $('#replace').keyup(function() {
                       number:true,
                       minlength: 12,
                       maxlength: 12,
+                      remote:{
+                            url: '/admin/products/uniqueproduct',
+                            type: "GET",
+                            data: {
+                                colorname: function () {
+                                    return $( "#upc" ).val();
+                                }
+                            },
+                        }
                     },
                     
                    quanty:{
                      required:true,
                    },
 
-                   image:{
-                        required:true,
-                        accept: "jpg,png,jpeg,gif",
-                        filesize:5242880,
+                   image: {
+                     required: true,
+                  //   extension: "jpg,jpeg,png",
+                  //   filesize: 5,
                     },
                    
                    description:{
                      maxlength:1000
                    },
                    
-                  'subimage[]':{
-                    required:true,
+                  // 'subimage[]':{
+                  //   required: true,
+                  //   extension: "jpg,jpeg,png",
+                  //   filesize: 5,
                    
-                   },
+                  //  },
 
                     
                 },
@@ -405,19 +485,28 @@ $('#replace').keyup(function() {
                      pname: {
                         required: 'The name field is required.',
                     },
+                    price: {
+                        required: 'The price field is required.',
+                        number:"The price must be in number",
+
+                    },
                     
                     upc:{
                       required:"the upc field is required",
                       number:"The upc must be in number",
+                      remote:'The upc has already been taken.',
                       minlength:"The upc may not be less than 12 Digit",
                       maxlength:"The upc may not be grater than 12 Digit"
                 
 
                     },
-
+                  errorPlacement: function(error, element)
+                  {
+                        error.appendTo( element.parents('.form-group'));
+                  },
                         
-                        submitHandler: function (form) {
-                    form.submit();
+                  submitHandler: function (form) {
+                   form.submit();
                 }
                 },
 

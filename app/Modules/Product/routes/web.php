@@ -17,3 +17,6 @@ Route::get('/admin/products/ChangeStatus',[ProductController::class,'ChangeStatu
 Route::get('/admin/products/delete',[ProductController::class,'delete']);
 Route::get('/admin/products/trashproduct',[ProductController::class,'trash']);
 Route::get('/admin/products/RestoreTrash',[ProductController::class,'RestoreTrash']);
+// unique
+Route::get('/admin/products/uniqueproduct',[ProductController::class,'uniqueproduct']);
+Route::get('/admin/products/checkurl',[ProductController::class,'checkurl']);

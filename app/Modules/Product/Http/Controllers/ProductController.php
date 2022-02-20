@@ -33,6 +33,23 @@ class ProductController extends Controller
 
    public function insertproduct(Request $request)
    {
+
+    $request->validate(['pname'=>'required|max:100',
+                       'image' => 'required|mimes:jpg,png,jpeg,gif',
+                       'subimage[]' => 'required|mimes:jpg,png,jpeg,gif',
+                       'upc' => ['required','unique:products','regex:/[0-9]{12,13}$/'],
+                       'price' => ['required','regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
+                       'quanty' => 'required|integer|max:999999',
+                       'sort[]' => 'required|integer|max:10|min:1',
+                       'description' => 'max:500',
+                       'color_id' => 'required',
+                       'category_id' => 'required',
+
+                        'url'=>'unique:products'
+
+    ]);
+
+
     //  Start Insert 
      
     $product = new Product;
@@ -231,6 +248,30 @@ public function RestoreTrash(Request $request)
   
 
 }
+public function uniqueproduct(Request $request)
+    {
+
+        $product = Product::where('id', '!=', $request->id)->where('upc', $request->upc)->first();
+        if (isset($product)) {
+            return json_encode(false);
+        } else {
+            return json_encode(true);
+        }
+    }
+    // url check
+
+    public function checkUrl(Request $request)
+    {
+//        return $request;
+        $product=Product::where('id','!=',$request->id)->where('url',$request->url)->first();
+        if(isset($product))
+        {
+            return json_encode(false);
+        }
+        else {
+            return json_encode(true);
+        }
+    }
 
 
 
