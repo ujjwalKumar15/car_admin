@@ -100,7 +100,7 @@
                             <input type="text" ng-model="name" name="pname" class="form-control allowed_name" id="replace" >
 
                         <a href=" " > http//localhost/<span id="url" name="url"> </span> 
-                          <input type="hidden"  id="url" name="url" class="form-control access_url" value="{{old('access_url')}}">  
+                          <input type="hidden"  id="url" name="url" class="form-control access_url" value="{{old('url')}}">  
                           <i class="fas fa-edit"></i>
                           @error('pname')
                           
