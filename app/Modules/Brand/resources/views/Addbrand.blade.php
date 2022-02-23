@@ -25,7 +25,13 @@
       <link rel="stylesheet" href="{{asset('plugins/daterangepicker/daterangepicker.css')}}">
       <!-- summernote -->
         <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
-    </head>
+
+        {{-- validation cdn  --}}
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+
+  @include('css')
+      </head>
     <body class="hold-transition sidebar-mini layout-fixed">
     <div class="wrapper">
      @include('header')
@@ -47,7 +53,7 @@
 
   
 
-    <form method="POST" action="Addbrand">
+    <form method="POST" action="Addbrand" id="form_validation">
       @csrf
 
       <div class="card-body">
@@ -88,7 +94,7 @@
 
 
   {{-- edit_page_Jquery_link_is _below --}}
-  <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script> 
+  {{-- <script src="{{asset('plugins/jquery/jquery.min.js')}}"></script>  --}}
 
     @include('footer')
 
@@ -152,6 +158,39 @@
   }
   }
    });
+
+
+
+</script>
+
+<script>
+$("#form_validation").validate({
+   
+    rules:{
+      name:{
+
+        required:true,
+
+      },
+
+
+
+    },
+
+    messages:{
+
+      name:{
+        required:"Name field is required",
+            
+
+      },
+
+
+    },
+
+
+
+});
 
 </script>
 

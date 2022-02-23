@@ -3,9 +3,7 @@
 use App\Modules\Product\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 
-// Route::get('product', 'ProductController@welcome');
 
-//
 
 Route::get('/admin/products/addproduct',[ProductController::class,'welcome']);
 Route::get('admin/products/insertproduct',[ProductController::class,'insertproduct']);
@@ -20,3 +18,5 @@ Route::get('/admin/products/RestoreTrash',[ProductController::class,'RestoreTras
 // unique
 Route::get('/admin/products/uniqueproduct',[ProductController::class,'uniqueproduct']);
 Route::get('/admin/products/checkurl',[ProductController::class,'checkurl']);
+
+

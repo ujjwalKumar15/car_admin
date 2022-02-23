@@ -29,7 +29,7 @@
         {{-- angular js --}}
 
              
-  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
 
@@ -98,11 +98,11 @@
                     <div class="col-md-12" >
                    
                         <label for="name">Name<span class="text-danger" id="Name_Error">*</span></label>
-                        <input type="text"class="form-control allowed_name" id="replace"  value="{{$product->name}}"  name="name">
+                        <input type="text"class="form-control allowed_name" placeholder="Enter Product Name" id="replace"  oninput="this.value = this.value.replace(/[^A-za-z0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"value="{{$product->name}}"  name="name">
                  
-                        <a href=" " > http//localhost/<span id="url"></span> </a>
-                    <input type="hidden" class="form-control access_url" id="url" name="url" >
-                        <i class="fas fa-edit"></i>
+                         
+                         <a href="#"> http//localhost/<span id="url" name="url"></span></a><input type="text" class="form-control access_url" id="edit_url" value="{{ $product->url }}" name="url" >
+                        
 
                         @error('name')
                          <p style="color:red">{{ $message }}</p>
@@ -114,7 +114,7 @@
             <div class="form-row">
                 <div class="form-group col-md-3">
                   <label for="inputcategory">Category<span class="text-danger">*</span></label>
-                  <select id="inputcategory" name="brand_id" class="form-control" >
+                  <select id="inputcategory" name="brand_id" class="form-control" disabled>
                     @foreach ($brands as $brand)
                     <option selected >{{$brand->bname}}</option>
                     <option value="{{$brand->bid}}">{{$brand->bname}}</option>
@@ -144,7 +144,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="price"value="{{$product->price}}"  id="price">
+                      <input type="text" class="form-control"  placeholder="Enter Product Price" min="1"name="price"value="{{$product->price}}"  id="price">
                     </div>
                      @error('price')
                     <p style="color:red">{{ $message }}</p>
@@ -162,7 +162,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-tag"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="upc" disabled value="{{$product->upc}}"id="upc" >
+                      <input type="text" class="form-control" placeholder="Enter Product Upc Number"  name="upc" disabled value="{{$product->upc}}"id="upc" >
                     </div>
                     @error('upc')
                     <p style="color:red">{{ $message }}</p>
@@ -175,7 +175,7 @@
                       <div class="input-group-prepend">
                         <div class="input-group-text"><i class="fas fa-layer-group"></i></div>
                       </div>
-                      <input type="text" class="form-control" name="stock" value="{{$product->quanty}}" id="stock">
+                      <input type="text" class="form-control" placeholder="Enter Product Stock" min="1" name="stock" value="{{$product->quanty}}" id="stock">
                     </div>
                     @error('stock')
                     <p style="color:red">{{ $message }}</p>
@@ -204,8 +204,8 @@
                     <label>Main Image<span class="text-danger">*</span></label>
                     <div class="form-group">
 
-                      <img src="{{asset('storage/media/'.$product->image) }}" onerror="this.src='./assets/img/user.jpg';" alt="Missing Image" style="height:100px; width:100px; border:1px green solid;">
-                     <input type="file" class="form-control" name="image">
+                      <img src="{{asset('storage/media/'.$product->image) }}" alt="Missing Image" style="height:100px; width:100px; border:1px green solid;">
+                     <input type="file" class="form-control" name="image" id="upload" accept="image/*">
                     </div>
                     @error('image')
                     <p style="color:red">{{ $message }}</p>
@@ -256,10 +256,10 @@
                   <div class="row">
                       <div class="col-md-10">
                           <div class="form-group">
-                              <input type="file" name="sub_img[]"  onchange="readURLSubimg(this);"  class="form-control moreImgInp  data-iconname="fa fa-cloud-upload" data-buttonname="btn-secondary" accept="image/*"/>
-                              <input class="form-control"  value="{{$image->id}}" name="img_id[]" type="hidden">
+                              <input type="file" name="sub_img[]"  onchange="readURLSubimg(this);" id="sub_img[]"  class="form-control moreImgInp"  data-iconname="fa fa-cloud-upload" data-buttonname="btn-secondary" accept="image/*"/>
+                              <input class="form-control"  value="{{$image->id}}" name="img_id[]" type="hidden" id="imag_id[]">
                               @error('sub_img[]')
-                         <p style="color:red">{{ $message }}</p>
+                             <p style="color:red">{{ $message }}</p>
                             
                         @enderror
                           </div>
@@ -370,17 +370,17 @@
     
 <script type="text/javascript">
     $(function () {
-         $(".allowed_name").keypress(function (e) {
+         $(".allowed_name,#edit_url").keypress(function (e) {
              var keyCode = e.keyCode || e.which;
    
-             $("#Name_Error").html("");
+             $("#url").html("");
    
              //Regex for Valid Characters i.e. Alphabets and Numbers.
-             var regex = /^[a-zA-Z\s]+$/;
+             var regex = /^[0-9a-zA-Z\s]+$/;
              //Validate TextBox value against the Regex.
              var isValid = regex.test(String.fromCharCode(keyCode));
              if (!isValid) {
-                 $("#Name_Error").html("Only Alphabets allowed.");
+                 $("#url").html(" Special Characters Not Allowed.");
              }
    
              return isValid;
@@ -405,7 +405,7 @@
 $("#form_try").validate({
                 rules: {
                     name:{
-                        required: true,
+                        required:true,
                     },
                     url:{
                         required: true,
@@ -450,6 +450,7 @@ $("#form_try").validate({
                     
                    stock:{
                      required:true,
+                     number : true,
                    },
 
                    image: {
@@ -481,9 +482,14 @@ $("#form_try").validate({
                         number:"The price must be in number",
 
                     },
+                    stock:{
+                      required:'The stock field is required!!',
+                      number:'The stock must be in Number',
+
+                    },
                     
                     upc:{
-                      required:"the upc field is required",
+                      required:"The upc field is required",
                       number:"The upc must be in number",
                       remote:'The upc has already been taken.',
                       minlength:"The upc may not be less than 12 Digit",
@@ -512,6 +518,68 @@ $("#form_try").validate({
 
 
 </script>
+
+
+
+
+
+
+{{-- image validation  --}}
+
+
+<script>
+
+  document.getElementById('upload'). onfocusout = function (){
+     var image=document.getElementById('upload').value;
+         if(image!=''){
+           var checkimg = image.toLowerCase();
+           if(!checkimg.match(/(\.jpg|\.png|\.JPG|\.PNG|\.jpeg|\.JPEG)$/)){
+              alert("Please Select jpg,png File"); 
+              document.getElementById('upload').value="";
+            
+           }
+           var image=document.getElementById('upload');
+           var size = parseFloat(image.files[0].size / (1024 * 1024)).toFixed(2);
+           if (size > 2){
+               alert("Please Select Size Less Than 2 MB"); 
+              document.getElementById('upload').value="";
+         
+           }
+         }
+   
+   }
+
+
+  //sub_image
+
+  document.getElementById('sub_img[]'). onfocusout = function (){
+     var image=document.getElementById('sub_img[]').value;
+         if(image!=''){
+           var checkimg = image.toLowerCase();
+           if(!checkimg.match(/(\.jpg|\.png|\.JPG|\.PNG|\.jpeg|\.JPEG)$/)){
+              alert("Please Select jpg,png File"); 
+              document.getElementById('sub_imag[]').value="";
+            
+           }
+           var image=document.getElementById('sub_img[]');
+           var size = parseFloat(image.files[0].size / (1024 * 1024)).toFixed(2);
+           if (size > 2){
+               alert("Please Select Size Less Than 2 MB"); 
+              document.getElementById('sub_img[]').value="";
+         
+           }
+         }
+   
+   }
+ 
+
+
+
+   </script>
+   
+ 
+ 
+ 
 
    {{-- end validation --}}
 {{-- 

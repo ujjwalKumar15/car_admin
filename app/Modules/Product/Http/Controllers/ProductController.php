@@ -34,9 +34,9 @@ class ProductController extends Controller
    public function insertproduct(Request $request)
    {
 
-    $request->validate(['pname'=>'required|max:100',
+    $request->validate(['name'=>'required|max:100|unique:products',
                        'image' => 'required|mimes:jpg,png,jpeg,gif',
-                      //  'subimage[]' => 'required|mimes:jpg,png,jpeg,gif',
+                        'subimage[]' => 'mimes:jpg,png,jpeg,gif',
                        'upc' => ['required','unique:products','regex:/[0-9]{12,13}$/'],
                        'price' => ['required','regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
                        'quanty' => 'required|integer|max:999999',
@@ -64,7 +64,7 @@ class ProductController extends Controller
 
      }
 
-     $product->name=$request->pname;
+     $product->name=$request->name;
      $product->upc=$request->upc;
      $product->url=$request->url;
      $product->price=$request->price;
@@ -158,15 +158,31 @@ class ProductController extends Controller
 
     // ]);
 
+    
+   
 
 
       $product = Product::find($id);
+
+      if($request->hasFile('image')){
+
+        $image=$request->file('image');
+        $ext=$image->extension();
+        $image_name=time().'.'.$ext;
+        $image->storeAs('/public/media',$image_name);
+        $product->image=$image_name;
+
+     }
+
+
+
        $product->name=$request->name;  
         // $product->upc =$request->upc;
          $product->url=$request->url;
          $product-> price=$request->price;
          $product->quanty=$request->stock;
          $product->description=$request->description;
+
          $product->colorid =$request->color_id;
         // $product->brandid=$request->brand_id;
           $uid = Auth::user()->id;
@@ -176,7 +192,7 @@ class ProductController extends Controller
            
 // 
 if ($request->input('img_id')){
-  $img=Image::where('productid',$id)->whereNotIn('id',$request->input('img_id'))->get();
+  $img=image::where('productid',$id)->whereNotIn('id',$request->input('img_id'))->get();
   foreach ($img as $item){
       echo $item->name.'<br>';
       File::delete('/public/media'.$request->upc.'/'.$item->name);
@@ -184,40 +200,46 @@ if ($request->input('img_id')){
   }
 }
 else{
-  $img=Image::where('productid',$id)->get();
+  $img=image::where('productid',$id)->get();
   foreach ($img as $item){
       echo $item->name.'<br>';
       File::delete('/public/media'.$request->upc.'/'.$item->name);
       $item->delete();
   }
 }
+
+
 if($request->hasFile('sub_img'))
 {
   foreach($request->file('sub_img') as $k=>$image)
   {
       if ($request->input('img_id')[$k])
       {
+
           if ($request->input('sort')[$k])
           {
-            Image::where('id',$request->input('img_id')[$k])->update(['product_images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+
+            image::where('id',$request->input('img_id')[$k])->update(['product_images'=>$request->upc.'_'.time().'.png','sort'=>$request->input('sort')[$k]]);
           }
           else{
-            Image::where('id',$request->input('img_id')[$k])->update(['product_images'=>$request->upc.'_'.$k.'.png']);
+            image::where('id',$request->input('img_id')[$k])->update(['product_images'=>$request->upc.'_'.time().'.png']);
           }
-          $image->storeAs('/public/media' . $request->upc, $request->upc.'_'.$k.'.png');
+          $image->storeAs('/public/media', $request->upc.'_'.time().'.png');
       }
       else {
+
           if ($request->input('sort')[$k])
           {
-            Image::create(['productid'=>$request->id,'product_images'=>$request->upc.'_'.$k.'.png','sort'=>$request->input('sort')[$k]]);
+            image::create(['productid'=>$request->id, 'product_images'=>$request->upc.'_'.time().'.png','sort'=>$request->input('sort')[$k]]);
           }
           else {
-            Image::create(['productid'=>$request->id,'product_images'=>$request->upc.'_'.$k.'.png']);
+            image::create(['productid'=>$request->id,'product_images'=>$request->upc.'_'.time().'.png']);
           }
-          $image->storeAs('/public/media'.$request->upc, $request->upc.'_'.$k.'.png');
+          $image->storeAs('/public/media', $request->upc.'_'.time().'.png');
       }
   }
 }
+
 
 return back()->with('status','Data Updated SuccessFully!!!');
        // return view('Product::listproduct');
@@ -279,8 +301,7 @@ public function uniqueproduct(Request $request)
 
     public function checkUrl(Request $request)
     {
-//        return $request;
-        $product=Product::where('id','!=',$request->id)->where('url',$request->url)->first();
+        $product=Product::where('id','!=',$request->id)->where('name',$request->name)->first();
         if(isset($product))
         {
             return json_encode(false);
@@ -289,6 +310,7 @@ public function uniqueproduct(Request $request)
             return json_encode(true);
         }
     }
+
 
 
 
