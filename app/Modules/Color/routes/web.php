@@ -41,3 +41,7 @@ Route::get('/admin/colors/delete/{id}',[ColorController::class,'destroy']);
 Route::get('try',[ColorController::class,'set']);
 
 // Route::post('/admin/colors/check_availability',[ColorController::class,'check_availability']);
+
+
+// uniquename
+Route::get('/admin/colors/uniquename',[Colorcontroller::class,'uniquename']);

@@ -39,3 +39,5 @@ Route::get('/admin/brands/getrestore',[BrandController::class,'getrestore']);
 //delete
 Route::get('/admin/brands/delete/{id}',[BrandController::class,'destroy']);
 
+// uniquename
+Route::get('/admin/brands/uniquename',[BrandController::class,'uniquename']);

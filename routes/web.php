@@ -27,8 +27,9 @@ Route::get('profile', function () {
 //     return view('dashboard');
 // })->name('dashboard');
 
-Route::get('/admin/dashboard',[HomeController::class,'index']);
-// Route::get('checkstatus',[HomeController::class,'checkstatus']);
-// Route::get('changesStatus',[HomeController::class,'changesStatus']);
+Route::get('/dashboard',[HomeController::class,'index']);
+Route::get('/dashboard',[HomeController::class,'fronthome']);
+
+
 
 
