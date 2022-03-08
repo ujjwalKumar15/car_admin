@@ -12,7 +12,7 @@
         <!--- .breadcrumbs-->
         <div class="container">
             <div class="main">
-                <div class="row">
+                <div class="row filter">
                     <div class="col-left sidebar col-lg-3 col-md-3 col-sm-3 left-color color">
 
                         <div class="block block-layered-nav block-layered-nav--no-filters">
@@ -27,7 +27,7 @@
                                                 slider-max="200000" slider-min-start="30000" slider-max-start="200000">
                                             </div>
                                         </div>
-                                        <form action="" class="price-range-form" method="GET">
+                                        <form action="" id="priceform" class="price-range-form" method="">
                                             @csrf
                                             Min &nbsp;₹<input type="text" class="range_value range_value_min"
                                                 target="#price-range" name="minimum" id="minimum" />
@@ -44,10 +44,12 @@
                                     </dd>
                                     <dt class="odd">By Brands</dt><br>
                                     <dd class="odd">
-                                        @foreach ($products as $product)
+                                        @foreach ($brands as $brand)
                                             <ul style="" class="nav-accordion font-weight-normal">
-                                                <input type="checkbox" class="level0 level-top"><a href="#"
-                                                    class="level-top"><span>&nbsp;{{ $product->name }}</span></a><br><br><br>
+                                                <input type="checkbox" name="category_check" value="{{ $brand->id }}" class="category_check" {{$brand->id==$brand->id?'checked':''}}><a href="#"
+                                                    class="level-top"><span>&nbsp;{{ $brand->name }}</span></a><br><br><br>
+                                                    {{--  <input type="checkbox" name="category_check" value="{{$category->id}}" id="" class="category_check" {{$category->id==$categoryid?'checked':''}}>
+                                                            <span>{{$category->name}}</span> --}}
 
                                             </ul>
                                         @endforeach
@@ -89,8 +91,8 @@
                             <div class="toolbar">
                                 <div class="sorter">
                                     <p class="view-mode"> <label>View as:</label> <a title="Grid" id="grid_view"
-                                            class="grid active"> <i class="icon-grid icons"></i> </a>
-                                        <a id="list_view" title="List" class="redirectjs list"> <i
+                                            class="grid viewas active"> <i class="icon-grid icons"></i> </a>
+                                        <a id="list_view" title="List" class="redirectjs viewas list"> <i
                                                 class="icon-list icons"></i>
                                         </a>
                                     </p>
@@ -127,7 +129,9 @@
                                 </div>
                             </div>
 
+                            <div class="diffrent_view">
 
+                            </div>
 
 
 
@@ -140,56 +144,41 @@
                                                 <div class="images-container">
                                                     <div class="product-hover">
                                                         {{-- <span class="sticker top-left"><span class="labelnew">New</span></span> --}}
-                                                        <a href="{{ url('products', $product->url) }}"
-                                                            title="Configurable Product" class="product-image">
+                                                        <a href="{{ url('products', $product->url) }}" title="Configurable Product"
+                                                            class="product-image">
                                                             <img id="product-collection-image-8" class="img-responsive"
-                                                                src="{{ asset('storage/media/' . $product->image) }}"
-                                                                alts="" height="355" width="278">
+                                                                src="{{ asset('storage/media/' . $product->image) }}" alts="" height="355"
+                                                                width="278">
                                                             <span class="product-img-back"> <img class="img-responsive"
-                                                                    src="{{ asset('storage/media/' . $product->image) }}"
-                                                                    alt="" height="355" width="278"> </span>
+                                                                    src="{{ asset('storage/media/' . $product->image) }}" alt="" height="355"
+                                                                    width="278"> </span>
                                                         </a>
                                                     </div>
                                                     <div class="actions-no hover-box">
                                                         <div class="actions">
-                                                            <button type="button" title="Add to Cart"
-                                                                class="button btn-cart pull-left"><span><i
+                                                            <button type="button" title="Add to Cart" class="button btn-cart pull-left"><span><i
                                                                         class="icon-handbag icons"></i><span>Add to
                                                                         Cart</span></span></button>
                                                             <ul class="add-to-links pull-left">
-                                                                <li class="pull-left"><a href="#"
-                                                                        title="Add to Wishlist" class="link-wishlist"><i
-                                                                            class="icon-heart icons"></i>Add to
+                                                                <li class="pull-left"><a href="#" title="Add to Wishlist"
+                                                                        class="link-wishlist"><i class="icon-heart icons"></i>Add to
                                                                         Wishlist</a></li>
-                                                                <li class="pull-left"><a href="#"
-                                                                        title="Add to Compare" class="link-compare"><i
+                                                                <li class="pull-left"><a href="#" title="Add to Compare" class="link-compare"><i
                                                                             class="icon-bar-chart icons"></i>Add to
                                                                         Compare</a></li>
-                                                                <li class="link-view pull-left"> <a title="Quick View"
-                                                                        href="#" class="link-quickview"><i
-                                                                            class="icon-magnifier icons"></i>Quick
+                                                                <li class="link-view pull-left"> <a title="Quick View" href="#"
+                                                                        class="link-quickview"><i class="icon-magnifier icons"></i>Quick
                                                                         View</a></li>
                                                             </ul>
                                                         </div>
                                                     </div>
                                                 </div>
                                                 <div class="product-info products-textlink clearfix">
-
-                                                    <h2 class="product-name"><a href="#"
-                                                            title="Configurable Product">{{ $product->name }}</a></h2>
-                                                    <ul class="configurable-swatch-list configurable-swatch-color clearfix">
-                                                        <li class="option-blue is-media"> <a href="javascript:void(0)"
-                                                                name="blue" class="swatch-link swatch-link-92 has-image"
-                                                                title="blue"> <span class="swatch-label"> </span> </a>
-                                                        </li>
-                                                        <li class="option-red is-media"> <a href="javascript:void(0)"
-                                                                name="red" class="swatch-link swatch-link-92 has-image"
-                                                                title="red"> <span class="swatch-label">
-                                                                </span> </a></li>
-                                                    </ul>
+                               
+                                                    <h2 class="product-name"><a href="#" title="Configurable Product">{{ $product->name }}</a></h2>
+                                                  
                                                     <div class="price-box"> <span class="regular-price"> <span
-                                                                class="price">₹{{ $product->price }}</span>
-                                                        </span></div>
+                                                                class="price">₹{{ $product->price }}</span> </span></div>
                                                     <div class="ratings">
                                                         <div class="rating-box">
                                                             <div class="rating" style="width:80%"></div>
@@ -200,8 +189,11 @@
                                             </div>
                                         </li>
                                     @endforeach
-
+                               
                                 </ul>
+                                <!--- .products-grid-->
+                               
+
                             </div>
                             <!--- .products-grid-->
                             <div class="page-nav-bottom">
@@ -232,83 +224,65 @@
 
 @section('custom_scripts')
     <script>
-        // function save() {
+        
 
-        //     var a = document.getElementById('minimum').value;
-        //     localStorage.setItem("min", a);
-        //     var b = document.getElementById('maximum').value;
-        //     localStorage.setItem("max", b);
-        // }
+          function filter()
 
-        // function displaylist() {
-        //     var minimum = document.getElementById("minimum");
-        //     var maximum = document.getElementById("maximum");
-        //     minimum.value = localStorage.getItem("min");
-        //     maximum.value = localStorage.getItem("max");
-
-        // }
-
-             
-    jQuery.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': jQuery('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    jQuery("#onsubmit").click(function(e) {
-                e.preventDefault();
-                var minimum = jQuery("#minimum").val();
-                var maximum = jQuery("#maximum").val();
-                jQuery.ajax({
-                    url:"/filter/price",
-                    type:'GET',
-                    datatype: "json",
-                    data: {
-
-                        minimum: minimum,
-                        maximum: maximum,
-
-                    },
-                    success: function(data) {
-                        jQuery('#content').html(data);
-                      //  alert(data);
-                    },
-                
-                });
+        {
+            var category = [];
+            jQuery.each(jQuery("input[name='category_check']:checked"), function(){
+                category.push(jQuery(this).val());
             });
+           
+            
+            var minimum = jQuery('#minimum').val();
+            var maximum = jQuery('#maximum').val();
+
+            jQuery.ajax({
+                url: "{{ url('/filter/price') }}",
+                type: "GET",
+                datatype: 'html',
+                data: {
+                    category:category,
+                    view: jQuery('#grid_view').hasClass('active'),
+                    'minimum': minimum,
+                    'maximum': maximum,
+                },
+                success: function(data) {
+                    jQuery("#content").html(data);
+                }
+            });
+        }
 
         jQuery(document).ready(function($) {
-            $('#grid_view').on("click", function() {
-                $('#grid_view').removeClass('redirectjs list').addClass('grid active');
-                $('#list_view').removeClass('grid active').addClass('redirectjs list');
-                $.ajax({
-                    url: "/products/grid",
-                    type: "GET",
-                    success: function(data) {
-                        $("#content").html(data);
-                    }
-
-                });
-            })
-            $('#list_view').on("click", function() {
-                $('#list_view').removeClass('redirectjs list').addClass('grid active');
-                $('#grid_view').removeClass('grid active').addClass('redirectjs list');
-                $.ajax({
-                    url: "/products/list",
-                    type: "GET",
-                    success: function(data) {
-                        $("#content").html(data);
-                    }
-
-                });
-
-
-            })
-
-
-
-
-
+            filter();
         });
+        jQuery('.filter').on('click select',"input[type='checkbox'],input[type='button'],.viewas,select",function() {
+            // alert(jQuery(this).attr('id'));
+            filter();
+        });
+
+
+        jQuery('#grid_view').on("click", function($) {
+
+            jQuery("#grid_view").removeClass('redirectjs list').addClass('grid active');
+            jQuery("#list_view").removeClass('grid active').addClass('redirectjs list');
+
+            filter();
+        });
+
+        jQuery('#list_view').on("click", function($) {
+
+            jQuery("#list_view").removeClass('redirectjs list').addClass('grid active');
+            jQuery("#grid_view").removeClass('grid active').addClass('redirectjs list');
+
+            filter();
+        });
+
+        jQuery("#onsubmit").click(function(e) {
+            e.preventDefault();
+            filter();
+        });
+
     </script>
 @endsection

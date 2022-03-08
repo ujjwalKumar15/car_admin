@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Modules\Product\Models\Product;
 use App\Modules\Product\Models\Image;
 use App\Modules\Color\Models\Color;
+use App\Modules\Brand\Models\Brand;
 use Illuminate\Http\Request;
 
 class FrontendController extends Controller
@@ -16,11 +17,11 @@ class FrontendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function grid()
+    public function grid($categoryid=null)
 
     {
         $products = Product::where('status','Y')->get(); 
-        return view('frontend.gridview',compact('products'));
+        return view('frontend.gridview',compact('products',));
     }
 
     public function list()
@@ -32,9 +33,11 @@ class FrontendController extends Controller
 
     public function filter()
     {
-           $products = Product::all();
-           $colors = Color::all();
-           return view('frontend.filter',compact('products','colors'));
+           $products = Product::where('status','Y')->get();
+           $colors = Color::where('status','Y')->get();
+           $brands = Brand::where('status','Y')->get();
+
+           return view('frontend.filter',compact('products','colors','brands'));
 
     }
     public function details($url)
@@ -51,24 +54,34 @@ class FrontendController extends Controller
     }
   
 
-    public function price_filter(Request $request)
+    public function price_filter(Request $request ,$brandid=null)
     {
 
-        $products=Product::whereBetween('price',[(int)$request->minimum,(int)$request->maximum])->get();
+        // $products=Product::whereBetween('price',[(int)$request->minimum,(int)$request->maximum])->get();
         $colors = Color::where('status','Y')->get();
-     return view("frontend.gridview", compact('products','colors'));
-        // $list_value = compact('products','colors');
-        // return response()->json([
+        $brands = Brand::where('status','Y')->get();
 
-        //     'status'=>true,
-        //     'list_value'=>$list_value,
-        //     'message'=>'data found',
-        // ]);
-        // return response()->json([
 
-        //     'status'=>false,
-        //     'message'=>'not found',
-        // ]
+
+        
+
+        if($request->view=='true')
+        {
+            
+           
+            return view('frontend.gridview',compact('products','colors','brands','brandid'));
+        }
+        else{
+            return view('frontend.listview',compact('products','colors','brands','brandid'));
+
+
+        }
+     
+     
+     
+     
+     
+     
         
         
     }
