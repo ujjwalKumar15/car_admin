@@ -2,7 +2,24 @@
 @section('content')
     <div class="wrapper">
         <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active"><a
+                                        href="{{ url('/admin/colors/list') }}">Color</a>
+                                </li>
 
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="d-flex justify-content-center">
                 <div class="col-md-10">
                     <!-- general form elements -->
@@ -18,24 +35,16 @@
                                 <i class="fas fa-plus-circle"></i></i></a>
                         </div>
                     </div>
-
                     <table id="myTable" class="table table-striped ">
-
                         <thead>
-
                             <tr>
-
                                 <th>ID</th>
-
                                 <th>UserName</th>
                                 <th>ColorName</th>
                                 <th>Status</th>
                                 <th>Action</th>
-
                             </tr>
-
                         </thead>
-
                         <tbody>
                             @foreach ($colors as $col)
                                 <tr>
@@ -53,8 +62,6 @@
                                                 data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
                                                 data-on="Active" data-off="InActive">
                                         @endif
-
-
                                     </td>
                                     <td>
 
@@ -68,7 +75,6 @@
                         </tbody>
                     </table>
                 </div>
-
             </div>
         @endsection
         @section('scripts')

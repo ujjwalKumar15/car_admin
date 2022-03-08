@@ -2,7 +2,7 @@
     <div class="header_full">
         <div class="header">
             <div class="header-logo show-992">
-                <a href="index.html" class="logo"> <img class="img-responsive" src="assets/images/logo.png"
+                <a href="index.html" class="logo"> <img class="img-responsive" src="{{asset('assets/images/logo.png')}}"
                         alt="" /></a>
             </div>
             <!--- .header-logo -->
@@ -14,16 +14,16 @@
                                 <div class="custom-menu col-lg-12">
                                     <div class="header-logo hidden-992">
                                         <a href="index.html" class="logo"> <img class="img-responsive"
-                                                src="assets/images/logo.png" alt="" /></a>
+                                                src="{{asset('assets/images/logo.png')}}" alt="" /></a>
                                     </div>
                                     <!--- .header-logo -->
                                     <div class="magicmenu clearfix">
                                         <ul class="nav-desktop sticker">
                                             <li class="level0 logo display"><a class="level-top"
-                                                    href="index.html"><img alt="logo" src="assets/images/logo.png"></a>
+                                                    href="index.html"><img alt="logo" src="{{ asset('assets/images/logo.png') }}"></a>
                                             </li>
                                             <li class="level0 home">
-                                                <a class="level-top" href="{{ url('/dashboard') }}"><span
+                                                <a class="level-top" href="{{ url('/') }}"><span
                                                         class="icon-home fa fa-home"></span><span
                                                         class="icon-text">Home</span></a>
 
@@ -49,26 +49,9 @@
                 <div class="header-setting header-search">
                     <div class="settting-switcher">
                         <div class="dropdown-toggle">
-                            <div class="icon-setting"><i class="icon-magnifier icons"></i></div>
+                            <div class="icon-setting"></div>
                         </div>
-                        <div class="dispaly-seach dropdown-switcher">
-                            <form id="search_mini_form" action="#" method="get">
-                                <div class="form-search clearfix">
-                                    <input id="catsearch" type="hidden" name="cat" />
-                                    <input id="search" type="text" name="q" class="input-text"
-                                        placeholder="Search ..." />
-                                    <select class="ddslick" id="cat" name="cat">
-                                        <option value="">Categories</option>
-                                        <option value="4">Men</option>
-
-                                    </select>
-                                    <button type="submit" title="Search" class="button"><span><span><i
-                                                    class="icon-magnifier icons"></i></span></span></button>
-                                </div>
-                                <!--- .form-search -->
-                            </form>
-                            <!--- #search_mini_form -->
-                        </div>
+                        
                     </div>
                 </div>
                 <!--- .header-search -->
@@ -81,13 +64,13 @@
                             <div class="top-links-alo">
                                 <div class="header-top-link">
                                     <ul class="links">
-                                        <li><a href="#" title="My Account">My Account</a></li>
+                                        {{-- <li><a href="#" title="My Account">My Account</a></li>
                                         <li><a href="my-wish-list.html" title="My Wishlist">My Wishlist</a></li>
                                         <li><a href="compare.html" title="Compare Products">Compare Products</a></li>
                                         <li><a href="#" title="My Cart">My Cart</a></li>
-                                        {{-- <li class="last">
+                                        {{-- <li class="last"> --}}
                                             <!-- Authentication -->
-                                   <form method="POST" action="{{ route('logout') }}">
+                                   {{-- <form method="POST" action="{{ route('logout') }}">
                                       @csrf
                           
                                       <x-jet-dropdown-link href="{{ route('logout') }}"
@@ -95,15 +78,15 @@
                                                       this.closest('form').submit();">
                                        <i class="fa fa-power-off">   {{ ('Log Out') }}</i>
                                       </x-jet-dropdown-link>
-                                  </form>
+                                  </form> --}}
                                           
-                                        </li> --}}
+                                        </li>
                            
                                        
                                           
                                           
-                                                <li><a href="checkout-step1.html" title="Checkout"
-                                                        class="top-link-checkout">Checkout</a></li>
+                                                {{-- <li><a href="checkout-step1.html" title="Checkout"
+                                                        class="top-link-checkout">Checkout</a></li> --}}
                                                 <li class=" last"><a href="{{ route('login') }}"
                                                         title="Log In">Log In</a></li>
 

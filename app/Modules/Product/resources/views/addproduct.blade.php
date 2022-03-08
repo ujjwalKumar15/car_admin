@@ -12,7 +12,7 @@
                                 <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active"><a
-                                        href="{{ url('/admin/product/display') }}">Product</a>
+                                        href="{{ url('/admin/products/listproduct') }}">Product</a>
                                 </li>
                                 <li class="breadcrumb-item">Add</li>
 

@@ -5,5 +5,13 @@ use App\modules\Frontend\Http\Controllers\FrontendController;
 
 
 
-Route::get('/gridview',[FrontendController::class,'grid']);
-Route::get('list',[FrontendController::class,'list']);
+Route::get('/products/grid',[FrontendController::class,'grid']);
+
+Route::get('/products/list',[FrontendController::class,'list']);
+Route::get('/products/filter',[FrontendController::class,'filter']);
+Route::get('products/{url}',[FrontendController::class,'details']);
+
+Route::get('/filter/price',[FrontendController::class,'price_filter']);
+ Route::get('/filter/price',[FrontendController::class,'price_filter']);
+
+ 

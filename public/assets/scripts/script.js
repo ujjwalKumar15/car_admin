@@ -139,12 +139,12 @@
 				max: slider_max,
 				values : [slider_min_start,slider_max_start],
 				slide: function( event, ui ) {
-					$('.range_value_min[target="#' + iid + '"]').val("£" + ui.values[ 0 ]);
-					$('.range_value_max[target="#' + iid + '"]').val("£" + ui.values[ 1 ]);
+					$('.range_value_min[target="#' + iid + '"]').val("" + ui.values[ 0 ]);
+					$('.range_value_max[target="#' + iid + '"]').val("" + ui.values[ 1 ]);
 				}
 			});
-			$('.range_value_min[target="#' + iid + '"]').val("£" + slider_min_start);
-			$('.range_value_max[target="#' + iid + '"]').val("£" + slider_max_start);
+			$('.range_value_min[target="#' + iid + '"]').val("" + slider_min_start);
+			$('.range_value_max[target="#' + iid + '"]').val("" + slider_max_start);
 		});
 		$('.range_value_min').on("change",function(){
 			var value_this = parseInt(crop_currency($(this).val()),10);
@@ -156,8 +156,8 @@
 				}else{
 					$(this).removeClass("error");
 					$($(this).attr("target")).slider( "option", "values", [ value_this, value_other ] );
-					$(this).val("£" + value_this);
-					selector_other.val("£" + value_other);
+					$(this).val("ï¿½" + value_this);
+					selector_other.val("ï¿½" + value_other);
 				}
 			}else{
 				$(this).addClass("error");
@@ -172,7 +172,7 @@
 			var value_other = parseInt(crop_currency(selector_other.val()),10);
 			if (value_this > value_max){
 				value_this = value_max;
-				$(this).val("£" + value_this);
+				$(this).val("ï¿½" + value_this);
 			}
 			if (!(selector_other.hasClass("error"))){
 				if (value_this < value_other){
@@ -180,8 +180,8 @@
 				}else{
 					$(this).removeClass("error");
 					$($(this).attr("target")).slider( "option", "values", [ value_other , value_this ] );
-					$(this).val("£" + value_this);
-					selector_other.val("£" + value_other);
+					$(this).val("ï¿½" + value_this);
+					selector_other.val("ï¿½" + value_other);
 				}
 			}else{
 				$(this).addClass("error");
@@ -192,7 +192,7 @@
 	
 	function crop_currency(value_string){
 		var value_end = value_string;
-		if (value_string.search("£") > -1){
+		if (value_string.search("ï¿½") > -1){
 			value_end = value_string.substring(1,value_string.length + 1);
 		}
 		return value_end;

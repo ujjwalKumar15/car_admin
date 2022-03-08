@@ -1,15 +1,31 @@
 @extends('master')
 @section('content')
     <div class="wrapper">
-
         <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active"><a
+                                        href="{{ url('/admin/colors/list') }}">Color</a>
+                                </li>
+                                <li class="breadcrumb-item">Edit</li>
 
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="d-flex justify-content-center p-1">
                 <div class="col-md-10">
                     <!-- general form elements -->
                     <div class="card card-danger">
                         <div class="card-header">
-
                             <h3 class="card-title">Edit Colors</h3>
                             <a href="{{ url('/admin/colors/list') }}" class="btn btn-danger float-right">
                                 <h5><i class="fas fa-arrow-alt-circle-left fa-lg"></i></h5>
@@ -62,25 +78,24 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
     <script type="text/javascript">
         $("#form_submit").validate({
-                         rules: {
-                             name: {
-                                 required: true,
-                             },
-                                
-                             
-                         },
-                         messages:{
-                             name:{
-                                 required:"The Name field is Required!!",
-                                
-     
-     
-                             }
-     
-                         },
-     
-     
-                     });
-                      
-          </script>
+            rules: {
+                name: {
+                    required: true,
+                },
+
+
+            },
+            messages: {
+                name: {
+                    required: "The Name field is Required!!",
+
+
+
+                }
+
+            },
+
+
+        });
+    </script>
 @endsection

@@ -2,7 +2,6 @@
 @section('content')
     <div class="wrapper">
         <div class="content-wrapper">
-
             <div class="content-header">
                 <div class="container-fluid">
                     <div class="row mb-2">
@@ -13,9 +12,9 @@
                                 <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a>
                                 </li>
                                 <li class="breadcrumb-item active"><a
-                                        href="{{ url('/admin/product/display') }}">Product</a>
+                                        href="{{ url('/admin/products/listproduct') }}">Product</a>
                                 </li>
-                                <li class="breadcrumb-item">Add</li>
+                                <li class="breadcrumb-item"></li>
 
                             </ol>
                         </div>
@@ -218,7 +217,7 @@
                                                             name="sort[]" type="text" id="sort" maxlength="2"
                                                             onkeypress="if(this.value.length==2);" placeholder="Sort Number"
                                                             id="{{ $image->id }}">
-                                                    </div>  
+                                                    </div>
                                                     @error('sort[]')
                                                         <p style="color:red">{{ $message }}</p>
                                                     @enderror
@@ -334,18 +333,18 @@
                     name: {
                         required: true,
                     },
-                    url: {
-                        required: true,
-                        remote: {
-                            url: '/admin/products/checkurl',
-                            type: "GET",
-                            data: {
-                                colorname: function() {
-                                    return $("#url").val();
-                                }
-                            },
-                        }
-                    },
+                    // url: {
+                    //     required: true,
+                    //     remote: {
+                    //         url: '/admin/products/checkurl',
+                    //         type: "GET",
+                    //         data: {
+                    //             colorname: function() {
+                    //                 return $("#url").val();
+                    //             }
+                    //         },
+                    //     }
+                    // },
                     category_id: {
                         required: true,
 

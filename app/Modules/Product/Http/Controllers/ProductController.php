@@ -115,21 +115,7 @@ class ProductController extends Controller
 
   {
 
-    //   $request->validate([
-    //                    'image' => 'mimes:jpg,png,jpeg,gif',
-    //                    'sub_img[]' => 'required|mimes:jpg,png,jpeg,gif',
-    //                   //  'upc' => ['required','unique:products','regex:/[0-9]{12,13}$/'],
-    //                    'price' => ['required','regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
-    //                    'stock' => 'required|integer|max:999999',
-    //                    'sort[]' => 'required|integer|max:10|min:1',
-    //                    'description' => 'max:500',
-    //                    'color_id' => 'required',
-    //                   //  'category_id' => 'required',
-
-    //                     'url'=>'unique:products'
-
-    // ]);
-
+   
     $product = Product::find($id);
 
     if ($request->hasFile('image')) {

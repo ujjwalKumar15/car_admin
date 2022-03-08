@@ -1,8 +1,26 @@
-@extends('master')
+fil@extends('master')
 @section('content')
     <div class="wrapper">
         <div class="content-wrapper">
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                        </div>
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                <li class="breadcrumb-item active"><a href="{{ url('/admin/dashboard') }}">Dashboard</a>
+                                </li>
+                                <li class="breadcrumb-item active"><a
+                                        href="{{ url('admin/brands/brandlist') }}">Brand</a>
+                                </li>
+                                <li class="breadcrumb-item">Add</li>
 
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
             <div class="d-flex justify-content-center p-1">
                 <div class="col-md-8">
                     <div class="card card-danger">
@@ -52,18 +70,18 @@
 @endsection
 @section('scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
-<script type="text/javascript">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.3/jquery.validate.min.js"></script>
+    <script type="text/javascript">
         $("#form_validation").validate({
             rules: {
                 name: {
 
                     required: true,
-                    remote:{
-                        url:'/admin/brands/uniquename',
-                        type:"GET",
-                        Data:{
-                            colorname: function(){
+                    remote: {
+                        url: '/admin/brands/uniquename',
+                        type: "GET",
+                        Data: {
+                            colorname: function() {
 
                                 return $("#name").val();
 
@@ -81,7 +99,7 @@
 
                 name: {
                     required: "Name field is required",
-                    remote:"The Name has already been taken!!!",
+                    remote: "The Name has already been taken!!!",
                 },
 
             },

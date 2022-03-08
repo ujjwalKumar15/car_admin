@@ -25,11 +25,11 @@ class ColorController extends Controller
     }
 
 
-    public function welcome()
+    public function index()
     {
         return view("Color::Addcolor");
     }
-    public function getdata(Request $request)
+    public function insert(Request $request)
     {
         $colors = new Color;
         $uid = Auth::user()->id;
@@ -39,7 +39,7 @@ class ColorController extends Controller
         return back()->with('status', 'Color Added !!');
     }
 
-    public function show()
+    public function view()
     {
         $users = Color::join('users', 'users.id', '=', 'colors.userid')->where('status', array('Y'))->orWhere('status', array('N'))
             ->get(['colors.*', 'users.username']);
@@ -74,7 +74,7 @@ class ColorController extends Controller
         $colors->save();
         return back()->with('status', "Color Updated SuccessFully!!");
     }
-    public function completedUpdate(Request $r)
+    public function deletestatus(Request $r)
     {
         $update = Color::find($r->id);
         $update->status = 'T';
@@ -83,7 +83,7 @@ class ColorController extends Controller
     }
 
 
-    public function trashshow()
+    public function trashview()
     {
         $users = Color::join('users', 'users.id', '=', 'colors.userid')->where('status', array('T'))
             ->get(['colors.*', 'users.username']);
@@ -91,7 +91,7 @@ class ColorController extends Controller
         return view('Color::trash', ['colors' => $users]);
     }
 
-    public function completedUpdated(Request $r)
+    public function restore(Request $r)
     {
         $update = Color::find($r->id);
         $update->status = 'Y';
@@ -117,8 +117,6 @@ class ColorController extends Controller
         } else {
           return json_encode(true);
         }
-
-
 
     }
 }

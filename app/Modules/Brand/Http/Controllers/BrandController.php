@@ -21,12 +21,12 @@ class BrandController extends Controller
         $this->middleware('auth');
     }
 
-    public function welcome()
+    public function index()
     {
         return view("Brand::Addbrand");
     }
 
-    public function insertdata(Request $request)
+    public function insert(Request $request)
     {
 
         $request->validate([
@@ -47,7 +47,7 @@ class BrandController extends Controller
         return view("Brand::brandlist", compact("brands"));
     }
 
-    public function changebrandstatus(Request $r)
+    public function changestatus(Request $r)
     {
         $brand = Brand::find($r->id);
         $brand->status = $r->status;
@@ -75,7 +75,7 @@ class BrandController extends Controller
         return back()->with("status", "Category Updated Successfully!!");
     }
 
-    public function completedUpdatee(Request $r)
+    public function deletestatus(Request $r)
     {
         $update = Brand::find($r->id);
         $update->status = 'T';
@@ -83,7 +83,7 @@ class BrandController extends Controller
         return Brand::all();
     }
 
-    public function Trashbrand()
+    public function Trashshow()
     {
 
 
@@ -92,7 +92,7 @@ class BrandController extends Controller
     }
 
 
-    public function getrestore(Request $r)
+    public function restore(Request $r)
     {
         $update = Brand::find($r->id);
         $update->status = 'Y';
