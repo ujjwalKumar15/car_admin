@@ -46,21 +46,20 @@
                                     <dd class="odd">
                                         @foreach ($brands as $brand)
                                             <ul style="" class="nav-accordion font-weight-normal">
-                                                <input type="checkbox" name="category_check" value="{{ $brand->id }}" class="category_check" {{$brand->id==$brand->id?'checked':''}}><a href="#"
+                                                <input type="checkbox" name="category[]" id="brand_check"
+                                                    value="{{ $brand->id }}" class="category_check"><a href="#"
                                                     class="level-top"><span>&nbsp;{{ $brand->name }}</span></a><br><br><br>
-                                                    {{--  <input type="checkbox" name="category_check" value="{{$category->id}}" id="" class="category_check" {{$category->id==$categoryid?'checked':''}}>
-                                                            <span>{{$category->name}}</span> --}}
-
-                                            </ul>
+                                                 </ul>
                                         @endforeach
+
                                     </dd>
                                     <dt class="even">By Colors</dt>
                                     <dd class="even">
                                         <ol class="configurable-swatch-list">
                                             @foreach ($colors as $color)
-                                                <li> <a href="#" class="swatch-link has-image">
-                                                        <input type="checkbox"> <span
-                                                            class="count">{{ $color->name }}</span> </a></li>
+                                                <li>
+                                                        <input type="checkbox"
+                                                            class="color_check"  name="color_check"  id="checkbox" value="{{ $color->id }}"><span>&nbsp;{{ $color->name }}</span> </li>
                                             @endforeach
                                         </ol>
 
@@ -96,10 +95,10 @@
                                                 class="icon-list icons"></i>
                                         </a>
                                     </p>
-                                    <div class="sort-by">
+                                    <div class="sort-by sort_by">
                                         <label>Sort By</label>
-                                        <select>
-                                            <option value="position" selected="selected"> Position</option>
+                                        <select id="sort_by">
+                                            <option value="name"> Position</option>
                                             <option value="name"> Name</option>
                                             <option value="price"> Price</option>
                                         </select>
@@ -107,6 +106,18 @@
                                                 src="assets/images/i_asc_arrow.gif" alt="Set Descending Direction"
                                                 class="v-middle"></a>
                                     </div>
+                                    <div class="sort-by order_by">
+                                        <label>Order By</label>
+                                        <select id="order_by">
+                                            <option value="ASC"> Position</option>
+                                            <option value="ASC"> Ascending</option>
+                                            <option value="DESC">Descending</option>
+                                        </select>
+                                        <a href="#" title="Set Descending Direction"><img
+                                                src="assets/images/i_asc_arrow.gif" alt="Set Descending Direction"
+                                                class="v-middle"></a>
+                                    </div>
+{{-- 
                                     <div class="limiter">
                                         <label>Show</label>
                                         <select>
@@ -125,7 +136,7 @@
                                                         <i class="fa fa-angle-right">&nbsp;</i> </a></li>
                                             </ol>
                                         </div>
-                                    </div>
+                                    </div> --}}
                                 </div>
                             </div>
 
@@ -137,67 +148,14 @@
 
                             <!--- .content-->
                             <div id="content">
-                                <ul class="products-grid row products-grid--max-3-col last odd">
-                                    @foreach ($products as $product)
-                                        <li class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-mobile-12 item">
-                                            <div class="category-products-grid">
-                                                <div class="images-container">
-                                                    <div class="product-hover">
-                                                        {{-- <span class="sticker top-left"><span class="labelnew">New</span></span> --}}
-                                                        <a href="{{ url('products', $product->url) }}" title="Configurable Product"
-                                                            class="product-image">
-                                                            <img id="product-collection-image-8" class="img-responsive"
-                                                                src="{{ asset('storage/media/' . $product->image) }}" alts="" height="355"
-                                                                width="278">
-                                                            <span class="product-img-back"> <img class="img-responsive"
-                                                                    src="{{ asset('storage/media/' . $product->image) }}" alt="" height="355"
-                                                                    width="278"> </span>
-                                                        </a>
-                                                    </div>
-                                                    <div class="actions-no hover-box">
-                                                        <div class="actions">
-                                                            <button type="button" title="Add to Cart" class="button btn-cart pull-left"><span><i
-                                                                        class="icon-handbag icons"></i><span>Add to
-                                                                        Cart</span></span></button>
-                                                            <ul class="add-to-links pull-left">
-                                                                <li class="pull-left"><a href="#" title="Add to Wishlist"
-                                                                        class="link-wishlist"><i class="icon-heart icons"></i>Add to
-                                                                        Wishlist</a></li>
-                                                                <li class="pull-left"><a href="#" title="Add to Compare" class="link-compare"><i
-                                                                            class="icon-bar-chart icons"></i>Add to
-                                                                        Compare</a></li>
-                                                                <li class="link-view pull-left"> <a title="Quick View" href="#"
-                                                                        class="link-quickview"><i class="icon-magnifier icons"></i>Quick
-                                                                        View</a></li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="product-info products-textlink clearfix">
-                               
-                                                    <h2 class="product-name"><a href="#" title="Configurable Product">{{ $product->name }}</a></h2>
-                                                  
-                                                    <div class="price-box"> <span class="regular-price"> <span
-                                                                class="price">₹{{ $product->price }}</span> </span></div>
-                                                    <div class="ratings">
-                                                        <div class="rating-box">
-                                                            <div class="rating" style="width:80%"></div>
-                                                        </div>
-                                                        <span class="amount"><a href="#">1 Review(s)</a></span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </li>
-                                    @endforeach
-                               
-                                </ul>
+
                                 <!--- .products-grid-->
-                               
+
 
                             </div>
                             <!--- .products-grid-->
                             <div class="page-nav-bottom">
-                                <div class="left">Items 13 to 24 of 38 total</div>
+                                {{-- <div class="left">Items 13 to 24 of 38 total</div>
                                 <div class="right">
                                     <ul class="page-nav-category">
                                         <li><a href="#"><i class="fa fa-angle-left"></i></a></li>
@@ -206,7 +164,8 @@
                                         <li><a href="#">3</a></li>
                                         <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
                                     </ul>
-                                </div>
+                                </div> --}}
+                                {{-- {{ $products->links() }} --}}
                             </div>
                             <!--- .page-nav-bottom-->
                         </div>
@@ -224,29 +183,75 @@
 
 @section('custom_scripts')
     <script>
-        
+        var category = [];
+        var color = [];
 
-          function filter()
 
-        {
-            var category = [];
-            jQuery.each(jQuery("input[name='category_check']:checked"), function(){
-                category.push(jQuery(this).val());
+        // function filter() {
+            jQuery('.category_check').click(function() {
+
+                if (jQuery(".category_check").is(':checked')) {
+
+                    category.push(jQuery(this).val());
+                    console.log(category);
+
+
+
+                } else {
+                    category.pop(jQuery(this).val());
+
+                }
+                filter();
+
+
+
+
             });
-           
+
+       
+            jQuery('.color_check').click(function() {
+
+                if (jQuery(this).is(':checked')) {
+
+                    color.push(jQuery(this).val());
+                   console.log(color);
+
+
+
+                } else {
+                    color.pop(jQuery(this).val());
+
+                }
+                  filter();
+
+
+
+            });
+
             
+
+            function filter() {
+
             var minimum = jQuery('#minimum').val();
             var maximum = jQuery('#maximum').val();
+
+            var sort_by = jQuery('#sort_by').val();
+            var order_by =jQuery('#order_by').val();
 
             jQuery.ajax({
                 url: "{{ url('/filter/price') }}",
                 type: "GET",
                 datatype: 'html',
                 data: {
-                    category:category,
+
                     view: jQuery('#grid_view').hasClass('active'),
+
                     'minimum': minimum,
                     'maximum': maximum,
+                    'category':category,                    
+                    'color': color,
+                    'sort_by':sort_by,
+                    'order_by':order_by,
                 },
                 success: function(data) {
                     jQuery("#content").html(data);
@@ -257,11 +262,6 @@
         jQuery(document).ready(function($) {
             filter();
         });
-        jQuery('.filter').on('click select',"input[type='checkbox'],input[type='button'],.viewas,select",function() {
-            // alert(jQuery(this).attr('id'));
-            filter();
-        });
-
 
         jQuery('#grid_view').on("click", function($) {
 
@@ -279,10 +279,10 @@
             filter();
         });
 
+
         jQuery("#onsubmit").click(function(e) {
             e.preventDefault();
             filter();
         });
-
     </script>
 @endsection

@@ -4,7 +4,7 @@
 
 <head>
 
-    <title>AdminLTE 3 | Dashboard</title>
+    <title>AdminLTE 3 | @yield('title')</title>
 
 
     <!-- Google Font: Source Sans Pro -->
