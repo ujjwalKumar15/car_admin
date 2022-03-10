@@ -1,4 +1,5 @@
 @extends('master')
+@section('title')DASHBOARD @endsection
 @section('content')
 
   <!-- Content Wrapper. Contains page content -->

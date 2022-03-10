@@ -1,4 +1,5 @@
- <ul class="products-grid row products-grid--max-3-col last odd">
+
+<ul class="products-grid row products-grid--max-3-col last odd">
      @foreach ($products as $product)
          <li class="col-lg-4 col-md-4 col-sm-6 col-xs-6 col-mobile-12 item">
              <div class="category-products-grid">
@@ -51,5 +52,24 @@
          </li>
      @endforeach
 
+
  </ul>
  <!--- .products-grid-->
+ 
+
+ 
+ <div class="page-nav-bottom">
+    <div class="left">Items 13 to 24 of 38 total</div>
+    <div class="rightlink">
+        {{ $products->links() }}
+    </div>
+</div>
+<!--- .page-nav-bottom-->
+{{-- {{ $product->links() }} --}}
+</div>
+<!--- .category-products-->
+</div>
+<!--- .col-main-->
+
+ 
+   

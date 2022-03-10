@@ -1,4 +1,5 @@
 @extends('master')
+@section('title')Product @endsection
 @section('content')
     <div class="content-wrapper">
         <div class="content-header">

@@ -1,5 +1,6 @@
 @extends('master')
-@section('content')
+ @section('title')Color @endsection
+ @section('content')
     <div class="wrapper">
         <div class="content-wrapper">
             <div class="content-header">

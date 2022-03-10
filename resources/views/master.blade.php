@@ -4,7 +4,7 @@
 
 <head>
 
-    <title>AdminLTE 3 | @yield('title')</title>
+    <title>BIKE NATION  | @yield('title')</title>
 
 
     <!-- Google Font: Source Sans Pro -->

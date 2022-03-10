@@ -47,25 +47,25 @@ class FrontendController extends Controller
         $colors = Color::where('status', 'Y')->get();
         $brands = Brand::where('status', 'Y')->get();
 
-       $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->get();
+    //    $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->get();
         
         if (isset($request->category)&& (isset($request->color)))
         {
             $products=Product::whereIn('brandid',$request->category)->where('colorid',$request->color)
-            ->where('status','Y')->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->orderBy($request->sort_by,$request->order_by)->get();
+            ->where('status','Y')->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->orderBy($request->sort_by,$request->order_by)->paginate(5);
         }
         
         elseif (isset($request->category))
         {
             $products=Product::whereIn('brandid',$request->category)
-            ->where('status','Y')->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->orderBy($request->sort_by,$request->order_by)->get();
+            ->where('status','Y')->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->orderBy($request->sort_by,$request->order_by)->paginate(5);
         }
         elseif (isset($request->color))
         {
-            $products=Product::whereIn('colorid',$request->color)->where('status','Y')->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->orderBy($request->sort_by,$request->order_by)->get();
+            $products=Product::whereIn('colorid',$request->color)->where('status','Y')->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->orderBy($request->sort_by,$request->order_by)->paginate(5);
         }
         else{
-            $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->get();
+            $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->orderBy($request->sort_by,$request->order_by)->paginate(5);
         }
 
 

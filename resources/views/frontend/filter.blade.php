@@ -82,7 +82,7 @@
                     <div class="col-main col-lg-9 col-md-9 col-sm-9 col-xs-12 content-color color product-grid"
                         id="product-grid">
                         <div class="page-title category-title">
-                            <h1>Men</h1>
+                            <h1>PRODUCTS</h1>
                         </div>
                         <p class="category-image"><img src="assets/images/categories_grid_1.jpg" alt="Men" title="Men">
                         </p>
@@ -154,7 +154,7 @@
 
                             </div>
                             <!--- .products-grid-->
-                            <div class="page-nav-bottom">
+                            {{-- <div class="page-nav-bottom"> --}}
                                 {{-- <div class="left">Items 13 to 24 of 38 total</div>
                                 <div class="right">
                                     <ul class="page-nav-category">
@@ -165,8 +165,8 @@
                                         <li><a href="#"><i class="fa fa-angle-right"></i></a></li>
                                     </ul>
                                 </div> --}}
-                                {{-- {{ $products->links() }} --}}
-                            </div>
+                                
+                            {{-- </div> --}}
                             <!--- .page-nav-bottom-->
                         </div>
                         <!--- .category-products-->
@@ -227,17 +227,17 @@
 
 
             });
-
+          
+           
             
 
             function filter() {
 
             var minimum = jQuery('#minimum').val();
             var maximum = jQuery('#maximum').val();
-
             var sort_by = jQuery('#sort_by').val();
             var order_by =jQuery('#order_by').val();
-
+            
             jQuery.ajax({
                 url: "{{ url('/filter/price') }}",
                 type: "GET",
@@ -284,5 +284,12 @@
             e.preventDefault();
             filter();
         });
+
+        jQuery('#sort_by,#order_by').click(function(){
+            
+            filter();
+
+            });
+            
     </script>
 @endsection
