@@ -1,4 +1,5 @@
 @extends('frontend.common')
+@section('title') Product @endsection
 @section('content')
     <div class="main-container col2-left-layout ">
         <div class="breadcrumbs">

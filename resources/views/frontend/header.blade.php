@@ -87,8 +87,8 @@
                                           
                                                 {{-- <li><a href="checkout-step1.html" title="Checkout"
                                                         class="top-link-checkout">Checkout</a></li> --}}
-                                                <li class=" last"><a href="{{ route('login') }}"
-                                                        title="Log In">Log In</a></li>
+                                                {{-- <li class=" last"><a href="{{ route('login') }}"
+                                                        title="Log In">Log In</a></li> --}}
 
                                                  <li class="last">
                                                             <!-- Authentication -->

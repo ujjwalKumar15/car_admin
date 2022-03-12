@@ -1,4 +1,5 @@
 @extends('Frontend.common')
+@section('title') Product @endsection
 @section('content')
     <div class="page">
         <div class="main-container col2-left-layout ">
@@ -6,7 +7,7 @@
                 <div class="container">
                     <ul>
                         <li class="home"> <a href="{{ url('/') }}" title="Go to Home Page">Home</a></li>
-                        <li class="category4"> <strong>Men</strong></li>
+                        <li class="category4"> <strong>Product</strong></li>
                     </ul>
                 </div>
             </div>
@@ -38,14 +39,14 @@
                                                             <h2>More Views</h2>
                                                             <ul class="product-image-thumbs">
                                                                 <li> <a class="thumb-link" href="#" title=""
-                                                                        data-image-index="0"> <img class="img-responsive"
+                                                                        data-image-index="0"> <img class="img-responsive sub_img"
                                                                             src="{{ asset('storage/media/' . $product->image) }}"
                                                                             alt="" /> </a>
                                                                 </li>
                                                                 @foreach ($subimages as $image)
                                                                     <li> <a class="thumb-link" href="#" title=""
                                                                             data-image-index="1"> <img
-                                                                                class="img-responsive"
+                                                                                class="img-responsive sub_img"
                                                                                 src="{{ asset('storage/media/' . $image->product_images) }}"
                                                                                 alt="" /> </a>
                                                                     </li>
@@ -83,9 +84,15 @@
                                                                         ₹{{ $product->price }}
                                                                     </span></p>
                                                             </div>
-                                                            <p class="availability in-stock">Availability: <span>In
+                                                            @if($product->quanty > 0)
+                                                            <p class="availability in-stock ">Availability: <span>In
                                                                     stock</span>
                                                             </p>
+                                                            @else
+                                                            <p class="availability in-stock ">Availability: <span style="color: red" >Out Of Stock
+                                                                </span>
+                                                                </p>
+                                                        @endif
                                                             <div class="products-sku"> <span
                                                                     class="text-sku">Product
                                                                     Code: {{ $product->upc }}</span> demo_02</div>
@@ -405,4 +412,21 @@
             @endforeach
         </div>
     </div>
+@endsection
+@section('custom_scripts')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
+<script>
+
+    $(document).ready(function(){
+
+
+
+        jQuery('.thumb-link').hover(function () {
+                jQuery('#image-main').attr('src',jQuery(this).children('.sub_img').attr('src'));
+            });
+
+
+    });
+</script>
+
 @endsection

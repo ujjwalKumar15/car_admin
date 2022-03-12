@@ -1,4 +1,5 @@
 @extends('frontend.common')
+@section('title') Product @endsection
 @section('content')
     <div class="main-container col1-layout content-color color">
         <div class="alo-block-slide">
