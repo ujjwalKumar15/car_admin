@@ -99,8 +99,8 @@
                                                 <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                                             </div>
                                             <input type="text" name="price" class="form-control"
-                                                placeholder="Enter Product Price" min="1" id="price"
-                                                oninput="this.value = this.value.replace(/[^./0-9_\s]/g, '').replace(/(\..*)\./g, '$1');"
+                                                placeholder="Enter Product Price" id="price"
+                                                {{-- oninput="this.value = this.value.replace(/[^./0-9_\s]/g, '').replace(/(\..*)\./g, '$1');" --}}
                                                 value="{{ old('price') }}">
                                         </div>
                                         @error('price')
@@ -351,8 +351,8 @@
                         },
                         price: {
                             required: true,
-                            number: true,
-                            pricevalidate: true,
+                            // number: true,
+                            // pricevalidate: true,
                         },
 
 

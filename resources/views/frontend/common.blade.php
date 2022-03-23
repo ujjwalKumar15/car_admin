@@ -8,7 +8,7 @@
     <link rel="stylesheet" type="text/css" href="{{asset('assets/styles/styles.css')}}" media="all" />
     <meta name="csrf-token" content="{{ csrf_token() }}" />
 </head>
-@include('frontend.css1')
+
 <body>
     <div class="wrapper">
         <div class="page">

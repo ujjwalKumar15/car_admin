@@ -1,5 +1,7 @@
 @extends('Frontend.common')
-@section('title') Product @endsection
+@section('title')
+    Product
+@endsection
 @section('content')
     <div class="page">
         <div class="main-container col2-left-layout ">
@@ -20,6 +22,7 @@
                                     <div class="product-essential">
                                         <div class="row">
                                             <form action="#" method="post" id="product_addtocart_form">
+
                                                 <div class="product-img-box clearfix col-md-5 col-sm-5 col-xs-12">
                                                     <div class="product-img-content">
                                                         <div class="product-image product-image-zoom">
@@ -39,7 +42,8 @@
                                                             <h2>More Views</h2>
                                                             <ul class="product-image-thumbs">
                                                                 <li> <a class="thumb-link" href="#" title=""
-                                                                        data-image-index="0"> <img class="img-responsive sub_img"
+                                                                        data-image-index="0"> <img
+                                                                            class="img-responsive sub_img"
                                                                             src="{{ asset('storage/media/' . $product->image) }}"
                                                                             alt="" /> </a>
                                                                 </li>
@@ -58,6 +62,8 @@
                                                     <!--- .product-img-content-->
                                                 </div>
                                                 <!--- .product-img-box-->
+
+
                                                 <div class="product-shop col-md-7 col-sm-7 col-xs-12">
                                                     <div class="product-shop-content">
                                                         <div class="product-name">
@@ -84,15 +90,24 @@
                                                                         ₹{{ $product->price }}
                                                                     </span></p>
                                                             </div>
-                                                            @if($product->quanty > 0)
-                                                            <p class="availability in-stock ">Availability: <span>In
-                                                                    stock</span>
-                                                            </p>
-                                                            @else
-                                                            <p class="availability in-stock ">Availability: <span style="color: red" >Out Of Stock
-                                                                </span>
+                                                            @if ($product->quanty >= 2)
+                                                                <p class="availability in-stock ">Availability: <span>In
+                                                                        stock</span>
                                                                 </p>
-                                                        @endif
+                                                            @elseif ($product->quanty >= 1 && $product->quanty < 2)
+                                                                <p class="availability in-stock ">Availability: <span
+                                                                        style="color: red"> {{ $product->quanty }} left in
+                                                                        stock!!
+                                                                    </span>
+                                                                </p>
+                                                            @else
+                                                                <p class="availability in-stock ">Availability: 
+                                                                    <span>
+                                                                       <h1 style="color: red; font-size:30px"> <b>Out Of Stock</b> </h1>
+                                                                    </span>
+                                                                </p>
+                                                            @endif
+
                                                             <div class="products-sku"> <span
                                                                     class="text-sku">Product
                                                                     Code: {{ $product->upc }}</span> demo_02</div>
@@ -102,66 +117,79 @@
                                                             <p>{{ $product->description }}</p>
                                                         </div>
                                                         <div class="add-to-box">
-                                                            <div class="product-qty">
-                                                                <label for="qty">Qty:</label>
-                                                                <div class="custom-qty"> <input type="text" name="qty"
-                                                                        id="qty" maxlength="12" value="1" title="Qty"
-                                                                        class="input-text qty" /> <button type="button"
-                                                                        class="increase items"
-                                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty )) result.value++;return false;">
-                                                                        <i class="fa fa-plus"></i> </button> <button
-                                                                        type="button" class="reduced items"
-                                                                        onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">
-                                                                        <i class="fa fa-minus"></i> </button></div>
-                                                            </div>
-                                                            <div class="add-to-cart"> <button type="button"
-                                                                    title="Add to Cart" class="button btn-cart"
-                                                                    onclick="productAddToCartForm.submit(this)"> <span>
-                                                                        <span class="view-cart icon-handbag icons">Add to
-                                                                            Cart</span> </span> </button></div>
-                                                            <ul class="add-to-links">
-                                                                <li> <a href="#" rel="tooltip" title="Add to Wishlist"
-                                                                        onclick="productAddToCartForm.submitLight(this, this.href); return false;"
-                                                                        class="link-wishlist"> <i
-                                                                            class="icon-heart icons"></i>
-                                                                        Add to Wishlist </a></li>
-                                                                <li> <a href="#" class="link-compare"
-                                                                        title="Add to Compare">
-                                                                        <i class="icon-bar-chart icons"></i> Add to Compare
-                                                                    </a>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                        <div class="addit">
-                                                            <div class="alo-social-links clearfix">
 
-                                                            </div>
+                                                            @if ($product->quanty == 0)
+                                                               
+                                                            @else
+                                                                <div class="product-qty">
+                                                                    <label for="qty">Qty:</label>
+                                                                    <div class="custom-qty"> <input type="text"
+                                                                            name="qty" id="qty" maxlength="1" value="1"
+                                                                            title="Qty" class="input-text qty"
+                                                                            oninput="this.value = this.value.replace(/[^/1-2\s]/g, '').replace(/(\..*)\./g, '$1'); " />
+                                                                        <button type="button" class="increase items"
+                                                                            id="btnmax"
+                                                                            onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty < 2) result.value++;return false;">
+                                                                            <i class="fa fa-plus"></i> </button>
+                                                                        <button type="button" class="reduced items"
+                                                                            id="btnmin"
+                                                                            onclick="var result = document.getElementById('qty'); var qty = result.value; if( !isNaN( qty ) && qty > 1 ) result.value--;return false;">
+                                                                            <i class="fa fa-minus"></i></button>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="add-to-cart"> <button type="button"
+                                                                        title="Add to Cart" class="button btn-cart"
+                                                                        onclick="quantity({{ $product->id }})"> <span>
+                                                                            <span class="view-cart icon-handbag icons">Add
+                                                                                to
+                                                                                Cart</span> </span> </button></div>
+                                                                <ul class="add-to-links">
+                                                                    <li> <a href="#" rel="tooltip" title="Add to Wishlist"
+                                                                            onclick="productAddToCartForm.submitLight(this, this.href); return false;"
+                                                                            class="link-wishlist"> <i
+                                                                                class="icon-heart icons"></i> Add to
+                                                                            Wishlist
+                                                                        </a></li>
+                                                                    <li> <a href="#" class="link-compare"
+                                                                            title="Add to Compare"> <i
+                                                                                class="icon-bar-chart icons"></i> Add to
+                                                                            Compare
+                                                                        </a></li>
+                                                                </ul>
                                                         </div>
-                                                    </div>
-                                                    <!--- .product-shop-content-->
-                                                </div>
-                                                <!--- .product-shop-->
-                                            </form>
-                                        </div>
-                                    </div>
-                                    <!--- .product-essential-->
-                                    <div class="product-wapper-tab clearfix">
-                                        <ul class="toggle-tabs">
-                                            <li class="item active" target=".box-description">Description</li>
-                                            <li class="item " target=".box-additional">Additional Information</li>
+            @endif
+
+            <div class="addit">
+                <div class="alo-social-links clearfix">
+
+                </div>
+            </div>
+        </div>
+        <!--- .product-shop-content-->
+    </div>
+    <!--- .product-shop-->
+    </form>
+
+    </div>
+    </div>
+    <!--- .product-essential-->
+    <div class="product-wapper-tab clearfix">
+        <ul class="toggle-tabs">
+            <li class="item active" target=".box-description">Description</li>
+            {{-- <li class="item " target=".box-additional">Additional Information</li>
                                             <li class="item " target=".box-reviews">Reviews</li>
                                             <li class="item " target=".box-customtab">Custom Tab</li>
-                                            <li class="item " target=".box-tags">Product Tags</li>
-                                        </ul>
-                                        <div class="product-collateral">
-                                            <div class="box-collateral box-description active">
-                                                <h2>Description</h2>
-                                                <h2>Details</h2>
-                                                <div class="std">
-                                                    <p>{{ $product->description }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="box-collateral box-additional">
+                                            <li class="item " target=".box-tags">Product Tags</li> --}}
+        </ul>
+        <div class="product-collateral">
+            <div class="box-collateral box-description active">
+                <h2>Description</h2>
+                <h2>Details</h2>
+                <div class="std">
+                    <p>{{ $product->description }}</p>
+                </div>
+            </div>
+            {{-- <div class="box-collateral box-additional">
                                                 <h2>Additional Information</h2>
                                                 <h2>Additional Information</h2>
                                                 <table class="data-table" id="product-attribute-specs-table">
@@ -396,37 +424,127 @@
                                                 <p class="note">Use spaces to separate tags. Use single quotes
                                                     (')
                                                     for phrases.</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <!--- .product-wapper-tab-->
-                                </div>
-                                <!--- .product-view-->
-                            </div>
-                            <!--- .col-main-->
-                        </div>
-                        <!--- .row-->
-                    </div>
-                    <!--- .main-->
-                </div>
-            @endforeach
+                                            </div> --}}
         </div>
+    </div>
+    <!--- .product-wapper-tab-->
+    </div>
+    <!--- .product-view-->
+    </div>
+    <!--- .col-main-->
+    </div>
+    <!--- .row-->
+    </div>
+    <!--- .main-->
+    </div>
+    @endforeach
+    </div>
     </div>
 @endsection
 @section('custom_scripts')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js" ></script>
-<script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    {{-- <script src="{{ asset('assets/scripts/jquery-1.8.3.min.js') }}"></script>
+    <script src="{{ asset('assets/scripts/jquery.elevatezoom.js') }}"></script> --}}
 
-    $(document).ready(function(){
+    <script>
+        $(document).ready(function() {
 
 
 
-        jQuery('.thumb-link').hover(function () {
-                jQuery('#image-main').attr('src',jQuery(this).children('.sub_img').attr('src'));
+            jQuery('.thumb-link').hover(function() {
+                jQuery('#image-main').attr('src', jQuery(this).children('.sub_img').attr('src'));
             });
 
 
-    });
-</script>
+        });
 
+        function quantity(id) {
+            var quantity = $('#qty').val()
+
+            $.ajax({
+                url: "/qty",
+                type: "GET",
+                data: {
+
+                    'id': id,
+                    'quantity': quantity
+
+
+                },
+
+                success: function(response) {
+                    //     if(response.qty>=quantity)
+                    //     {
+                    // alert("product addedd succesfully");
+                    //     }
+                    //     else{
+                    //         alert("invalid input");
+                    //     }
+                    console.log(response);
+                },
+
+
+
+
+
+
+            });
+
+        }
+
+
+
+
+
+
+
+
+        // $('#image-main').elevateZoom({
+        //     zoomType: "inner",
+        //     cursor: "crosshair",
+        //     zoomWindowFadeIn: 500,
+        //     zoomWindowFadeOut: 750
+        // });
+
+
+        //     $("#qty").keypress(function (e) {           
+        // //if the letter is not digit then display error and don't type anything
+        // if (e.which != 8 && e.which != 0 && (e.which < 48 || e.which > 57)) {
+        //     //display error message
+        //     $("#errmsg").html("Digits Only").show().fadeOut("slow");
+        //     return false;
+        // }
+
+        // jQuery('#qty,#btnmax,#btnmin').on('click', function() {
+        //             alert('test');
+        //         });
+
+        // function qty() {
+        //     $.ajaxSetup({
+        //         headers: {
+        //             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        //         }
+        //     });
+
+        //     var id = $('#id').val();
+
+        //     $.ajax({
+        //         url: "/qty",
+        //         type: "POST",
+        //         datatype: 'json',
+        //         data: {
+        //             id: id,
+        //         },
+        //         success: function(response) {
+
+        //         }
+        //     });
+
+        // }
+        // $(document).ready(function() {
+
+        //     qty();
+
+        // });
+    </script>
 @endsection

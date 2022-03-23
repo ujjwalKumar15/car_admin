@@ -114,7 +114,7 @@
                                                 <div class="input-group-text"><i class="fas fa-rupee-sign"></i></div>
                                             </div>
                                             <input type="text" class="form-control" placeholder="Enter Product Price"
-                                                min="1" name="price" value="{{ $product->price }}" id="price">
+                                                name="price" value="{{ $product->price }}" id="price">
                                         </div>
                                         @error('price')
                                             <p style="color:red">{{ $message }}</p>
@@ -355,8 +355,8 @@
                     },
                     price: {
                         required: true,
-                        number: true,
-                        pricevalidate: true,
+                        // number: true,
+                        // pricevalidate: true,
                     },
 
                     upc: {
@@ -406,7 +406,7 @@
                     },
                     price: {
                         required: 'The price field is required.',
-                        number: "The price must be in number",
+                        // number: "The price must be in number",
 
                     },
                     stock: {

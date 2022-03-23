@@ -155,6 +155,8 @@
 
                             </div>
                             <!--- .products-grid-->
+                            {{-- {{ $products->links() }} --}}
+    
                             {{-- <div class="page-nav-bottom"> --}}
                                 {{-- <div class="left">Items 13 to 24 of 38 total</div>
                                 <div class="right">
@@ -183,6 +185,7 @@
 @endsection
 
 @section('custom_scripts')
+    {{-- <script type="text/javascript" src="{{asset('assets/scripts/script.js')}}"></script> --}}
     <script>
         var category = [];
         var color = [];
@@ -291,6 +294,7 @@
             filter();
 
             });
+            
             
     </script>
 @endsection

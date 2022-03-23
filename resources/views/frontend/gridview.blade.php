@@ -56,20 +56,8 @@
  </ul>
  <!--- .products-grid-->
  
+{{-- {{ $products->links('pagination::bootstrap-4') }} --}}
 
- 
- <div class="page-nav-bottom">
-    <div class="left">Items 13 to 24 of 38 total</div>
-    <div class="rightlink">
-        {{ $products->links() }}
-    </div>
-</div>
-<!--- .page-nav-bottom-->
-{{-- {{ $product->links() }} --}}
-</div>
-<!--- .category-products-->
-</div>
-<!--- .col-main-->
 
  
    
