@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center p-1">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <div class="card card-danger">
                         <div class="card-header">
                             <h3 class="card-title">List Colors</h3>
@@ -65,7 +65,7 @@
             function restore_status(id) {
                 if (confirm('are your sure!!  you want to Restore?')) {
                     jQuery.ajax({
-                        url: 'completedUpdated',
+                        url: "{{ url('/admin/colors/completedUpdated') }}",
                         type: 'GET',
                         data: {
                             'id': id

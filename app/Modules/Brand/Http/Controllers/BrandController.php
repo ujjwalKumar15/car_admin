@@ -16,10 +16,6 @@ class BrandController extends Controller
      * @return \Illuminate\Http\Response
      */
     
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
 
     public function index()
     {
@@ -32,11 +28,9 @@ class BrandController extends Controller
         $request->validate([
             'name' => 'required|alpha|min:3|unique:brands|max:10|regex:/^\S*$/u'
         ]);
-        $brand = new Brand;
-        $uid = Auth::user()->id;
-        $brand->userid = $uid;
-        $brand->name = $request->name;
-        $brand->save();
+        $uid=Auth::user()->id;
+        Brand::create(['name'=>$request->name,'userid'=>$uid]);
+
         return back()->with('status', "Category Added SuccessFully!!");
     }
 
@@ -49,9 +43,7 @@ class BrandController extends Controller
 
     public function changestatus(Request $r)
     {
-        $brand = Brand::find($r->id);
-        $brand->status = $r->status;
-        $brand->save();
+        Brand::where('id',$r->id)->update(['status'=>$r->status]);
         return response()->json(['success' => 'Status change successfully.']);
     }
 
@@ -69,18 +61,14 @@ class BrandController extends Controller
             'name' => 'required|alpha|min:3|max:10|regex:/^\S*$/u|unique:brands,name,' . $id,
         ]);
 
-        $brand = Brand::find($id);
-        $brand->name = $request->name;
-        $brand->save();
+        Brand::where('id',$id)->update(['name'=>$request->name]);
         return back()->with("status", "Category Updated Successfully!!");
     }
 
     public function deletestatus(Request $r)
     {
-        $update = Brand::find($r->id);
-        $update->status = 'T';
-        $update->save();
-        return Brand::all();
+        Brand::where('id',$r->id)->update(['status'=>'T']);
+        return response()->json(['status','Brand Deleted Successfully!!']);
     }
 
     public function Trashshow()
@@ -94,10 +82,14 @@ class BrandController extends Controller
 
     public function restore(Request $r)
     {
-        $update = Brand::find($r->id);
-        $update->status = 'Y';
-        $update->save();
-        return Brand::all();
+        Brand::where('id',$r->id)->update(['status'=>'Y']);
+        // $update = Brand::find($r->id);
+        // $update->status = 'Y';
+        // $update->save();
+        // return Brand::all();
+        return response()->json(['status','status change Successfully!!'
+
+        ]);
     }
 
     public function destroy($id)

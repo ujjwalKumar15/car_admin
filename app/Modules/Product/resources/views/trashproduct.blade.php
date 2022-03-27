@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center p-1">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="card card-danger">
                     <div class="card-header">
@@ -79,7 +79,7 @@
         function restore_status(id) {
             if (confirm('are your sure!!  you want to Restore?')) {
                 jQuery.ajax({
-                    url: '/admin/products/RestoreTrash',
+                    url: "{{ url('/admin/products/RestoreTrash') }}",
                     type: 'GET',
                     data: {
                         'id': id

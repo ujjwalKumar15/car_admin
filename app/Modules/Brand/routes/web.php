@@ -3,20 +3,17 @@
 use Illuminate\Support\Facades\Route;
 use App\modules\Brand\Http\Controllers\BrandController;
 
-
-Route::get('profile', function () {
-    // Only authenticated users may enter...
-})->middleware('auth');
- 
-Route::get('/admin/brands/Addbrand',[BrandController::class,'index']);
-Route::get('/admin/brands/insertdata',[BrandController::class,'insert']);
-Route::post('/admin/brands/Addbrand',[BrandController::class,'insert']);
-Route::get('/admin/brands/brandlist',[BrandController::class,'show']);
-Route::get('/admin/brands/editbrand/{id}',[BrandController::class,'edit']);
-Route::post('/admin/brands/editbrand/{id}',[BrandController::class,'update']);
-Route::get('/admin/brands/delete/{id}',[BrandController::class,'destroy']);
-Route::get('/admin/brands/changebrandstatus',[BrandController::class,'changestatus']);
-Route::get('/admin/brands/completedUpdatee',[BrandController::class,'deletestatus']);
-Route::get('/admin/brands/trashbrand',[BrandController::class,'Trashshow']);
-Route::get('/admin/brands/getrestore',[BrandController::class,'restore']);
-Route::get('/admin/brands/uniquename',[BrandController::class,'uniquename']);
+ Route::group(['prefix'=>'/admin/brands/','middleware'=>['auth']],function(){
+Route::get('/Addbrand',[BrandController::class,'index']);
+Route::get('/insertdata',[BrandController::class,'insert']);
+Route::post('/Addbrand',[BrandController::class,'insert']);
+Route::get('/brandlist',[BrandController::class,'show']);
+Route::get('/editbrand/{id}',[BrandController::class,'edit']);
+Route::post('/editbrand/{id}',[BrandController::class,'update']);
+Route::get('/delete/{id}',[BrandController::class,'destroy']);
+Route::get('/changebrandstatus',[BrandController::class,'changestatus']);
+Route::get('/completedUpdatee',[BrandController::class,'deletestatus']);
+Route::get('/trashbrand',[BrandController::class,'Trashshow']);
+Route::get('/getrestore',[BrandController::class,'restore']);
+Route::get('/uniquename',[BrandController::class,'uniquename']);
+});

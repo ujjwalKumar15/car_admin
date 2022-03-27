@@ -15,11 +15,15 @@ use Illuminate\Support\Facades\File;
 class ProductController extends Controller
 {
 
+
   /**
    * Display the module welcome screen
    *
    * @return \Illuminate\Http\Response
    */
+
+
+
   public function create()
   {
     $Product1 = Color::select('name as cname', 'id as cid')->where(['status' => 'Y'])->get();
@@ -46,7 +50,8 @@ class ProductController extends Controller
 
     ]);
 
-    $product = new Product;
+     $product = new Product;
+    
 
     if ($request->hasFile('image')) {
 
@@ -54,21 +59,25 @@ class ProductController extends Controller
       $ext = $image->extension();
       $image_name = time() . '.' . $ext;
       $image->storeAs('/public/media', $image_name);
-      $product->image = $image_name;
+     $product->image = $image_name;
     }
 
-    $product->name = $request->name;
-    $product->upc = $request->upc;
-    $product->url = $request->url;
-    $product->price = $request->price;
-    $product->quanty = $request->quanty;
-    $product->description = $request->description;
-    $product->colorid = $request->color_id;
-    $product->brandid = $request->category_id;
     $uid = Auth::user()->id;
-    $product->userid = $uid;
 
-    $product->save();
+    $product =Product::create([
+      'image' => $image_name,
+      'name' => $request->name,
+      'upc' => $request->upc,
+      'url' => $request->url,
+      'price' => $request->price,
+      'quanty' => $request->quanty,
+      'description' => $request->description,
+      'colorid' => $request->color_id,
+      'brandid' => $request->category_id,
+      'userid' => $uid,
+    ]);
+
+  
 
     if ($request->hasFile('subimage')) {
       foreach ($request->file('subimage') as $key => $insert) {
@@ -83,7 +92,7 @@ class ProductController extends Controller
 
         ];
 
-        DB::table('images')->insert($save_sub_image);
+        image::insert($save_sub_image);
       }
     }
     return redirect('/admin/products/addproduct')->with('status', 'Product Added SuccessFully!!!!');
@@ -115,7 +124,7 @@ class ProductController extends Controller
 
   {
 
-   
+
     $product = Product::find($id);
 
     if ($request->hasFile('image')) {
@@ -185,18 +194,18 @@ class ProductController extends Controller
   public function ChangeStatus(Request $request)
   {
 
-    $product  = Product::find($request->id);
-    $product->status = $request->status;
-    $product->save();
+    product::where('id',$request->id)->update(['status'=>$request->status]);
     return response()->json(['status' => "Status Change SuccessFully"]);
   }
 
   public function delete(Request $request)
   {
-    $update = Product::find($request->id);
-    $update->status = 'T';
-    $update->save();
-    return Product::all();
+    product::where('id',$request->id)->update(['status'=>'T']);
+
+    return response()->json([
+      'status','status Updated Successfully!!'
+
+    ]);
   }
 
   public function trash()
@@ -206,15 +215,13 @@ class ProductController extends Controller
       ->join('brands', 'brands.id', '=', 'products.brandid')
       ->where('products.status', array('T'))
       ->get(['products.*', 'colors.name as cname', 'brands.name as bname']);
-    return view("Product::trashproduct", ['products' => $Product]);
+    return view("Product::trashproduct")->with(['products' => $Product]);
   }
 
   public function RestoreTrash(Request $request)
   {
-    $update = Product::find($request->id);
-    $update->status = 'Y';
-    $update->save();
-    return Product::all();
+   product::where('id',$request->id)->update(['status'=>'Y']);
+    return response()->json(['status','Restore Successfully!!']);
   }
   public function uniqueupc(Request $request)
   {

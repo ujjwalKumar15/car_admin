@@ -25,7 +25,7 @@
             </div>
 
             <div class="d-flex justify-content-center p-1">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <div class="card card-danger">
                         <div class="card-header">
 
@@ -73,6 +73,8 @@
                 name: {
 
                     required: true,
+                    minlength:3,
+                    maxlength:10,
 
 
                 },
@@ -82,6 +84,8 @@
 
                 name: {
                     required: "Name field is required",
+                    minlength: "The brand Name should be 3  characters ",
+                    maxlength: "The brand name should  not be grater than 10 characters"
                 },
 
             },

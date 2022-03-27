@@ -27,14 +27,14 @@
                     <div class="card card-danger p-1">
                         <div class="card-header">
                             <h3 class="card-title">List Colors</h3>
-                        </div>
-                        <div class="text-center mt-2 mb-2 p-1">
                             <a class="btn btn-danger float-right" href="{{ url('/admin/colors/trash') }}"
                                 role="button">Trash<i class="far fa-trash-alt"></i></a>
-                            <a class="btn btn-success float-right" href="{{ url('/admin/colors/Addcolor') }}"
+                            <a class="btn  float-right" href="{{ url('/admin/colors/Addcolor') }}"
                                 role="button">Add
                                 <i class="fas fa-plus-circle"></i></i></a>
+
                         </div>
+                        
                     </div>
                     <table id="myTable" class="table table-striped ">
                         <thead>
@@ -87,7 +87,7 @@
                         $.ajax({
                             type: "GET",
                             dataType: "json",
-                            url: '/admin/colors/changeStatus',
+                            url: "{{ url('/admin/colors/changeStatus') }}",
                             data: {
                                 'status': status,
                                 'id': id
@@ -105,7 +105,7 @@
                 function delete_Question(id) {
                     if (confirm('are your sure you want to delete !!!! ?')) {
                         jQuery.ajax({
-                            url: '/admin/colors/completedUpdate',
+                            url: "{{ url('/admin/colors/completedUpdate') }}",
                             type: 'GET',
                             data: {
                                 'id': id

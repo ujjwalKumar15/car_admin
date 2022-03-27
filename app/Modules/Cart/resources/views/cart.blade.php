@@ -182,7 +182,7 @@ $('.plus').click(function (e) {
 
                     success: function(response) {
                          price.html(response.price);
-                         console.log(response.total);
+                        
                        
                         // alert("product updated");
                         // location.reload();

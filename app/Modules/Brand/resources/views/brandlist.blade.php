@@ -15,9 +15,7 @@
                             <li class="breadcrumb-item active"><a
                                     href="{{ url('admin/brands/brandlist') }}">Brand</a>
                             </li>
-                            
-
-                        </ol>
+                      </ol>
                     </div>
                 </div>
             </div>
@@ -28,14 +26,13 @@
                     <div class="card card-danger p-1">
                         <div class="card-header">
                             <h3 class="card-title">Categories</h3>
-                        </div>
-                        <div class="text-center mt-2 mb-2 p-1">
                             <a class="btn btn-danger float-right" href="{{ url('/admin/brands/trashbrand') }}"
-                                role="button">Trash<i class="far fa-trash-alt"></i></a>
-                            <a class="btn btn-success float-right" href="{{ url('/admin/brands/Addbrand') }}"
-                                role="button">Add
-                                <i class="fas fa-plus-circle"></i></i></a>
+                            role="button">Trash<i class="far fa-trash-alt"></i></a>
+                        <a class="btn float-right" href="{{ url('/admin/brands/Addbrand') }}"
+                            role="button">Add
+                            <i class="fas fa-plus-circle"></i></i></a>
                         </div>
+                      
                     </div>
 
                     <table id="myTable" class="table table-striped ">
@@ -105,7 +102,7 @@
                         $.ajax({
                             type: "GET",
                             dataType: "json",
-                            url: '/admin/brands/changebrandstatus',
+                            url: "{{url('/admin/brands/changebrandstatus')}}",
                             data: {
                                 'status': status,
                                 'id': id
@@ -122,7 +119,7 @@
                 function delete_Question(id) {
                     if (confirm('are your sure you want to delete !!!! ?')) {
                         jQuery.ajax({
-                            url: '/admin/brands/completedUpdatee',
+                            url: "{{ url('/admin/brands/completedUpdatee')}}",
                             type: 'GET',
                             data: {
                                 'id': id

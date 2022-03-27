@@ -299,7 +299,7 @@
                         name: {
                             required: true,
                             remote: {
-                                url: '/admin/products/uniqueproduct',
+                                url: "{{url('/admin/products/uniqueproduct')}}",
                                 type: "GET",
                                 data: {
                                     colorname: function() {
@@ -312,7 +312,7 @@
                         url: {
                             required: true,
                             remote: {
-                                url: '/admin/products/checkurl',
+                                url: "{{ url('/admin/products/checkurl') }}",
                                 type: "GET",
                                 data: {
                                     colorname: function() {
@@ -335,7 +335,7 @@
                             minlength: 12,
                             maxlength: 12,
                             remote: {
-                                url: '/admin/products/uniqueupc',
+                                url: "{{ url('/admin/products/uniqueupc') }}",
                                 type: "GET",
                                 data: {
                                     colorname: function() {

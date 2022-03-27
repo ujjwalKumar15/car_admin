@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\HomeController;
+use App\Modules\Frontend\Http\Controllers\FrontendController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -27,9 +28,5 @@ Route::get('profile', function () {
 //     return view('dashboard');
 // })->name('dashboard');
 
-Route::get('/admin/dashboard',[HomeController::class,'index']);
-Route::get('/',[HomeController::class,'fronthome']);
-
-
-
-
+Route::get('/admin/dashboard', [HomeController::class, 'index'])->middleware('auth');
+Route::get('/', [FrontendController::class, 'fronthome']);

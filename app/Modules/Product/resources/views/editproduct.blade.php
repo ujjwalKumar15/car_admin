@@ -40,6 +40,11 @@
                             <div class="card-header">
                                 <h3 class="card-title">Edit Product</h3>
 
+                                         <a class="btn btn-danger bg-gradient-danger  btn-sm float-right "
+                                        href="{{ url('/admin/products/listproduct') }}"><i class="fa fa-arrow-left"
+                                            aria-hidden="true"></i> </a>&nbsp;
+
+
                                 <div class="card-tools">
                                     <button type="button" class="btn btn-tool" data-card-widget="collapse">
                                         <i class="fas fa-minus"></i>
@@ -47,16 +52,13 @@
                                     <button type="button" class="btn btn-tool" data-card-widget="remove">
                                         <i class="fas fa-times"></i>
                                     </button>
+                                    &nbsp;&nbsp;
+
                                 </div>
                             </div>
 
                             <div class="card-body">
-                                <div class="text-center mt-0 mb-0 p-1">
-                                    <a class="btn btn-danger bg-gradient-danger  btn-sm float-right "
-                                        href="{{ url('/admin/products/listproduct') }}"><i class="fa fa-arrow-left"
-                                            aria-hidden="true"></i> Back</a>&nbsp;
-
-                                </div>
+                                
                                 <h6>The All Fields With Sysmbol <span class="text-danger">*</span>is Required</h6>
                                 <div class="row">
                                     <input type="hidden" class="access_url" id="url">
@@ -365,7 +367,7 @@
                         minlength: 12,
                         maxlength: 12,
                         remote: {
-                            url: '/admin/products/uniqueproduct',
+                            url: "{{ url('/admin/products/uniqueproduct') }}",
                             type: "GET",
                             data: {
                                 colorname: function() {

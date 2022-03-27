@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center p-2">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card card-danger">
                         <div class="card-header">
                             <h3 class="card-title">Add Colors</h3>
@@ -82,8 +82,10 @@
             rules: {
                 name: {
                     required: true,
+                    minlength:3,
+                    maxlength:10,
                     remote: {
-                        url: '/admin/colors/uniquename',
+                        url: "{{ url('/admin/colors/uniquename') }}",
                         type: "GET",
                         data: {
                             colorname: function() {
@@ -100,6 +102,8 @@
                 name: {
                     required: "The Name field is Required!!",
                     remote: "The Name has already been taken !! ",
+                    minlength: "The color Name should be 3  characters ",
+                    maxlength: "The color name should  not be grater than 10 characters"
 
 
                 }

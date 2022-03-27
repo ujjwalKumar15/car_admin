@@ -22,6 +22,20 @@ class FrontendController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+ 
+ 
+    public function fronthome()
+    {
+       
+       
+            return view('frontend.index');
+    
+
+
+      
+     } 
+
+
 
     public function filter()
     {
@@ -84,6 +98,18 @@ class FrontendController extends Controller
                
             ]);
 
+            // session::put([
+            //     'cart' => json_encode([
+            //         [
+            //             'product_id' => $request->id,
+            //             'user_id' => $uid,
+            //             'qty' => $request->quantity
+            //         ]
+            //     ])
+            // ]);
+             
+            //  $a=Session::get('cart');
+            //     echo $a;
            
             
            
@@ -105,10 +131,11 @@ class FrontendController extends Controller
         $brands = Brand::where('status', 'Y')->get();
 
         //    $products = Product::whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->get();
-
+    
         if (isset($request->category) && (isset($request->color))) {
             $products = Product::whereIn('brandid', $request->category)->where('colorid', $request->color)
                 ->where('status', 'Y')->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->orderBy($request->sort_by, $request->order_by)->paginate(5);
+            
         } elseif (isset($request->category)) {
             $products = Product::whereIn('brandid', $request->category)
                 ->where('status', 'Y')->whereBetween('price', [(int)$request->minimum, (int)$request->maximum])->orderBy($request->sort_by, $request->order_by)->paginate(5);

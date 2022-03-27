@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center p-1">
-                <div class="col-md-8">
+                <div class="col-md-12">
                     <div class="card card-danger">
                         <div class="card-header">
                             <h3 class="card-title">Add Category</h3>
@@ -44,7 +44,8 @@
                                 <div class="form-group">
                                     <label for="name">Category Name</label>
                                     <input type="text" class="form-control" name="name" id="brandname"
-                                        placeholder="Enter Category Name">
+                                        placeholder="Enter Category Name"
+                                        oninput="this.value = this.value.replace(/[^A-za-z_\s]/g, '').replace(/(\..*)\./g, '$1');">
                                     @error('name')
                                         <p style="color:red">{{ $message }} </p>
                                     @enderror
@@ -78,8 +79,10 @@
                 name: {
 
                     required: true,
+                    minlength:3,
+                    maxlength:10,
                     remote: {
-                        url: '/admin/brands/uniquename',
+                        url: "{{ url('/admin/brands/uniquename') }}",
                         type: "GET",
                         Data: {
                             colorname: function() {
@@ -101,6 +104,8 @@
                 name: {
                     required: "Name field is required",
                     remote: "The Name has already been taken!!!",
+                    minlength: "The brand Name should be 3  characters ",
+                    maxlength: "The brand name should  not be grater than 10 characters"
                 },
 
             },

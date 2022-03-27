@@ -19,11 +19,6 @@ class ColorController extends Controller
      * @return \Illuminate\Http\Response
      */
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
-
 
     public function index()
     {
@@ -31,12 +26,9 @@ class ColorController extends Controller
     }
     public function insert(Request $request)
     {
-        $colors = new Color;
-        $uid = Auth::user()->id;
-        $colors->userid = $uid;
-        $colors->name = $request->name;
-        $colors->save();
-        return back()->with('status', 'Color Added !!');
+         $uid = Auth::user()->id;
+         Color::create(['name' => $request->name,'userid'=>$uid]);
+         return back()->with('status', 'Color Added !!');
     }
 
     public function view()
@@ -49,9 +41,7 @@ class ColorController extends Controller
 
     public function changeStatus(Request $r)
     {
-        $colors = Color::find($r->id);
-        $colors->status = $r->status;
-        $colors->save();
+        color::where('id',$r->id)->update(['status'=>$r->status]);
         return response()->json(['success' => 'Status change successfully.']);
     }
 
@@ -69,17 +59,15 @@ class ColorController extends Controller
 
         ]);
 
-        $colors = Color::find($id);
-        $colors->name = $request->name;
-        $colors->save();
+        color::where('id',$id,)->update(['name'=>$request->name]);
+
         return back()->with('status', "Color Updated SuccessFully!!");
     }
     public function deletestatus(Request $r)
     {
-        $update = Color::find($r->id);
-        $update->status = 'T';
-        $update->save();
-        return Color::all();
+
+        Color::where('id',$r->id)->update(['status'=>'T']);
+        return response()->json(['status'=>"color_data delete successfully!!"]);
     }
 
 
@@ -93,10 +81,9 @@ class ColorController extends Controller
 
     public function restore(Request $r)
     {
-        $update = Color::find($r->id);
-        $update->status = 'Y';
-        $update->save();
-        return Color::all();
+        color::where('id',$r->id)->update(['status'=>'Y']);
+        return response()->json(['status','Color Restore SuccessFully !!']);
+
     }
 
 

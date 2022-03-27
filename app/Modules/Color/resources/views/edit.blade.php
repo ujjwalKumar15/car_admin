@@ -23,7 +23,7 @@
                 </div>
             </div>
             <div class="d-flex justify-content-center p-1">
-                <div class="col-md-10">
+                <div class="col-md-12">
                     <!-- general form elements -->
                     <div class="card card-danger">
                         <div class="card-header">
@@ -82,6 +82,9 @@
             rules: {
                 name: {
                     required: true,
+                minlength:3,
+                maxlength:10,
+
                 },
 
 
@@ -89,6 +92,8 @@
             messages: {
                 name: {
                     required: "The Name field is Required!!",
+                    minlength: "The color Name should be 3  characters ",
+                    maxlength: "The color name should  not be grater than 10 characters"
 
 
 

@@ -27,14 +27,13 @@
                 <div class="card card-danger p-1">
                     <div class="card-header">
                         <h3 class="card-title">List Products</h3>
-                    </div>
-                    <div class="text-center mt-2 mb-2 p-1">
                         <a class="btn btn-danger float-right" href="{{ url('/admin/products/trashproduct') }}"
                             role="button">Trash<i class="far fa-trash-alt"></i></a>
-                        <a class="btn btn-success float-right" href="{{ url('/admin/products/addproduct') }}"
+                        <a class="btn  float-right" href="{{ url('/admin/products/addproduct') }}"
                             role="button">Add
                             <i class="fas fa-plus-circle"></i></i></a>
                     </div>
+                    
                 </div>
                 <table id="myTable" class="table table-striped table-bordered">
                     <thead>
@@ -61,7 +60,7 @@
                                 </td>
                                 <td> {{ $product->name }}</td>
                                 <td>{{ $product->upc }}</td>
-                                <td>{{ $product->url }}</td>
+                                <td><a href="{{ url('/products', $product->url) }}"> {{ $product->url }}</td></a>
                                 <td>{{ $product->price }}</td>
                                 <td>{{ $product->quanty }}</td>
                                 <td>{{ $product->cname }}</td>
@@ -100,7 +99,7 @@
                     $.ajax({
                         type: "GET",
                         dataType: "json",
-                        url: '/admin/products/ChangeStatus',
+                        url: "{{ url('/admin/products/ChangeStatus') }}",
                         data: {
                             'status': status,
                             'id': id
@@ -119,7 +118,7 @@
             function delete_status(id) {
                 if (confirm('are your sure you want to delete !!!! ?')) {
                     jQuery.ajax({
-                        url: '/admin/products/delete',
+                        url: "{{ url('/admin/products/delete') }}",
                         type: 'GET',
                         data: {
                             'id': id
