@@ -3,7 +3,7 @@
 use App\Modules\Product\Http\Controllers\ProductController;
 use Illuminate\Support\Facades\Route;
 use App\Modules\Frontend\Http\Controllers\FrontendController;
-Route::group(['prefix' => '/admin/products', 'middleware' => ['auth']], function () {
+Route::group(['prefix' => '/admin/products', 'middleware' => ['auth','isAdmin']], function () {
 
     Route::get('/addproduct', [ProductController::class, 'create']);
     Route::get('/insertproduct', [ProductController::class, 'insert']);

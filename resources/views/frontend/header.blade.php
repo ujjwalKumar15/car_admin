@@ -145,26 +145,36 @@
                                 <div class="block-content">
                                     <p class="block-subtitle">Recently added item(s)</p>
                                     <ol id="cart-sidebar" class="mini-products-list clearfix">
+                                        @php $total=0 @endphp
+                                        @foreach ($cartt as $items)
+                                     {{-- @php   echo $items->product->image; @endphp --}}
+
+                                     @php $total += $items->qty * $items->product->price @endphp
                                         <li class="item clearfix">
-                                            <div class="cart-content-top">
-                                                <a href="#" class="product-image"><img src="http://placehold.it/60x75"
-                                                        width="60" height="77" alt="Brown Arrows Cushion"></a>
+                                            <div class="cart-content-top"></div>
+                                                <a href="{{ url('/products',$items->product->url)}}"
+                                                    title="{{ $items->product->name }}" class="product-image">
+                                                    <img src="{{asset('storage/media/'.$items->product->image)}}"
+                                                        width="60" height="77" alt="Brown Arrows Cushion">
+                                                </a>
                                                 <div class="product-details">
-                                                    <p class="product-name"><a href="#">Brown Arrows Cushion</a></p>
-                                                    <strong>1</strong> x <span class="price">$229.00</span>
+                                                    <p class="product-name">
+                                                        <a href="{{ url('/products', $items->product->url)}}"
+                                                            title="{{ $items->product->name }}">{{ $items->product->name }}</a>
+                                                    </p>
+                                                    <strong>{{ $items->qty }}</strong> x <span
+                                                        class="price">₹{{  $items->product->price }}
+                                                        <p> = {{ $items->qty*$items->product->price }} </p></span>
                                                 </div>
                                             </div>
-                                            <div class="cart-content-bottom">
-                                                <div class="clearfix"> <a href="#" title="Edit item"
-                                                        class="btn-edit"><i class="fa fa-pencil-square-o"></i></a> <a
-                                                        href="#" title="Remove" class="btn-remove btn-remove2"><i
-                                                            class="icon-close icons"></i></a></div>
-                                            </div>
                                         </li>
-
+                                      
+                                    @endforeach
                                     </ol>
+                                  
+                                   
                                     <p class="subtotal"> <span class="label">Subtotal:</span> <span
-                                            class="price">$687.00</span></p>
+                                            class="price">{{ $total }}</span></p>
                                     <div class="actions"> <a href="{{ url("products/cart") }}" class="view-cart"> View cart </a> <a
                                             href="checkout-step1.html">Checkout</a></div>
                                 </div>

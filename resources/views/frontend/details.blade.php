@@ -69,14 +69,14 @@
                                                         <div class="product-name">
                                                             <h1>{{ $product->name }}</h1>
                                                         </div>
-                                                        <div class="ratings">
+                                                        {{-- <div class="ratings">
                                                             <div class="rating-box">
                                                                 <div class="rating" style="width:60%"></div>
                                                             </div>
                                                             <p class="rating-links"> <a href="#">1 Review(s)</a> <span
                                                                     class="separator">|</span> <a href="#">Add Your
                                                                     Review</a></p>
-                                                        </div>
+                                                        </div> --}}
                                                         <div class="product-type-data">
                                                             <div class="price-box">
                                                                 <p class="old-price"> <span
@@ -143,7 +143,7 @@
                                                                             <span class="view-cart icon-handbag icons">Add
                                                                                 to
                                                                                 Cart</span> </span> </button></div>
-                                                                <ul class="add-to-links">
+                                                                {{-- <ul class="add-to-links">
                                                                     <li> <a href="#" rel="tooltip" title="Add to Wishlist"
                                                                             onclick="productAddToCartForm.submitLight(this, this.href); return false;"
                                                                             class="link-wishlist"> <i
@@ -155,7 +155,7 @@
                                                                                 class="icon-bar-chart icons"></i> Add to
                                                                             Compare
                                                                         </a></li>
-                                                                </ul>
+                                                                </ul> --}}
                                                         </div>
             @endif
 
@@ -473,6 +473,12 @@
                 },
 
                 success: function(response) {
+
+                    if(response.minicart)
+                    {
+
+                        $('.mini-contentCart').html(response.minicart);
+                    }
                     //     if(response.qty>=quantity)
                     //     {
                     // alert("product addedd succesfully");

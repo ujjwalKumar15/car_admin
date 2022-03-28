@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Modules\Color\Http\Controllers\ColorController;
 
-Route::group(['prefix'=>'/admin/colors','middleware'=>['auth']],function(){
+Route::group(['prefix'=>'/admin/colors','middleware'=>['auth','isAdmin']],function(){
 
     Route::get('/Addcolor',[ColorController::class,'index']);
 Route::get('/list',[ColorController::class,'insert']);

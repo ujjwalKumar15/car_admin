@@ -29,6 +29,7 @@ class ColorController extends Controller
          $uid = Auth::user()->id;
          Color::create(['name' => $request->name,'userid'=>$uid]);
          return back()->with('status', 'Color Added !!');
+
     }
 
     public function view()
@@ -68,8 +69,10 @@ class ColorController extends Controller
 
         Color::where('id',$r->id)->update(['status'=>'T']);
         return response()->json(['status'=>"color_data delete successfully!!"]);
+      
     }
 
+    
 
     public function trashview()
     {

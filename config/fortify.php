@@ -142,4 +142,10 @@ return [
         ]),
     ],
 
+    'redirects' => [
+        'login' => '/admin/dashboard',
+        'logout' => '/',
+        'register' => '/admin/dashboard',
+    ],
+
 ];

@@ -20,13 +20,10 @@ Route::get('profile', function () {
 })->middleware('auth');
 
 
-//  Route::get('/', function () {
-//      return view('welcome');
-//  });
+Route::middleware(['auth','isAdmin'])->get('admin/dashboard/', function () {
+    return view('template');
 
-// Route::middleware(['auth:sanctum', 'verified'])->get('/dashboard', function () {
-//     return view('dashboard');
-// })->name('dashboard');
+})->name('dashboard');
 
-Route::get('/admin/dashboard', [HomeController::class, 'index'])->middleware('auth');
+// Route::get('/admin/dashboard', [HomeController::class, 'index'])->middleware('auth');
 Route::get('/', [FrontendController::class, 'fronthome']);

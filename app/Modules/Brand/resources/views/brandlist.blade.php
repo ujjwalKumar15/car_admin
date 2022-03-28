@@ -21,7 +21,7 @@
             </div>
         </div>
  <div class="d-flex justify-content-center">
-                <div class="col-md-11">
+                <div class="col-md-12">
                     <!-- general form elements -->
                     <div class="card card-danger p-1">
                         <div class="card-header">
@@ -45,6 +45,7 @@
 
                                 <th>UserName</th>
                                 <th>Category</th>
+                                <th>Created Date</th>
                                 <th>Status</th>
                                 <th>Action</th>
 
@@ -59,19 +60,21 @@
                                     <td class="text-center">{{ $count += 1 }}</td>
                                     <td>{{ $brand->username }}</td>
                                     <td>{{ $brand->name }}</td>
+                                    <td>{{ $brand->created_at }}</td>
                                     <td>
-                                        {{-- <input data-id="{{$col->id}}" class="toggle-class" type="checkbox" data-onstyle="success" data-offstyle="danger" data-toggle="toggle" data-on="Active" data-off="InActive" checked> --}}
                                         @if ($brand->status == 'Y')
-                                            <input data-id="{{ $brand->id }}" class="toggle-class" type="checkbox"
-                                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                data-on="Active" data-off="InActive" checked }}>
-                                        @endif
+                                        <label class="switch">
+                                            <input type="checkbox" data-id="{{ $brand->id }}"  class="toggle-class"{{ $brand->status ? 'checked' : '' }}>
+                                            <div class="slider round"></div>
+                                          </label>
+                                          @endif
 
-                                        @if ($brand->status == 'N')
-                                            <input data-id="{{ $brand->id }}" class="toggle-class" type="checkbox"
-                                                data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                                data-on="Active" data-off="InActive" }}>
-                                        @endif
+                                          @if ($brand->status == 'N')
+                                        <label class="switch">
+                                            <input type="checkbox" data-id="{{ $brand->id }}"  class="toggle-class"{{ $brand->status}}>
+                                            <div class="slider round"></div>
+                                          </label>
+                                          @endif
 
                                     </td>
 

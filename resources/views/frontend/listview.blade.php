@@ -19,7 +19,7 @@
                                 </a>
                                 <div class="product-hover-box">
                                     <a class="detail_links" href="#"></a>
-                                    <div class="link-view"> <a title="Quick View" href="#"
+                                    <div class="link-view"> <a title="Quick View" href="{{ url('products',$product->url) }}"
                                             class="link-quickview"><i class="icon-magnifier icons"></i>Quick
                                             View</a></div>
                                 </div>
@@ -32,13 +32,13 @@
                         <div class="product-primary products-textlink clearfix">
                             <h2 class="product-name"><a href="{{ url('products', $product->url) }}"
                                     title="Configurable Product">{{ $product->name }}</a></a></h2>
-                            <div class="ratings">
+                            {{-- <div class="ratings">
                                 <div class="rating-box">
                                     <div class="rating" style="width:80%"></div>
                                 </div>
                                 <p class="rating-links"> <a href="#">1 Review(s)</a> <span
                                         class="separator">|</span> <a href="#">Add Your Review</a></p>
-                            </div>
+                            </div> --}}
                             <div class="price-box"> <span class="regular-price"> <span
                                         class="price">₹{{ $product->price }}</span> </span></div>
                             <ul class="configurable-swatch-list configurable-swatch-color clearfix">
@@ -55,17 +55,17 @@
                         </div>
                         <div class="product-secondary actions-no actions-list clearfix">
                             <p class="action"><button type="button" title="Add to Cart"
-                                    class="button btn-cart pull-left"><span><i class="icon-handbag icons"></i><span>Add
+                                    class="button btn-cart pull-left"><span><i class="icon-handbag icons"></i><span><a href="{{ url('products',$product->url) }}">Add
                                             to
-                                            Cart</span></span></button></p>
-                            <ul class="add-to-links">
+                                            Cart</span></span></button></a></p>
+                            {{-- <ul class="add-to-links">
                                 <li class="pull-left"><a href="#" title="Add to Wishlist" class="link-wishlist"><i
                                             class="icon-heart icons"></i>Add to
                                         Wishlist</a></li>
                                 <li class="pull-left"><a href="#" title="Add to Compare" class="link-compare"><i
                                             class="icon-bar-chart icons"></i>Add to
                                         Compare</a></li>
-                            </ul>
+                            </ul> --}}
                         </div>
                     </div>
                 </div>

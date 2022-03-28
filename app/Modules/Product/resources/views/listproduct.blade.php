@@ -22,7 +22,7 @@
             </div>
         </div>
         <div class="d-flex justify-content-center">
-            <div class="col-md-10">
+            <div class="col-md-12">
                 <!-- general form elements -->
                 <div class="card card-danger p-1">
                     <div class="card-header">
@@ -47,6 +47,7 @@
                             <th>Quanty</th>
                             <th>Color</th>
                             <th>Category</th>
+                            <th>Created Date</th>
                             <th>Status</th>
                             <th>Action</th>
                         </tr>
@@ -65,17 +66,21 @@
                                 <td>{{ $product->quanty }}</td>
                                 <td>{{ $product->cname }}</td>
                                 <td>{{ $product->bname }}</td>
+                                <td>{{ $product->created_at }}</td>
                                 <td>
                                     @if ($product->status == 'Y')
-                                        <input data-id="{{ $product->id }}" class="toggle-class" type="checkbox"
-                                            data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                            data-on="Active" data-off="InActive" checked>
-                                    @endif
-                                    @if ($product->status == 'N')
-                                        <input data-id="{{ $product->id }}" class="toggle-class" type="checkbox"
-                                            data-onstyle="success" data-offstyle="danger" data-toggle="toggle"
-                                            data-on="Active" data-off="InActive">
-                                    @endif
+                                    <label class="switch">
+                                        <input type="checkbox" data-id="{{ $product->id }}"  class="toggle-class"{{ $product->status ? 'checked' : '' }}>
+                                        <div class="slider round"></div>
+                                      </label>
+                                      @endif
+
+                                      @if ($product->status == 'N')
+                                    <label class="switch">
+                                        <input type="checkbox" data-id="{{ $product->id }}"  class="toggle-class"{{ $product->status}}>
+                                        <div class="slider round"></div>
+                                      </label>
+                                      @endif   
                                 </td>
                                 <td>
                                     <a href="{{ url('/admin/products/editproduct', $product->id) }}"

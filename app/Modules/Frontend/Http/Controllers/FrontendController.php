@@ -26,18 +26,11 @@ class FrontendController extends Controller
  
     public function fronthome()
     {
-       
-       
-            return view('frontend.index');
-    
-
-
+         return view('frontend.index');
       
      } 
 
-
-
-    public function filter()
+  public function filter()
     {
         $products = Product::where('status', 'Y')->get();
         $colors = Color::where('status', 'Y')->get();
@@ -60,37 +53,37 @@ class FrontendController extends Controller
     }
 
 
-    public function qty(Request $request)
+    public function addtocat(Request $request)
     {
-
-        $uid = Auth::user()->id;
-        
-        $product = Product::where('id', $request->id)->where('quanty', '>=', $request->quantity)->get();
-    
-        if(Cart::where('product_id', $request->id)->where('user_id', $uid)->first())
+     
+        if (Auth::check()&& Auth::user()->role ='User')
+   {
+          $uid = Auth::user()->id;
+         $product = Product::where('id', $request->id)->where('quanty', '>=', $request->quantity)->get();
+           if(Cart::where('product_id', $request->id)->where('user_id', $uid)->first())
             
-        {
+          {
             return response()->json([
                 'message'=> "product is already added",
 
             ]);
 
 
-        }
-        
-
-        if (sizeof($product)) {
-
-          
-        cart::updateOrInsert(
+          }
+     
+     
+       if (sizeof($product)) {
+       cart::updateOrInsert(
         ['user_id' => $uid, 'product_id' => $request->id],
         ['qty' => $request->quantity]
 
          );
 
+          $minicart = view('frontend.minicart')->render();
 
             return response()->json([
                 'message' => "Data Found",
+                'minicart'=>$minicart,
                 'code' => 200,
 
                 
@@ -98,21 +91,7 @@ class FrontendController extends Controller
                
             ]);
 
-            // session::put([
-            //     'cart' => json_encode([
-            //         [
-            //             'product_id' => $request->id,
-            //             'user_id' => $uid,
-            //             'qty' => $request->quantity
-            //         ]
-            //     ])
-            // ]);
-             
-            //  $a=Session::get('cart');
-            //     echo $a;
-           
             
-           
         } 
         
         else {
@@ -121,6 +100,30 @@ class FrontendController extends Controller
                 "code" => 500
             ]);
         }
+     }
+    else{
+        $product = Product::where('id',$request->id)->first();
+        // dd($product);
+          session::put([
+                'cart' => json_encode([
+                    [
+                        'product_id' =>$product->id,
+                        'qty' => $request->quantity,
+                        'price'=>$product->price,
+                         'name'=>$product->name,
+                         'image'=>$product->image,
+                      
+                    ]
+                ])
+            ]);
+             
+             $a=Session::get('cart');
+                echo $a;
+           
+       
+
+
+    }
     
 }
 

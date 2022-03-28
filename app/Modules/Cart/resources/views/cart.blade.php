@@ -21,6 +21,12 @@
 
                 </div>
 
+               @php 
+               $data= json_decode(Session::get('cart'));
+            
+                @endphp
+               
+
             
                 <div class="table-responsive-wrapper">
                     <table class="table-order table-wishlist">
@@ -31,10 +37,22 @@
                                 <td>Add to cart</td>
                             </tr>
                         </thead>
-                        @php $total=0 @endphp
 
+                        @php $total=0 @endphp
+                        
+                        
+                     
+                                 
                         @foreach ($cart_items as $items)
 
+                        {{-- @foreach ($data as $d )
+                        {{ $d->name }}
+                        {{ $d->price }}
+                   @endforeach --}}
+        
+
+                        
+                                
                         @php $total += $items->qty * $items->price @endphp
                             <tbody>
                                 <tr>
@@ -69,6 +87,8 @@
                                 </tr>
                             </tbody>
                         @endforeach 
+                       
+                        
                         <tr>
                         <td colspan="4" class="text-center">
                             <h3><strong>Total : {{ $total }}</strong></h3>

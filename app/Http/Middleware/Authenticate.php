@@ -20,11 +20,11 @@ class Authenticate extends Middleware
             return route('login');
         }
     }
-    protected function redirectLoginUser($request)
-    {
-        return redirect('/');
+    // protected function redirectLoginUser($request)
+    // {
+    //     return redirect('/');
     
-    }
+    // }
 
 
 }

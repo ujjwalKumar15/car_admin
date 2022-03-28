@@ -47,9 +47,9 @@
                                     <dd class="odd">
                                         @foreach ($brands as $brand)
                                             <ul style="" class="nav-accordion font-weight-normal">
-                                                <input type="checkbox" name="category[]" id="brand_check"
-                                                    value="{{ $brand->id }}" class="category_check"><a href="#"
-                                                    class="level-top"><span>&nbsp;{{ $brand->name }}</span></a><br><br><br>
+                                               <label> <input type="checkbox" name="category[]" id="brand_check"
+                                                    value="{{ $brand->id }}" class="category_check"><a
+                                                    class="level-top"><span>&nbsp;{{ $brand->name }}</span></a></label><br><br><br>
                                                  </ul>
                                         @endforeach
 
@@ -59,8 +59,8 @@
                                         <ol class="configurable-swatch-list">
                                             @foreach ($colors as $color)
                                                 <li>
-                                                        <input type="checkbox"
-                                                            class="color_check"  name="color_check"  id="checkbox" value="{{ $color->id }}"><span>&nbsp;{{ $color->name }}</span> </li>
+                                                      <label>  <input type="checkbox"
+                                                            class="color_check"  name="color_check"  id="checkbox" value="{{ $color->id }}"><span>&nbsp;{{ $color->name }}</span> </li></label>
                                             @endforeach
                                         </ol>
 

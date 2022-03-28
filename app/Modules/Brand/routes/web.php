@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\modules\Brand\Http\Controllers\BrandController;
 
- Route::group(['prefix'=>'/admin/brands/','middleware'=>['auth']],function(){
+ Route::group(['prefix'=>'/admin/brands/','middleware'=>['auth','isAdmin']],function(){
 Route::get('/Addbrand',[BrandController::class,'index']);
 Route::get('/insertdata',[BrandController::class,'insert']);
 Route::post('/Addbrand',[BrandController::class,'insert']);
