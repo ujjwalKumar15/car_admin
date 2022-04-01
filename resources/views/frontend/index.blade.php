@@ -29,7 +29,7 @@
                                         <h3 class="caption2">looks</h3>
                                         <h2 class="caption3">Summer</h2>
                                         <h2 class="caption5">2015</h2>
-                                        <h3 class="caption4"><a href="#" class="btn-shop">Shop Now</a></h3>
+                                        <h3 class="caption4"><a href="{{ url('products/cart') }}" class="btn-shop">Shop Now</a></h3>
                                     </div>
                                 </div>
                             </div>

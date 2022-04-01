@@ -28,16 +28,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // if (!Collection::hasMacro('paginate')) {
-
-        //     Collection::macro('paginate', 
-        //         function ($perPage = 15, $page = null, $options = []) {
-        //         $page = $page ?: (Paginator::resolveCurrentPage() ?: 1);
-        //         return (new LengthAwarePaginator(
-        //             $this->forPage($page, $perPage), $this->count(), $perPage, $page, $options))
-        //             ->withPath('');
-        //     });
-        // }
+       
         view()->composer('*', function ($view2) 
         {  
             $cartt = Cart::where('user_id', Auth::id())->get();

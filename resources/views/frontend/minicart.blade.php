@@ -21,6 +21,7 @@
                     </div>
                 </li>
             @endforeach
+            
         
         {{-- @guest
             @foreach ($cart as $key => $items)
@@ -45,4 +46,4 @@
         @endguest
     </ol>
     <div class="actions"><a href="{{ url('/cart') }}" class="view-cart">View cart</a></div>
-</div> --}}
+</div> 

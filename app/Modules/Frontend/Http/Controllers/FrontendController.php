@@ -56,20 +56,20 @@ class FrontendController extends Controller
     public function addtocat(Request $request)
     {
      
-        if (Auth::check()&& Auth::user()->role ='User')
-   {
+//         if (Auth::check()&& Auth::user()->role ='User')
+//    {
           $uid = Auth::user()->id;
          $product = Product::where('id', $request->id)->where('quanty', '>=', $request->quantity)->get();
-           if(Cart::where('product_id', $request->id)->where('user_id', $uid)->first())
+        //    if(Cart::where('product_id', $request->id)->where('user_id', $uid)->first())
             
-          {
-            return response()->json([
-                'message'=> "product is already added",
+        //   {
+        //     return response()->json([
+        //         'message'=> "product is already added",
 
-            ]);
+        //     ]);
 
 
-          }
+        //   }
      
      
        if (sizeof($product)) {
@@ -100,30 +100,30 @@ class FrontendController extends Controller
                 "code" => 500
             ]);
         }
-     }
-    else{
-        $product = Product::where('id',$request->id)->first();
-        // dd($product);
-          session::put([
-                'cart' => json_encode([
-                    [
-                        'product_id' =>$product->id,
-                        'qty' => $request->quantity,
-                        'price'=>$product->price,
-                         'name'=>$product->name,
-                         'image'=>$product->image,
+    //  }
+    // else{
+    //     $product = Product::where('id',$request->id)->first();
+    //     // dd($product);
+    //       session::put([
+    //             'cart' => json_encode([
+    //                 [
+    //                     'product_id' =>$product->id,
+    //                     'qty' => $request->quantity,
+    //                     'price'=>$product->price,
+    //                      'name'=>$product->name,
+    //                      'image'=>$product->image,
                       
-                    ]
-                ])
-            ]);
+    //                 ]
+    //             ])
+    //         ]);
              
-             $a=Session::get('cart');
-                echo $a;
+    //          $a=Session::get('cart');
+    //             echo $a;
            
        
 
 
-    }
+    // }
     
 }
 

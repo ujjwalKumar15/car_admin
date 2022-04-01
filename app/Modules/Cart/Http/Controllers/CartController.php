@@ -25,6 +25,8 @@ class CartController extends Controller
         $cart_items =Cart::join('products', 'products.id', '=', 'carts.product_id')
         ->where('carts.user_id', Auth::id())
         ->get(['products.*','carts.id as cid','carts.qty']);
+
+        dd($cart_items);
           return view("Cart::cart",compact("cart_items"));
          
 
