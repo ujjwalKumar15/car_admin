@@ -114,6 +114,26 @@
        </ul>
    </li>
 
+   {{--  --}}
+
+   
+<ul class="nav ">
+  <li class="nav-item">
+   <a href="{{ url('color') }}" class="nav-link ">
+    <i class="fa fa-truck" aria-hidden="true"></i>
+     <p> Order
+       <i class="fas fa-angle-left right"></i>
+     </p> 
+   </a>
+   <ul class="nav nav-treeview">   
+     <li class="nav-item">
+       <a href="{{ url('/admin/orders/') }}" class="nav-link">
+         &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <i class="fas fa-list"></i>
+           <p>List</p>
+       </a>
+       </li>
+     </ul>
+ </li>
 
 {{-- Logout_Sidebar --}}
 

@@ -21,29 +21,4 @@
                     </div>
                 </li>
             @endforeach
-            
-        
-        {{-- @guest
-            @foreach ($cart as $key => $items)
-                <li class="item clearfix">
-                    <div class="cart-content-top">
-                        <a href="#" title="{{ $items['name'] }}"
-                            class="product-image">
-                            <img src="/public/main_images/{{ $items['image'] }}"
-                                width="60" height="77" alt="Brown Arrows Cushion">
-                        </a>
-                        <div class="product-details">
-                            <p class="product-name">
-                                <a href="#"
-                                    title="{{ $items['name'] }}">{{ $items['name'] }}</a>
-                            </p>
-                            <strong>{{ $items->product_stock }}</strong> x <span
-                                class="price">${{ $items['stock'] * $items['price'] }}</span>
-                        </div>
-                    </div>
-                </li>
-            @endforeach
-        @endguest
-    </ol>
-    <div class="actions"><a href="{{ url('/cart') }}" class="view-cart">View cart</a></div>
-</div> 
+

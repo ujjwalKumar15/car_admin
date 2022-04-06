@@ -13,6 +13,9 @@ Route::post('/shipping', 'CheckoutController@store_shipping');
 Route::get('/order', 'CheckoutController@checkout_order_review');
 Route::post('/order', 'CheckoutController@store_order');
 Route::get('payment', 'CheckoutController@checkout_payment');
+Route::post('/payment', 'CheckoutController@store_payment');
+Route::get('myorders', 'CheckoutController@myorders');
+Route::get('/myorders_view/{id}','CheckoutController@myorder_view');
 
 
 

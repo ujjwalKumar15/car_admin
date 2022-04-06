@@ -1,19 +1,23 @@
 <?php
 
+namespace App\Models;
 
 namespace App\Modules\Checkout\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Order_detail extends Model
+class payment extends Model
 {
     use HasFactory;
     protected $fillable=[
-        'order_id',
-        'product_id',
-        'qty',
-        'tatal',
+
+        'user_id',
+        'first_name',
+        'last_name',
+        'payment_method',
+
 
     ];
+
 }

@@ -26,7 +26,7 @@ class CartController extends Controller
         ->where('carts.user_id', Auth::id())
         ->get(['products.*','carts.id as cid','carts.qty']);
 
-        dd($cart_items);
+        // dd($cart_items);
           return view("Cart::cart",compact("cart_items"));
          
 

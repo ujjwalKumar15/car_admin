@@ -60,7 +60,7 @@ class ColorController extends Controller
 
         ]);
 
-        color::where('id',$id,)->update(['name'=>$request->name]);
+        color::where('id',$id)->update(['name'=>$request->name]);
 
         return back()->with('status', "Color Updated SuccessFully!!");
     }

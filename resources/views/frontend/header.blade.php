@@ -64,10 +64,10 @@
                             <div class="top-links-alo">
                                 <div class="header-top-link">
                                     <ul class="links">
-                                        {{-- <li><a href="#" title="My Account">My Account</a></li>
-                                        <li><a href="my-wish-list.html" title="My Wishlist">My Wishlist</a></li>
-                                        <li><a href="compare.html" title="Compare Products">Compare Products</a></li>
-                                        <li><a href="#" title="My Cart">My Cart</a></li>
+                                        {{-- {{-- <li><a href="#" title="My Account">My Account</a></li> --}}
+                                        {{-- <li><a href="my-wish-list.html" title="My Wishlist">My Wishlist</a></li> --}}
+                                        {{-- <li><a href="compare.html" title="Compare Products">Compare Products</a></li> --}}
+                                        <li><a href="{{ url('/myorders') }}" title="My Cart">My Cart</a></li>
                                         {{-- <li class="last"> --}}
                                             <!-- Authentication -->
                                    {{-- <form method="POST" action="{{ route('logout') }}">
@@ -177,7 +177,7 @@
                                     <p class="subtotal"> <span class="label">Subtotal:</span> <span
                                             class="price">Total ₹{{ $total }}</span></p>
                                     <div class="actions"> <a href="{{ url('products/cart') }}" class="view-cart"> View cart </a> <a
-                                            href="#">Checkout</a></div>
+                                            href="{{ url('/billing') }}">Checkout</a></div>
                                 </div>
                             </div>
                             <!--- .mini-contentCart -->

@@ -364,7 +364,7 @@
 
                         description: {
                             required: true,
-                            maxlength: 1000
+                            maxlength: 250,
                         },
 
                         'subimage[]': {

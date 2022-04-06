@@ -38,11 +38,12 @@ class ProductController extends Controller
       'name' => 'required|max:100|unique:products',
       //  'image' => 'required|mimes:jpg,png,jpeg,gif',
       'subimage[]' => 'mimes:jpg,png,jpeg,gif',
-      'upc' => ['required', 'unique:products', 'regex:/[0-9]{12,13}$/'],
+      'upc' => ['required
+      ', 'unique:products', 'regex:/[0-9]{12,13}$/'],
       'price' => ['required', 'regex:/^((?:\d|\d{1,3}(?:,\d{3})){0,6})(?:\.\d{1,2}?)?$/'],
       'quanty' => 'required|integer|max:999999',
       //  'sort[]' => 'required|integer|max:10|min:1',
-      'description' => 'max:500',
+      'description' => 'max:250',
       'color_id' => 'required',
       'category_id' => 'required',
 

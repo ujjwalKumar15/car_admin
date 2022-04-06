@@ -32,10 +32,10 @@
 						<div class="checkout-step-process">
 							<ul>
 								<li>
-									<div class="step-process-item"><i data-href="checkout-step2.html"  class="redirectjs  step-icon fa fa-check"></i><span class="text">Address</span></div>
+									<div class="step-process-item"><i data-href="checkout-step2.html"  class="redirectjs  step-icon fa fa-check"></i><span class="text">Billing Address</span></div>
 								</li>
 								<li>
-									<div class="step-process-item"><i class="fa fa-check step-icon "></i><span class="text">Shipping</span></div>
+									<div class="step-process-item"><i class="fa fa-check step-icon "></i><span class="text">Shipping Address</span></div>
 								</li>
 
 								<li>
@@ -68,10 +68,13 @@
 
 									<tbody>
 										@php $total=0 @endphp
+
+										@php $total_quantity=0 @endphp
 								
 										@foreach ($order_items as  $key=>$order)
 
 										@php $total += $order->qty * $order->price @endphp
+										@php $total_quantity = $total_quantity+ $order->qty @endphp
 											
 										
 										<tr>
@@ -81,11 +84,13 @@
 											<td>{{ $order->price }}</td>
                                       <input type="hidden" name="price[]" value="{{ $order->price }}">
 
+									  <input type="hidden" name="total_quantity"value="{{ $total_quantity }}">
+
 											<td>{{ $order->qty }}</td>
 											<input type="hidden" name="qty[]" value="{{ $order->qty }}">
 
 											<td class="price">{{ $order->qty * $order->price }}</td>
-											<input type="hidden" name="sub_total" value="{{$order->qty * $order->price}}">
+											<input type="hidden" name="sub_total[]" value="{{$order->qty * $order->price}}">
 											
 										</tr>
 																		
