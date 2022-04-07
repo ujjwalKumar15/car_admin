@@ -110,12 +110,12 @@
 										<input type="hidden" name="total_price" value="{{ $total }}">
 									</tr>
 									<tfoot>
-										<td colspan="2">
+										<td colspan="2"></td>
 											
 											<div class="right">
 												{{-- <input type="button" value="Back" class="btn-step"> --}}
                                                 <a class="btn-step" href="{{ url('/payment') }}">Back</a>
-												<input type="submit" value="Place Holder" class="btn-step btn-highligh">
+												<input type="submit" value="Place Order" class="btn-step btn-highligh">
                                                 {{-- <a class="btn-step btn-highligh" href="{{ url('payment') }}">Place Holder</a> --}}
 											</div>
 										</td>
