@@ -16,7 +16,6 @@
                                         href="{{ url('/admin/colors/list') }}">Color</a>
                                 </li>
                                 <li class="breadcrumb-item">Edit</li>
-
                             </ol>
                         </div>
                     </div>
@@ -28,7 +27,7 @@
                     <div class="card card-danger">
                         <div class="card-header">
                             <h3 class="card-title">Edit Order</h3>
-                            <a href="{{ url('/admin/colors/list') }}" class="btn btn-danger float-right">
+                            <a href="{{ url('/admin/orders') }}" class="btn btn-danger float-right">
                                 <h5><i class="fas fa-arrow-alt-circle-left fa-lg"></i></h5>
                             </a>
                         </div>
@@ -60,10 +59,7 @@
                             </div>
                         </form>
                     </div>
-
-                   
-
-                </div>
+                 </div>
             </div>
         </div>
     </div>

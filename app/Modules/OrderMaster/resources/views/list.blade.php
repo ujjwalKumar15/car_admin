@@ -27,9 +27,7 @@
                     <div class="card card-danger p-1">
                         <div class="card-header">
                             <h3 class="card-title">List Orders</h3>
-                           
                         </div>
-                        
                     </div>
                     <table id="myTable" class="table table-striped ">
                         <thead>
@@ -44,8 +42,7 @@
                         </thead>
                         @foreach ($orders_master as $order )
                         <tbody>
-                           
-                              <tr>
+                             <tr>
                                     <td>{{ $order->order_id}}</td>
                                     <td>{{ $order->first_name }}</td>
                                     <td>{{ $order->last_name }}</td>
@@ -56,10 +53,8 @@
                                             class="fas fa-pencil-alt"></i></a>&nbsp;
                                         <a href="{{ url('/admin/orders/invoice',$order->order_id) }}" class=""><i
                                                 class="fas fa-eye"></i></a>&nbsp;
-                                        
                                     </td>
                                 </tr>
-                            
                         </tbody>
                     @endforeach
                     </table>

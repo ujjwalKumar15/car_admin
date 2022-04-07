@@ -443,6 +443,7 @@
 @endsection
 @section('custom_scripts')
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
     {{-- <script src="{{ asset('assets/scripts/jquery-1.8.3.min.js') }}"></script>
     <script src="{{ asset('assets/scripts/jquery.elevatezoom.js') }}"></script> --}}
 
@@ -479,6 +480,10 @@
 
                         $('.mini-contentCart').html(response.minicart);
                     }
+                    
+                    swal("Product Added Successfully");
+
+
                     //     if(response.qty>=quantity)
                     //     {
                     // alert("product addedd succesfully");

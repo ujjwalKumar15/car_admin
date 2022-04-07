@@ -3,7 +3,12 @@
 use Illuminate\Support\Facades\Route;
 
 
-// Route::group(['prefix'=>'/checkout','middleware'=>['auth','isAdmin']],function(){
+// Route::group(['prefix'=>'/checkout','middleware'=>['auth','isAdmin']],function()
+
+
+Route::middleware(['auth'])->group(function(){
+
+
 
 Route::get('/billing', 'CheckoutController@checkout_billing');
 Route::post('/billing', 'CheckoutController@store_billing');
@@ -16,6 +21,9 @@ Route::get('payment', 'CheckoutController@checkout_payment');
 Route::post('/payment', 'CheckoutController@store_payment');
 Route::get('myorders', 'CheckoutController@myorders');
 Route::get('/myorders_view/{id}','CheckoutController@myorder_view');
+
+});
+
 
 
 

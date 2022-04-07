@@ -19,7 +19,7 @@
             </div><!-- /.container-fluid -->
         </section>
 
-        <section class="content">
+        <section class="content"></section>
             <div class="container-fluid">
                 <div class="row">
                     <div class="col-12">
@@ -46,7 +46,7 @@
                                    @foreach ($b_address_data as $billing)
                                     <address>
                                        {{$billing->first_name }} <br>
-                                        {{$billing->address}}<br>
+                                        {{$billing->address}}
                                         Pincode {{$billing->pincode}} <br>
                                         Phone: {{$billing->phone_number}}<br>
                                         Email:{{$billing->email}}
@@ -62,7 +62,7 @@
                                    @foreach ($s_address_data as $billing)
                                    <address>
                                       {{$billing->first_name }} {{$billing->last_name}}<br>
-                                       {{$billing->address}}<br>
+                                       {{$billing->address}}
                                        Pincode {{$billing->pincode}} <br>
                                        Phone: {{$billing->phone_number}}<br>
                                        Email:{{$billing->email}}
@@ -86,14 +86,12 @@
                                                     <th>Qty</th>
                                                     <th>color</th>
                                                     <th>Brand</th>
-                                                
                                                     <th>Subtotal</th>
                                                 </tr>
                                             </thead>
                                             @php $count=0; @endphp
                                         @foreach ($order_details as $key=>$value)
-                                        {{-- {{dd($key, $value)}} --}}
-                                        <tbody>
+                                           <tbody>
                                             <tr>
                                                 <td>{{ $count += 1}}</td>
                                                 <td>{{$value->name}}</td>
@@ -117,8 +115,7 @@
                                 <div class="col-6">
                                     <p class="lead">Payment Methods:</p>
                                     <p>Case on Delivery</p>
-
-                                </div>
+                                 </div>
                                 <!-- /.col -->
                                 <div class="col-6">
                                     <p class="lead">Amount Due:
@@ -136,7 +133,6 @@
                             </div>
                             <!-- /.row -->
 
-                            <!-- this row will not appear when printing -->
                             <div class="row no-print">
                                 <div class="col-12">
 

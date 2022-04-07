@@ -29,24 +29,36 @@ class CheckoutController extends Controller
     public function checkout_billing()
     {
 
+        $cart = Cart::where('user_id', '=', Auth::id())->get();
+        if (count($cart))
+         {
+
         $uid = Auth::user()->id;
         $Address_datas = Checkout::where('user_id', $uid)->get();
         return view("Checkout::billing", compact('Address_datas'));
+         }
+         else{
+
+            return redirect('/products');
+         }
     }
 
     public function store_billing(Request $request)
     {
-        // $msg=['mobile_number.regex'=>'Please Enter a valid phone number'];
-        //  $request->validate([
-        //         'billing_first_name' => 'required|max:50',
-        //         'billing_last_name'=>'required|max:50',
-        //         'billing_email' => 'required|email|max:60',
-        //         'billing_address' => 'required|max:250',
-        //         'billing_phone' => ['required','regex:/^(\+\d{1,3}[- ]?)?\d{10}$/'],
-        //         'billing_pincode' => 'required|integer|digits:6',
-        //     ],$msg);
+        if($request->address =='0'){
 
+       
+        $msg=['mobile_number.regex'=>'Please Enter a valid phone number'];
+         $request->validate([
+                'billing_first_name' => 'required|max:50',
+                'billing_last_name'=>'required|max:50',
+                'billing_email' => 'required|email|max:60',
+                'billing_address' => 'required|max:250',
+                'billing_phone' => ['required','regex:/^(\+\d{1,3}[- ]?)?\d{10}$/'],
+                'billing_pincode' => 'required|integer|digits:6',
+            ],$msg);
 
+        }
         $billing_id = $shipping_id = '';
         if ($request->address == '0') {
             $uid = Auth::user()->id;
@@ -110,16 +122,20 @@ class CheckoutController extends Controller
     public function store_shipping(Request $request)
     {
 
-        // $msg=['mobile_number.regex'=>'Please Enter a valid phone number'];
-        // $request->validate([
-        //        'billing_first_name' => 'required|max:50',
-        //        'billing_last_name'=>'required|max:50',
-        //        'billing_email' => 'required|email|max:60',
-        //        'billing_address' => 'required|max:250',
-        //        'billing_phone' => ['required','regex:/^(\+\d{1,3}[- ]?)?\d{10}$/'],
-        //        'billing_pincode' => 'required|integer|digits:6',
-        //    ],$msg);
 
+       if ($request->address == '0'){
+
+       $msg=['mobile_number.regex'=>'Please Enter a valid phone number'];
+        $request->validate([
+               'billing_first_name' => 'required|max:50',
+               'billing_last_name'=>'required|max:50',
+               'billing_email' => 'required|email|max:60',
+               'billing_address' => 'required|max:250',
+               'billing_phone' => ['required','regex:/^(\+\d{1,3}[- ]?)?\d{10}$/'],
+               'billing_pincode' => 'required|integer|digits:6',
+           ],$msg);
+
+        }
         $store_id = session::get('checkout');
         $billing_id  = $store_id['billing_id'];
         if ($request->address == '0') {
@@ -151,6 +167,7 @@ class CheckoutController extends Controller
         session()->put('checkout', $checkout_arr);
 
         return redirect('/payment');
+    // }
     }
 
     public function checkout_payment()
@@ -255,7 +272,7 @@ class CheckoutController extends Controller
 
         Cart::where('User_id', Auth::user()->id)->delete();
 
-        return redirect('/');
+        return back()->with("status","Order Place successfully");
 
        
     }

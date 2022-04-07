@@ -24,7 +24,7 @@ class OrderMasterController extends Controller
             ->get(['orders.*', 'orders.id as order_id', 'payments.*']);
         // return view("Order::display", compact('order'));
       
-       return view("OrderMaster::welcome",compact('orders_master'));
+       return view("OrderMaster::list",compact('orders_master'));
     }
     public function invoice_view($id)
     {

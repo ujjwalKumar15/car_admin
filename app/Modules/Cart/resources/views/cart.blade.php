@@ -21,6 +21,12 @@
 
                 </div>
 
+                @if (session()->has('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
+
                @php 
                $data= json_decode(Session::get('cart'));
             

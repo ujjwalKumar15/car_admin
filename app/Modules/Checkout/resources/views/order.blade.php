@@ -49,6 +49,11 @@
 									
 								</li>
 							</ul>
+							@if (session()->has('status'))
+                        <div class="alert alert-success">
+                            {{ session('status') }}
+                        </div>
+                    @endif
 						</div><!--- .checkout-step-process --->			
 						<form action="{{url('/order')}}" method="POST" name="placeorder_form">
 							@csrf

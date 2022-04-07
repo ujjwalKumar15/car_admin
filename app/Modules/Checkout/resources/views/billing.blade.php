@@ -224,7 +224,7 @@
     return this.optional(element) || phone_number.length > 9 && 
     phone_number.match(/^(\+?1-?)?(\([2-9]\d{2}\)|[2-9]\d{2})-?[2-9]\d{2}-?\d{4}$/);
 }, "Please Enter a valid phone number");
-     $('billing_form').validate({
+     $('#billing_form').validate({
         rules: {
                 billing_first_name: {
 

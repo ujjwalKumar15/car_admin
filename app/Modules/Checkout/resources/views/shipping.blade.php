@@ -145,7 +145,7 @@
 									<div class="checkout-col-footer text-center">
                                         {{-- <a class="btn-step" href="{{ url('/billing') }}">Back</a> --}}
                                         {{-- <a class="btn-step" href="{{ url('/order') }}">Continue</a> --}}
-                                        <a class="btn-step" href="{{ url('/shipping') }}">Back</a>
+                                        <a class="btn-step" href="{{ url('/billing') }}">Back</a>
 										<input type="submit" value="Continue" class="btn-step">
                                         
 										<div class="note">(<span>*</span>) Required fields</div>

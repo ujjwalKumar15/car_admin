@@ -80,7 +80,7 @@
                             <p>Pay via other payment gateway</p>
                         </div> --}}
                             <div class="checkout-col-footer">
-                                <a class="btn-step " href="{{ url('/shiping_address') }}">Back</a>
+                                <a class="btn-step " href="{{ url('/shipping') }}">Back</a>
                                 {{-- <a class="btn-step " href="{{ url('/order_review') }}">Continue</a> --}}
                                 {{-- <input type="button" value="Back" class="btn-step"> --}}
                                 <input type="submit" value="Continue" class="btn-step btn-highligh">
