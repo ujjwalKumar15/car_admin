@@ -12,6 +12,7 @@ use App\Modules\Cart\Models\Cart;
 use App\Modules\Product\Models\Product;
 use App\Modules\Checkout\Models\Order;
 use App\Modules\Checkout\Models\Order_detail;
+use App\Modules\Checkout\Models\Document;
 use App\Modules\Checkout\Models\payment;
 
 
@@ -91,7 +92,7 @@ class CheckoutController extends Controller
 
 
         if ($request->shipping == '1') {
-            return redirect('/payment');
+            return redirect('/document');
         } else {
 
             return redirect('/shipping');
@@ -167,8 +168,81 @@ class CheckoutController extends Controller
         session()->put('checkout', $checkout_arr);
 
         return redirect('/payment');
-    // }
+    
     }
+
+
+    public function upload_document(){
+
+        return view('Checkout::document');
+
+    }
+
+    Public function store_document(Request $request)
+    {
+        // dd($request->all());
+
+        if ($request->hasFile('image')) {
+            
+          $document = $request->file('image');
+            $ext = $document->extension();
+            $document_name = time() . '.' . $ext;
+            $document->storeAs('/public/media', $document_name);
+           $document->user_image = $document_name;
+
+         
+          }
+
+        if($request->file('aadhar')) 
+        {
+          
+           
+            $file = $request->file('aadhar');
+            $filename = time() . '.' . $request->file('aadhar')->extension();
+
+             $file->storeAs('/public/media', $filename);
+            
+            // $filePath = public_path() . '/files/uploads/';
+            // $file->move($filePath, $filename);
+
+            
+        }
+
+        if($request->file('dl')) 
+        {
+            
+          $file = $request->file('dl');
+            $filename_dl = rand(0, 99999). '.' . $request->file('dl')->extension();
+
+             $file->storeAs('/public/media', $filename_dl);
+            
+        }
+
+
+
+
+          Document::create([
+               'user_id' => Auth::id(),
+              'user_image'=>$document_name,
+               'user_aadhar'=>$filename,
+               'aadhar_no' => $request->aadhar_no,
+               'user_dl' => $filename_dl,
+
+
+
+
+          ]);
+
+
+          return redirect('/payment');
+
+
+
+
+
+    }
+
+
 
     public function checkout_payment()
     {
@@ -199,7 +273,7 @@ class CheckoutController extends Controller
         ];
         session()->put('payment', $payment );
 
-        return redirect('/order')->with('status', 'payment method  successfully added');
+        return redirect('/order');
     
 
       

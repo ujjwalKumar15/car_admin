@@ -63,6 +63,8 @@ class ProductController extends Controller
      $product->image = $image_name;
     }
 
+   
+
     $uid = Auth::user()->id;
 
     $product =Product::create([

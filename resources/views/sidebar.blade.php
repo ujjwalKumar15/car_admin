@@ -26,7 +26,7 @@
             <!-- Add icons to the links using the .nav-icon class
                  with font-awesome or any other icon font library -->
                  <li class="nav-item menu-open">
-                  <a href="{{ url('/') }}" class="nav-link deactive">
+                  <a href="{{ url('/admin/dashboard') }}" class="nav-link deactive">
                     <i class="nav-icon fas fa-tachometer-alt"></i>
                     <p>
                       Dashboard

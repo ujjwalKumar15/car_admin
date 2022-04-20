@@ -35,6 +35,12 @@
                                     <div class="step-process-item"><i class="fa fa-check step-icon"></i><span
                                             class="text">Shipping</span></div>
                                 </li>
+                                
+                                <li>
+                                    <div class="step-process-item "><i data-href="checkout-step4.html"
+                                            class="redirectjs  step-icon fa fa-check"></i><span
+                                            class="text">Upload Document</span></div>
+                                </li>
 
                                 <li>
                                     <div class="step-process-item active"><i data-href="checkout-step4.html"

@@ -107,7 +107,8 @@
                     
                     <br>
                     <div class="text-center">   
-                    <button type="button" class="btn-step">Place Order</button>
+                    {{-- <button type="button" class="btn-step">Place Order</button> --}}
+                    <a  href="{{url('/billing') }}"class="btn-step">Place Order</button>
                     </div>
                 </div>
                 <!--- .table-responsive-wrapper-->
